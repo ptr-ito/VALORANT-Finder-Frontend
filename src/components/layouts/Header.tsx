@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,10 +8,12 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
+import { useProSidebar } from "react-pro-sidebar";
 
 import HeaderButton from "./HeaderButton";
 
 const Header = () => {
+  const { collapseSidebar } = useProSidebar();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} css={appBar}>
@@ -22,6 +24,7 @@ const Header = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={() => collapseSidebar()}
           >
             <MenuIcon />
           </IconButton>
@@ -32,7 +35,6 @@ const Header = () => {
               flexGrow: 1,
               fontFamily: "ValorantFont",
               letterSpacing: ".1rem",
-              ml: 7,
             }}
           >
             VALORANT Finder

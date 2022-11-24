@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 const domain: string = import.meta.env.VITE_REACT_APP_AUTH0_DOMAIN || "";
 const clientId: string = import.meta.env.VITE_REACT_APP_AUTH0_CLIENT_ID || "";
@@ -19,6 +20,8 @@ root.render(
     // audience={audience}
     redirectUri={window.location.origin}
   >
-    <App />
+    <ProSidebarProvider>
+      <App />
+    </ProSidebarProvider>
   </Auth0Provider>
 );
