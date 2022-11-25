@@ -53,4 +53,6 @@ const appBar = css`
   background-color: #3f4551;
   color: #fff;
   flex-grow: 1;
+  position: fixed;
+  z-index: 1000;
 `;
