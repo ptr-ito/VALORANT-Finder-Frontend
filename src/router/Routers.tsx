@@ -1,9 +1,9 @@
-import { FC, memo } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { memo } from "react";
+import { Route, Routes } from "react-router-dom";
 import Post from "components/pages//post/Post";
 import { SampleHome } from "components/pages/Home";
 
-export const Routers = memo(() => {
+const Routers = memo(() => {
   return (
     <>
       <Routes>
@@ -13,3 +13,5 @@ export const Routers = memo(() => {
     </>
   );
 });
+
+export default Routers;

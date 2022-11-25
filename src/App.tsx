@@ -1,12 +1,22 @@
-import { Routers } from "router/Routers";
-import { BrowserRouter } from "react-router-dom";
+import { useEffect } from "react";
+import Routers from "router/Routers";
+import { BrowserRouter, useLocation } from "react-router-dom";
 import DefaultLayout from "components/layouts/DefaultLayout";
-import SideBar from "components/layouts/SideBar";
 
 const App = () => {
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  };
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <DefaultLayout>
           <Routers />
         </DefaultLayout>
