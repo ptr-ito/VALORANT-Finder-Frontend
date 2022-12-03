@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { useProSidebar } from "react-pro-sidebar";
 import { useAuth0 } from "@auth0/auth0-react";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { collapseSidebar } = useProSidebar();
@@ -29,12 +30,14 @@ const Header = () => {
           </IconButton>
           <Typography
             variant="h5"
-            component="div"
-            sx={{
-              flexGrow: 1,
-              fontFamily: "ValorantFont",
-              letterSpacing: ".1rem",
-            }}
+            component={Link}
+            to="/"
+            // sx={{
+            //   flexGrow: 1,
+            //   fontFamily: "ValorantFont",
+            //   letterSpacing: ".1rem",
+            // }}
+            css={siteTitle}
           >
             VALORANT Finder
           </Typography>
@@ -79,4 +82,12 @@ const appBar = css`
 
 const signupButton = css`
   background-color: #ff4755;
+`;
+
+const siteTitle = css`
+  flex-grow: 1;
+  font-family: ValorantFont;
+  letter-spacing: 0.1rem;
+  color: #fff;
+  text-decoration: none;
 `;
