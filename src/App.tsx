@@ -1,13 +1,23 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import Header from "components/layouts/Header";
-import Post from "components/pages/Post";
-import { Router } from "router/Router";
-
+import { useEffect } from "react";
+import Routers from "router/Routers";
+import { BrowserRouter, useLocation } from "react-router-dom";
+import { ForceRemountProvider } from "contexts/ForceRemountContext";
 const App = () => {
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  };
   return (
     <>
-      <Router />
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routers />
+      </BrowserRouter>
     </>
   );
 };
