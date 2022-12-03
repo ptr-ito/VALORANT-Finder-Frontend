@@ -1,27 +1,35 @@
-import { ReactNode } from "react";
-import { Container, Grid } from "@mui/material";
+import { memo } from "react";
+import { Outlet } from "react-router-dom";
+import { Container, Grid, Box } from "@mui/material";
 import Header from "components/layouts/Header";
 import SideBar from "components/layouts/Sidebar";
 import { css } from "@emotion/react";
 
 // 全てのページで共通となるレイアウト
-const DefaultLayout = ({ children }: { children?: ReactNode }) => {
+const DefaultLayout = memo(() => {
   return (
     <>
-      <header>
+      <Box component="header">
         <Header />
-      </header>
-      <main css={main}>
+      </Box>
+      <Box component="main" css={main}>
         <SideBar />
         <Container maxWidth="lg">
-          <Grid container justifyContent="center">
-            {children}
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid item>
+              <Outlet />
+            </Grid>
           </Grid>
         </Container>
-      </main>
+      </Box>
     </>
   );
-};
+});
 
 export default DefaultLayout;
 

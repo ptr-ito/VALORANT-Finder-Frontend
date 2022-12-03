@@ -17,9 +17,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <ScrollToTop />
-        <DefaultLayout>
-          <Routers />
-        </DefaultLayout>
+        <Routers />
       </BrowserRouter>
     </>
   );
