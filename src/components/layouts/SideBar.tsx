@@ -1,33 +1,57 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { css } from "@emotion/react";
 import Groups3Icon from "@mui/icons-material/Groups3";
-import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { Link } from "react-router-dom";
-import { BrowserRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Icon } from "components/ui/Icon/Icon";
+import { Box, Typography, Toolbar, Container, Button } from "@mui/material";
+import "css/layout/Sidebar.css";
 
 const SideBar = () => {
   return (
     <div css={sidebarStyles}>
-      <Sidebar width="350px" css={fixed}>
+      <Sidebar width="350px">
         <Menu>
-          <MenuItem
-            icon={<HomeIcon />}
-            routerLink={<Link to="/" />}
-            css={menuSpace}
-          >
-            ホーム
-          </MenuItem>
-          <MenuItem
-            icon={<Groups3Icon />}
-            routerLink={<Link to="/post" />}
-            css={menuSpace}
-          >
-            マッチ募集
-          </MenuItem>
-          <MenuItem icon={<PersonAddIcon />} css={menuSpace}>
-            フレンド募集
-          </MenuItem>
+          <NavLink to="/" end css={textColor}>
+            <MenuItem icon={<Icon name="Home" css={menuIcon} />}>
+              <Typography
+                component="div"
+                sx={{
+                  ml: "24px",
+                  align: "center",
+                }}
+              >
+                ホーム
+              </Typography>
+            </MenuItem>
+          </NavLink>
+          <NavLink to="post" end css={textColor}>
+            <MenuItem icon={<Groups3Icon />} css={menuSpace}>
+              <Typography
+                component="div"
+                sx={{
+                  ml: "24px",
+                  align: "center",
+                }}
+              >
+                マッチ募集
+              </Typography>
+            </MenuItem>
+          </NavLink>
+          <NavLink to="friend" end css={textColor}>
+            <MenuItem icon={<PersonAddIcon />} css={menuSpace}>
+              <Typography
+                component="div"
+                sx={{
+                  ml: "24px",
+                  align: "center",
+                }}
+              >
+                フレンド募集
+              </Typography>
+            </MenuItem>
+          </NavLink>
         </Menu>
       </Sidebar>
     </div>
@@ -39,14 +63,22 @@ export default SideBar;
 //css
 const sidebarStyles = css`
   display: flex;
-  height: 140vh;
-  margin-top: 1px;
-`;
-
-const fixed = css`
   position: fixed;
+  margin-top: 5px;
+  height: 140vh;
 `;
 
 const menuSpace = css`
   margin-top: 10px;
+  margin-right: 24px;
+`;
+
+const menuIcon = css`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+`;
+
+const textColor = css`
+  color: #3f4551;
 `;

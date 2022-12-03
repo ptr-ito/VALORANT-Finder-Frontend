@@ -1,19 +1,18 @@
 import { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import { AppBar, Box, Typography, Toolbar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import { useProSidebar } from "react-pro-sidebar";
-
-import HeaderButton from "./HeaderButton";
+import { useAuth0 } from "@auth0/auth0-react";
+import Button from "@mui/material/Button";
 
 const Header = () => {
   const { collapseSidebar } = useProSidebar();
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const login = () => loginWithRedirect();
+  const signUp = () => loginWithRedirect({ screen_hint: "signup" });
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} css={appBar}>
@@ -39,7 +38,28 @@ const Header = () => {
           >
             VALORANT Finder
           </Typography>
-          <HeaderButton />
+          {!isAuthenticated ? (
+            <>
+              <Button color="inherit" onClick={login}>
+                ログイン
+              </Button>
+              <Button color="inherit" css={signupButton} onClick={signUp}>
+                新規登録
+              </Button>
+            </>
+          ) : (
+            <>
+              {/* <UserProfileDropdown /> */}
+              <Button
+                color="inherit"
+                onClick={() => {
+                  logout({ returnTo: window.location.origin });
+                }}
+              >
+                ログアウト
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
@@ -55,4 +75,8 @@ const appBar = css`
   flex-grow: 1;
   position: fixed;
   z-index: 1000;
+`;
+
+const signupButton = css`
+  background-color: #ff4755;
 `;

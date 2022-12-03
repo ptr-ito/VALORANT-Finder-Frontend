@@ -17,7 +17,7 @@ root.render(
   <Auth0Provider
     domain={domain}
     clientId={clientId}
-    // audience={audience}
+    audience={audience}
     redirectUri={window.location.origin}
   >
     <ProSidebarProvider>
