@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import Routers from "router/Routers";
 import { BrowserRouter, useLocation } from "react-router-dom";
-import DefaultLayout from "components/layouts/DefaultLayout";
-
+import { ForceRemountProvider } from "contexts/ForceRemountContext";
 const App = () => {
   const ScrollToTop = () => {
     const { pathname } = useLocation();

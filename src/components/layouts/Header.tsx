@@ -28,22 +28,12 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h5"
-            component={Link}
-            to="/"
-            // sx={{
-            //   flexGrow: 1,
-            //   fontFamily: "ValorantFont",
-            //   letterSpacing: ".1rem",
-            // }}
-            css={siteTitle}
-          >
+          <Typography variant="h5" component={Link} to="/" css={siteTitle}>
             VALORANT Finder
           </Typography>
           {!isAuthenticated ? (
             <>
-              <Button color="inherit" onClick={login}>
+              <Button color="inherit" onClick={login} css={loginButton}>
                 ログイン
               </Button>
               <Button color="inherit" css={signupButton} onClick={signUp}>
@@ -82,6 +72,13 @@ const appBar = css`
 
 const signupButton = css`
   background-color: #ff4755;
+  &:hover {
+    background-color: rgba(255, 15, 0, 1);
+  }
+`;
+
+const loginButton = css`
+  background-color: #3f4551;
 `;
 
 const siteTitle = css`
