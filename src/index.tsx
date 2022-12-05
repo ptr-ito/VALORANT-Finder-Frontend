@@ -19,6 +19,8 @@ root.render(
     clientId={clientId}
     audience={audience}
     redirectUri={window.location.origin}
+    useRefreshTokens={true}
+    cacheLocation="localstorage"
   >
     <ProSidebarProvider>
       <App />
