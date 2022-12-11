@@ -4,6 +4,7 @@ import Post from "components/pages//post/Post";
 import { SampleHome } from "components/pages/Home";
 import NotFound from "components/pages/page404";
 import DefaultLayout from "components/layouts/DefaultLayout";
+import { SignUp } from "components/pages/SignUp";
 
 const Routers = memo(() => {
   return (
@@ -13,6 +14,7 @@ const Routers = memo(() => {
           <Route path="/" element={<SampleHome />} />
           <Route path="post" element={<Post />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="signup_form" element={<SignUp />}></Route>
         </Route>
       </Routes>
     </>

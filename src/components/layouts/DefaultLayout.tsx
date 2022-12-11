@@ -13,7 +13,7 @@ const DefaultLayout = memo(() => {
         <Header />
       </Box>
       <Box component="main" css={main}>
-        <SideBar />
+        {/* <SideBar /> */}
         <Container maxWidth="lg">
           <Grid
             container
@@ -39,6 +39,6 @@ const main = css`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  padding-top: 4rem;
+  padding-top: 8rem;
   height: 140vh;
 `;
