@@ -14,7 +14,7 @@ const Routers = memo(() => {
           <Route path="/" element={<SampleHome />} />
           <Route path="post" element={<Post />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="signup_form" element={<SignUp />}></Route>
+          <Route path="signup" element={<SignUp />}></Route>
         </Route>
       </Routes>
     </>
