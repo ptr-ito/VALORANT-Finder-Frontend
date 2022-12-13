@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AppBar, Box, Typography, Toolbar, Grid } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { css } from "@emotion/react";
-import { useProSidebar } from "react-pro-sidebar";
-import { useAuth0 } from "@auth0/auth0-react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { Icon } from "components/ui/Icon/Icon";
 import { NavLink } from "react-router-dom";
 import Groups3Icon from "@mui/icons-material/Groups3";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -16,26 +11,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 
 const Header = () => {
-  const { collapseSidebar } = useProSidebar();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const login = () => loginWithRedirect();
-  const signUp = () => loginWithRedirect({ screen_hint: "signup" });
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
         <AppBar position="static" elevation={0} css={appBar}>
           <Toolbar css={toolBar}>
-            {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={() => collapseSidebar()}
-          >
-            <MenuIcon />
-          </IconButton> */}
             <Typography variant="h5" component={Link} to="/" css={siteTitle}>
               VALORANT Finder
             </Typography>
@@ -82,28 +62,15 @@ const Header = () => {
                 <Typography css={contentMenuText}>マイページ</Typography>
               </Button>
             </Grid>
-            {!isAuthenticated ? (
-              <>
-                <Button color="inherit" onClick={login} css={loginButton}>
-                  ログイン
-                </Button>
-                <Button color="inherit" css={signupButton} onClick={signUp}>
-                  新規登録
-                </Button>
-              </>
-            ) : (
-              <>
-                {/* <UserProfileDropdown /> */}
-                <Button
-                  color="inherit"
-                  onClick={() => {
-                    logout({ returnTo: window.location.origin });
-                  }}
-                >
-                  ログアウト
-                </Button>
-              </>
-            )}
+            <Button color="inherit" css={loginButton}>
+              ログイン
+            </Button>
+            <Button color="inherit" css={signupButton}>
+              新規登録
+            </Button>
+            {/* <Button color="inherit" onClick={() => {}}>
+                ログアウト
+              </Button> */}
           </Toolbar>
         </AppBar>
       </Grid>
