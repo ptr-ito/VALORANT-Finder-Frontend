@@ -114,7 +114,7 @@ const Header = () => {
               </Button>
               <Button
                 component={NavLink}
-                to="mypage"
+                to="teams"
                 startIcon={<PersonAddIcon />}
                 css={contentButtonStyle}
               >
@@ -122,7 +122,7 @@ const Header = () => {
               </Button>
               <Button
                 component={NavLink}
-                to="teams"
+                to="mypage"
                 startIcon={<AccountCircleIcon />}
                 css={contentButtonStyle}
               >
