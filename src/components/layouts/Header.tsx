@@ -11,9 +11,11 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import { Icon } from "components/ui/icon/Icon";
 
 import { signOut } from "lib/api/auth";
 import { AuthContext } from "App";
+import styled from "@emotion/styled";
 
 const Header = () => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
@@ -99,7 +101,7 @@ const Header = () => {
                 component={NavLink}
                 to="post"
                 end
-                startIcon={<Groups3Icon />}
+                startIcon={<Icon iconName="Match_find" />}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>マッチ募集</Typography>
