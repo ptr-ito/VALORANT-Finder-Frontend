@@ -1,26 +1,19 @@
+import React from "react";
 import { ReactComponent as Home } from "assets/icons/home.svg";
 import { ReactComponent as Match_find } from "assets/icons/match_find_icon.svg";
-import { ReactComponent as Mode } from "assets/icons/mode_icon.svg";
+import SvgIcon from "@mui/material/SvgIcon";
+import { SvgIconProps } from "@mui/material";
 
-const icons = { Home, Match_find, Mode };
-
-type Name = keyof typeof icons;
-
-type Props = {
-  name: Name;
-  size?: number;
-  className?: string;
+const iconList: { [name: string]: JSX.Element } = {
+  Match_find: <Match_find />,
 };
 
-const DEFAULT_SIZE = 24;
-
-export function Icon({ name, size = DEFAULT_SIZE, className }: Props) {
-  const SvgComponent = icons[name];
-
-  return (
-    <SvgComponent
-      style={{ height: `${size}px`, width: `${size}px` }}
-      className={className}
-    />
-  );
+interface Props extends React.HTMLProps<SvgIconProps> {
+  iconName: "Match_find";
 }
+
+export const Icon: React.FC<Props> = (props) => {
+  const { iconName } = props;
+
+  return <SvgIcon>{iconList[iconName]}</SvgIcon>;
+};

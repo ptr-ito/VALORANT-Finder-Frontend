@@ -4,7 +4,7 @@ import Groups3Icon from "@mui/icons-material/Groups3";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { NavLink } from "react-router-dom";
-import { Icon } from "components/ui/Icon/Icon";
+import { Icon } from "components/ui/icon/Icon";
 import { Box, Typography, Toolbar, Container, Button } from "@mui/material";
 import "css/layout/Sidebar.css";
 

@@ -1,41 +1,90 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import Cookies from "js-cookie";
+
 import { AppBar, Box, Typography, Toolbar, Grid } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { css } from "@emotion/react";
-import { useProSidebar } from "react-pro-sidebar";
-import { useAuth0 } from "@auth0/auth0-react";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import { Icon } from "components/ui/Icon/Icon";
+import { Link, useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import Groups3Icon from "@mui/icons-material/Groups3";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import { Icon } from "components/ui/icon/Icon";
+
+import { signOut } from "lib/api/auth";
+import { AuthContext } from "App";
+import styled from "@emotion/styled";
 
 const Header = () => {
-  const { collapseSidebar } = useProSidebar();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const login = () => loginWithRedirect();
-  const signUp = () => loginWithRedirect({ screen_hint: "signup" });
+  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const res = await signOut();
+
+      if (res.data.success === true) {
+        // サインアウト時には各Cookieを削除
+        Cookies.remove("_access_token");
+        Cookies.remove("_client");
+        Cookies.remove("_uid");
+
+        setIsSignedIn(false);
+        navigate("/");
+
+        console.log("Succeeded in sign out");
+      } else {
+        console.log("Failed in sign out");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const AuthButtons = () => {
+    // 認証完了後はサインアウト用のボタンを表示
+    // 未認証時は認証用のボタンを表示
+    if (!loading) {
+      if (isSignedIn) {
+        return (
+          <Button color="inherit" onClick={handleSignOut}>
+            ログアウト
+          </Button>
+        );
+      } else {
+        return (
+          <>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/signin"
+              css={loginButton}
+            >
+              ログイン
+            </Button>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/signup"
+              css={signupButton}
+            >
+              新規登録
+            </Button>
+          </>
+        );
+      }
+    } else {
+      return <></>;
+    }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
         <AppBar position="static" elevation={0} css={appBar}>
           <Toolbar css={toolBar}>
-            {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={() => collapseSidebar()}
-          >
-            <MenuIcon />
-          </IconButton> */}
             <Typography variant="h5" component={Link} to="/" css={siteTitle}>
               VALORANT Finder
             </Typography>
@@ -52,7 +101,7 @@ const Header = () => {
                 component={NavLink}
                 to="post"
                 end
-                startIcon={<Groups3Icon />}
+                startIcon={<Icon iconName="Match_find" />}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>マッチ募集</Typography>
@@ -67,7 +116,7 @@ const Header = () => {
               </Button>
               <Button
                 component={NavLink}
-                to="mypage"
+                to="teams"
                 startIcon={<PersonAddIcon />}
                 css={contentButtonStyle}
               >
@@ -75,35 +124,14 @@ const Header = () => {
               </Button>
               <Button
                 component={NavLink}
-                to="teams"
+                to="mypage"
                 startIcon={<AccountCircleIcon />}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>マイページ</Typography>
               </Button>
             </Grid>
-            {!isAuthenticated ? (
-              <>
-                <Button color="inherit" onClick={login} css={loginButton}>
-                  ログイン
-                </Button>
-                <Button color="inherit" css={signupButton} onClick={signUp}>
-                  新規登録
-                </Button>
-              </>
-            ) : (
-              <>
-                {/* <UserProfileDropdown /> */}
-                <Button
-                  color="inherit"
-                  onClick={() => {
-                    logout({ returnTo: window.location.origin });
-                  }}
-                >
-                  ログアウト
-                </Button>
-              </>
-            )}
+            <AuthButtons />
           </Toolbar>
         </AppBar>
       </Grid>

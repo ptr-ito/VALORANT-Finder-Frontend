@@ -1,13 +1,14 @@
 // サインアップ
-export interface SignUpData {
+export interface SignUpParams {
   name: string;
   email: string;
   password: string;
   passwordConfirmation: string;
+  confirmSuccessUrl: string;
 }
 
 // サインイン
-export interface SignInData {
+export interface SignInParams {
   email: string;
   password: string;
 }
@@ -22,4 +23,6 @@ export interface User {
   nickname?: string;
   image?: string;
   allowPasswordChange: boolean;
+  created_at: Date;
+  updated_at: Date;
 }
