@@ -21,10 +21,6 @@
 	.st4{display:inline;fill:#FFFFFF;}
 </style>
 <switch>
-	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
-		<i:aipgfRef  xlink:href="#adobe_illustrator_pgf">
-		</i:aipgfRef>
-	</foreignObject>
 	<g i:extraneous="self">
 		<g id="レイヤー_1" class="st0">
 			
@@ -655,7 +651,7 @@ AElFTkSuQmCC" transform="matrix(0.75 0 0 0.75 -798.8804 -115.0186)">
 		</g>
 	</g>
 </switch>
-<i:aipgf  id="adobe_illustrator_pgf" i:pgfEncoding="zstd/base64" i:pgfVersion="24">
+<i:aipgf  id="adobe_illustrator_pgf" i:pgfencoding="zstd/base64" i:pgfversion="24">
 	<![CDATA[
 	KLUv/QBY/KgEfgeG3Qw/8HaSDAeU3kQ2kU1kY8/svYwtbNWm2YSDgn+7kZl9zH6323YZLcUttghb
 awQ5x09SSillSrKgrgqvTWQgkZUXoRB3C6oLNhGIOHrNgEHRggAyYFAYIAMGxQAmkCEFDx1EsEED

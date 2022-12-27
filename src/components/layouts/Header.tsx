@@ -6,7 +6,6 @@ import { css } from "@emotion/react";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import Groups3Icon from "@mui/icons-material/Groups3";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -15,7 +14,6 @@ import { Icon } from "components/ui/icon/Icon";
 
 import { signOut } from "lib/api/auth";
 import { AuthContext } from "App";
-import styled from "@emotion/styled";
 
 const Header = () => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
@@ -49,7 +47,7 @@ const Header = () => {
     if (!loading) {
       if (isSignedIn) {
         return (
-          <Button color="inherit" onClick={handleSignOut}>
+          <Button color="inherit" onClick={handleSignOut} disableRipple={true}>
             ログアウト
           </Button>
         );
@@ -60,6 +58,7 @@ const Header = () => {
               color="inherit"
               component={Link}
               to="/signin"
+              disableRipple={true}
               css={loginButton}
             >
               ログイン
@@ -68,6 +67,7 @@ const Header = () => {
               color="inherit"
               component={Link}
               to="/signup"
+              disableRipple={true}
               css={signupButton}
             >
               新規登録
@@ -93,6 +93,7 @@ const Header = () => {
                 component={NavLink}
                 to="/"
                 startIcon={<HomeIcon />}
+                disableRipple={true}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>ホーム</Typography>
@@ -102,6 +103,7 @@ const Header = () => {
                 to="post"
                 end
                 startIcon={<Icon iconName="Match_find" />}
+                disableRipple={true}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>マッチ募集</Typography>
@@ -110,6 +112,7 @@ const Header = () => {
                 component={NavLink}
                 to="friend"
                 startIcon={<PersonSearchIcon />}
+                disableRipple={true}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>フレンド募集</Typography>
@@ -118,6 +121,7 @@ const Header = () => {
                 component={NavLink}
                 to="teams"
                 startIcon={<PersonAddIcon />}
+                disableRipple={true}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>固定パーティ募集</Typography>
@@ -126,6 +130,7 @@ const Header = () => {
                 component={NavLink}
                 to="mypage"
                 startIcon={<AccountCircleIcon />}
+                disableRipple={true}
                 css={contentButtonStyle}
               >
                 <Typography css={contentMenuText}>マイページ</Typography>
