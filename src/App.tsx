@@ -3,6 +3,10 @@ import Routers from "router/Routers";
 import { BrowserRouter, useLocation } from "react-router-dom";
 import { getCurrentUser } from "lib/api/auth";
 import { User } from "interfaces/index";
+import { AuthGuardProvider } from "providers/AuthGuard";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, Flip } from "react-toastify";
+import { css } from "@emotion/react";
 
 export const AuthContext = createContext(
   {} as {
@@ -56,23 +60,32 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <AuthContext.Provider
-          value={{
-            loading,
-            setLoading,
-            isSignedIn,
-            setIsSignedIn,
-            currentUser,
-            setCurrentUser,
-          }}
-        >
-          <ScrollToTop />
-          <Routers />
-        </AuthContext.Provider>
-      </BrowserRouter>
+      <AuthGuardProvider>
+        <BrowserRouter>
+          <ToastContainer limit={1} css={toastStyle} />
+          <AuthContext.Provider
+            value={{
+              loading,
+              setLoading,
+              isSignedIn,
+              setIsSignedIn,
+              currentUser,
+              setCurrentUser,
+            }}
+          >
+            <ScrollToTop />
+            <Routers />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      </AuthGuardProvider>
     </>
   );
 };
 
 export default App;
+
+// css
+
+const toastStyle = css`
+  width: 450px;
+`;

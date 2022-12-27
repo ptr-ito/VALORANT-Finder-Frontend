@@ -11,6 +11,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { css } from "@emotion/react";
 import { signInSchema } from "validation/Schema";
+import AlertMessage from "components/layouts/AlertMessage";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertColor, AlertProps } from "@mui/material/Alert";
+import useAlertMessage from "components/util/useAlertMessage";
 
 export const SignIn = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
@@ -19,6 +23,10 @@ export const SignIn = () => {
   const [password, setPassword] = useState<string>("");
 
   const [formError, setFormError] = useState("");
+
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+
+  const { error } = useAlertMessage();
 
   const navigate = useNavigate();
 
@@ -51,9 +59,20 @@ export const SignIn = () => {
         setCurrentUser(res.data.data);
 
         navigate("/");
+
+        setEmail("");
+        setPassword("");
+
+        console.log("Signed in successfully!");
+      } else {
+        {
+          error("メールアドレスかパスワードが間違っています");
+        }
       }
     } catch (e) {
-      setFormError("ユーザー名またはパスワードが正しくありません。");
+      {
+        error("メールアドレスかパスワードが間違っています");
+      }
       console.log(e);
     }
   };
@@ -96,26 +115,12 @@ export const SignIn = () => {
               helperText={errors.password ? errors.password?.message : ""}
               onChange={(event) => setPassword(event.target.value)}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              css={formLoginButton}
-            >
+            <Button type="submit" variant="contained" size="large" fullWidth css={formLoginButton}>
               <Typography css={navText}>ログイン</Typography>
             </Button>
             <Box textAlign="center">
-              <Typography css={borderBottom}>
-                アカウントをお持ちでない場合は
-              </Typography>
-              <Button
-                variant="outlined"
-                color="inherit"
-                fullWidth
-                component={Link}
-                to="/signup"
-              >
+              <Typography css={borderBottom}>アカウントをお持ちでない場合は</Typography>
+              <Button variant="outlined" color="inherit" fullWidth component={Link} to="/signup">
                 新規登録する
               </Button>
             </Box>
