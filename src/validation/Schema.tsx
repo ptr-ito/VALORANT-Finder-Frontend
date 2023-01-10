@@ -84,3 +84,21 @@ export const EditPasswordSchema = z
     path: ["passwordConfirmation"],
     message: "パスワードが一致しません",
   });
+
+export const MatchPostSchema = z.object({
+  content: z.string().min(1, { message: "募集の内容を入力してください" }),
+  rankIds: z.string().array().nonempty({ message: "ランク帯を選択してください" }),
+  modeId: z.number({ required_error: "対戦モードを選択してください" }),
+  moodId: z.number({ required_error: "雰囲気を選択してください" }),
+});
+
+export const MatchPostUpdateSchema = z.object({
+  content: z.string().min(1, { message: "募集の内容を入力してください" }),
+  rankIds: z.preprocess((v) => String(v), z.string()),
+  modeId: z.preprocess((v) => String(v), z.string()),
+  moodId: z.preprocess((v) => String(v), z.string()),
+});
+
+export type MatchPostSchemaType = z.infer<typeof MatchPostSchema>;
+
+export type MatchPostUpdateSchemaType = z.infer<typeof MatchPostUpdateSchema>;

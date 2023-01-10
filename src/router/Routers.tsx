@@ -1,6 +1,5 @@
 import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
-import Post from "components/pages//post/Post";
 import { SampleHome } from "components/pages/Home";
 import NotFound from "components/pages/Page404";
 import DefaultLayout from "components/layouts/DefaultLayout";
@@ -13,6 +12,8 @@ import EditEmail from "components/pages/EditEmail";
 import EditPassword from "components/pages/EditPassword";
 import SendEmail from "components/pages/SendEmail";
 import { PrivateRoute } from "router/PrivateRoute";
+import MatchPostList from "components/pages/post/MatchPostList";
+import MatchPostDetail from "components/pages/post/MatchPostDetail";
 
 const Routers = memo(() => {
   return (
@@ -26,7 +27,8 @@ const Routers = memo(() => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route element={<DefaultLayout />}>
-            <Route path="post" element={<Post />} />
+            <Route path="post" element={<MatchPostList />} />
+            <Route path="post/:id" element={<MatchPostDetail />} />
             <Route path="mypage" element={<MyPage />} />
             <Route path="mypage/edit" element={<EditProfile />} />
             <Route path="mypage/usersettings" element={<UserSettings />} />

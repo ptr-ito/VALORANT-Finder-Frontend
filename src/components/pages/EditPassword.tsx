@@ -146,4 +146,5 @@ const submitButton = css`
 const backButton = css`
   flex-grow: 1;
   margin-bottom: 50px;
+  color: #ff4755;
 `;

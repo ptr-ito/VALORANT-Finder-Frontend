@@ -11,10 +11,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { css } from "@emotion/react";
 import { signInSchema } from "validation/Schema";
-import AlertMessage from "components/layouts/AlertMessage";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertColor, AlertProps } from "@mui/material/Alert";
 import useAlertMessage from "components/util/useAlertMessage";
+import Divider from "@mui/material/Divider";
 
 export const SignIn = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
@@ -115,12 +113,13 @@ export const SignIn = () => {
               helperText={errors.password ? errors.password?.message : ""}
               onChange={(event) => setPassword(event.target.value)}
             />
-            <Button type="submit" variant="contained" size="large" fullWidth css={formLoginButton}>
+            <Button type="submit" variant="contained" size="large" fullWidth css={formLoginButton} disableRipple={true}>
               <Typography css={navText}>ログイン</Typography>
             </Button>
+            <Divider />
             <Box textAlign="center">
               <Typography css={borderBottom}>アカウントをお持ちでない場合は</Typography>
-              <Button variant="outlined" color="inherit" fullWidth component={Link} to="/signup">
+              <Button variant="outlined" color="inherit" fullWidth component={Link} to="/signup" disableRipple={true}>
                 新規登録する
               </Button>
             </Box>
@@ -145,8 +144,17 @@ const navText = css`
 `;
 
 const borderBottom = css`
-  border-top: 2px solid #ced1d8;
-  padding-top: 30px;
+  padding-top: 60px;
   margin-top: 80px;
   margin-bottom: 10px;
+  border-top: 1px solid #ced1d8;
+  position: relative;
+  &: after {
+    position: absolute;
+    content: " ";
+    display: block;
+    border-top: solid 1px #3f4551;
+    top: -1px;
+    width: 35%;
+  }
 `;

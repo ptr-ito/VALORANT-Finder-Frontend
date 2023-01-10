@@ -15,7 +15,7 @@ export interface SignInParams {
 
 // ユーザー
 export interface User {
-  id: number;
+  id: string;
   uid: string;
   provider: string;
   email: string;
@@ -48,10 +48,60 @@ export interface UpdateEmailData {
   email?: string;
 }
 
+// マッチ募集投稿
+export interface MatchPost {
+  attributes: {
+    id: string;
+    userId: string;
+    content: string;
+    status: string;
+    rank: string;
+    mode: string;
+    mood: string;
+    userName: string;
+    userImage?: {
+      url: string;
+    };
+    createdAt: string;
+  };
+}
+
+export interface MatchPostUpdate {
+  content?: string;
+  rankIds?: string;
+  modeId?: string;
+  moodId?: string;
+}
+
 export interface UpdateUserFormData extends FormData {
   append(name: keyof UpdateUserData, value: String | Blob, fileName?: string): any;
 }
 
 export interface UpdateEmailFormData extends FormData {
   append(name: keyof UpdateEmailData, value: String | Blob, fileName?: string): any;
+}
+
+export interface MatchPostFormData extends FormData {
+  append(name: keyof MatchPost, value: String | Blob | Number, fileName?: string): any;
+}
+
+export interface MatchPostUpdateFormData extends FormData {
+  append(name: keyof MatchPostUpdate, value: String | Blob | Number): any;
+}
+
+export interface PostFormProps {
+  handleGetPosts: Function;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface PostItemProps {
+  matchPost: MatchPost;
+  handleGetPosts: Function;
+}
+
+export interface PostEditProps {
+  handleGetPosts: Function;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  matchPost: MatchPost | undefined;
+  query: any;
 }
