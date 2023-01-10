@@ -129,7 +129,7 @@ export const SignUp = () => {
                 onChange={(event) => setPasswordConfirmation(event.target.value)}
               />
               <TextField type="hidden" label="confirm_success_url" value={confirmSuccessUrl} {...register("confirmSuccessUrl")} css={hiddenContent} />
-              <Button type="submit" variant="contained" size="large" fullWidth css={registerButton}>
+              <Button type="submit" variant="contained" size="large" fullWidth css={registerButton} disableRipple={true}>
                 <Typography css={navText}>新規登録</Typography>
               </Button>
             </form>

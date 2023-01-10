@@ -26,7 +26,6 @@ const EditEmail = () => {
 
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
   const [email, setEmail] = useState<string | undefined>(currentUser?.email);
-  // const confirmRedirectUrl = "http://localhost:3001/mypage/usersettings";
 
   const { success } = useAlertMessage();
 
@@ -136,8 +135,5 @@ const submitButton = css`
 const backButton = css`
   flex-grow: 1;
   margin-bottom: 50px;
-`;
-
-const hiddenContent = css`
-  display: none;
+  color: #ff4755;
 `;

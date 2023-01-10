@@ -9,7 +9,6 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import AlertMessage from "components/layouts/AlertMessage";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -30,13 +29,13 @@ const UserSettings = () => {
               個人設定
             </Typography>
           </Grid>
-          <Card sx={{ width: 800, height: 230 }}>
+          <Card sx={{ boxShadow: 0 }} css={cardStyle}>
             <CardContent>
               <List>
                 <ListItem>
                   <ListItemText primary="メールアドレス" sx={{ mr: 7 }} css={spacing} />
                   <ListItemText primary={currentUser?.email} />
-                  <Button variant="outlined" color="primary" disableRipple={true} component={Link} to="/mypage/usersettings/email">
+                  <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/email">
                     <Typography>編集</Typography>
                   </Button>
                 </ListItem>
@@ -51,7 +50,7 @@ const UserSettings = () => {
                       letterSpacing: "-7px",
                     }}
                   />
-                  <Button variant="outlined" color="primary" disableRipple={true} component={Link} to="/mypage/usersettings/password">
+                  <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/password">
                     <Typography>編集</Typography>
                   </Button>
                 </ListItem>
@@ -59,13 +58,6 @@ const UserSettings = () => {
               </List>
             </CardContent>
           </Card>
-          {/* <AlertMessage // メールアドレスの変更が成功した場合のアラート
-            open={alertMessageOpen}
-            setOpen={setAlertMessageOpen}
-            severity="success"
-            message="メールアドレスの変更が完了しました"
-            sx={{ height: "23%" }}
-          /> */}
         </>
       ) : (
         <></>
@@ -77,33 +69,51 @@ const UserSettings = () => {
 export default UserSettings;
 
 // css
-const border = css`
-  border: 1px solid #dcdfe4;
-  width: 800px;
-  height: 200px;
-  padding: 10px;
-`;
-
-const avatar = css`
-  width: 100px;
-  height: 100px;
-`;
-
 const spacing = css`
   padding-top: 10px;
   padding-bottom: 10px;
 `;
 
-const navUserSettings = css`
-  margin-top: 20px;
-  color: #fff;
-  background-color: #ff4755;
-  &:hover {
-    background-color: #ff4755;
-  }
-`;
-
 const backButton = css`
   flex-grow: 1;
   margin-bottom: 50px;
+  color: #ff4755;
+`;
+
+const cardStyle = css`
+  width: 800px;
+  height: 230px;
+  position: relative;
+  line-height: 1.4;
+  padding: 0.25em 1em;
+  &: after,
+  &: before {
+    content: "";
+    width: 30px;
+    height: 40px;
+    position: absolute;
+    display: inline-block;
+  }
+  &: before {
+    border-left: solid 1px #ff5722;
+    border-top: solid 1px #ff5722;
+    top: 0;
+    left: 0;
+  }
+  &: after {
+    border-right: solid 1px #ff5722;
+    border-bottom: solid 1px #ff5722;
+    bottom: 0;
+    right: 0;
+  }
+`;
+
+const linkButton = css`
+  color: #ff4755;
+  border-color: #ff4755;
+  &:hover {
+    color: #ff4755;
+    border-color: #ff4755;
+    background-color: RGB(255, 71, 85, 0.1);
+  }
 `;

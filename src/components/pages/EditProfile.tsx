@@ -82,7 +82,6 @@ const EditProfile = () => {
   };
 
   const editProfileSubmit: SubmitHandler<UpdateUserData> = async () => {
-    // const editProfileSubmit = async () => {
     const data = createFormData();
 
     try {
@@ -236,4 +235,5 @@ const submitButton = css`
 const backButton = css`
   flex-grow: 1;
   margin-bottom: 50px;
+  color: #ff4755;
 `;

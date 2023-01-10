@@ -6,7 +6,8 @@ import { User } from "interfaces/index";
 import { AuthGuardProvider } from "providers/AuthGuard";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Flip } from "react-toastify";
-import { css } from "@emotion/react";
+import { css, Global } from "@emotion/react";
+import { MatchPost } from "interfaces/index";
 
 export const AuthContext = createContext(
   {} as {
@@ -18,6 +19,7 @@ export const AuthContext = createContext(
     setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
   }
 );
+
 const App = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
@@ -60,6 +62,7 @@ const App = () => {
 
   return (
     <>
+      <Global styles={global} />
       <AuthGuardProvider>
         <BrowserRouter>
           <ToastContainer limit={1} css={toastStyle} />
@@ -88,4 +91,8 @@ export default App;
 
 const toastStyle = css`
   width: 450px;
+`;
+
+const global = css`
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap");
 `;
