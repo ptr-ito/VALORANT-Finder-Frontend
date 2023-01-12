@@ -29,7 +29,7 @@ const PostCommentItem = ({ postComment, query }: PostCommentItemProps) => {
   const [visibleReply, setVisibleReply] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
   const { error } = useAlertMessage();
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const { loading, isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const [deleteConfirmDialogConfig, setDeleteConfirmDialogConfig] = React.useState<DeleteConfirmDialogProps | undefined>();
   const { success } = useAlertMessage();
   const navigate = useNavigate();
@@ -101,16 +101,20 @@ const PostCommentItem = ({ postComment, query }: PostCommentItemProps) => {
                     <Typography variant="body2" css={timeStyle}>
                       {postComment.attributes.createdAt}
                     </Typography>
-                    <IconButton
-                      css={menuStyle}
-                      id="menu-button"
-                      aria-controls={openMenu ? "menu-button" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={openMenu ? "true" : undefined}
-                      onClick={handleMenuClick}
-                    >
-                      <MoreHorizIcon />
-                    </IconButton>
+                    {isSignedIn && currentUser?.id == postComment.attributes.userId ? (
+                      <IconButton
+                        css={menuStyle}
+                        id="menu-button"
+                        aria-controls={openMenu ? "menu-button" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={openMenu ? "true" : undefined}
+                        onClick={handleMenuClick}
+                      >
+                        <MoreHorizIcon />
+                      </IconButton>
+                    ) : (
+                      <></>
+                    )}
                     <Menu
                       id="menu-button"
                       aria-labelledby="menu-button"
