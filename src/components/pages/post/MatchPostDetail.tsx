@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { showPost } from "lib/api/matchPosts";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { MatchPost } from "interfaces/index";
@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import { css } from "@emotion/react";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { deletePost } from "lib/api/matchPosts";
@@ -26,11 +27,19 @@ import MatchPostEdit from "components/pages/post/MatchPostEdit";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { PostItemProps } from "interfaces/index";
+import PostCommentList from "components/pages/comment/PostCommentList";
+import PostCommentForm from "components/pages/comment/PostCommentForm";
+import { MatchPostComment } from "interfaces/index";
+import PostCommentItem from "components/pages/comment/PostCommentItem";
+import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
+import { AuthContext } from "App";
 
 const MatchPostDetail = () => {
   const navigate = useNavigate();
   const query = useParams<{ query: string }>();
   const [matchPost, setMatchPost] = useState<MatchPost>();
+  const [postComments, setPostComments] = useState<MatchPostComment[]>([]);
+  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
 
   useEffect(() => {
     handleGetDetail(query);
@@ -39,8 +48,9 @@ const MatchPostDetail = () => {
   const handleGetDetail = async (query: any) => {
     try {
       const res = await showPost(query.id);
-      console.log(res.data.data);
+      console.log(res);
       setMatchPost(res.data.data);
+      setPostComments(res.data.included);
     } catch (e) {
       console.log(e);
     }
@@ -123,111 +133,157 @@ const MatchPostDetail = () => {
       <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/post">
         マッチ募集一覧へ戻る
       </Button>
-      <Card css={cardStyle} sx={{ boxShadow: 0 }}>
-        <CardHeader
-          avatar={<Avatar src={matchPost?.attributes.userImage?.url} css={avatar} />}
-          title={
-            <>
-              <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                <Typography variant="body2">{matchPost?.attributes.userName}</Typography>
-                <Typography variant="body2" css={timeStyle}>
-                  {matchPost?.attributes.createdAt}
-                </Typography>
-                {/* {isSignedIn && currentUser?.id == matchPost.attributes.userId ? ( */}
-                <>
-                  <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
-                    <MoreHorizIcon />
-                  </IconButton>
-                  <Menu
-                    id="menu-button"
-                    aria-labelledby="menu-button"
-                    anchorEl={anchorEl}
-                    open={openMenu}
-                    onClose={handleMenuClose}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                  >
-                    <MenuItem disableRipple={true} onClick={handleOpenModal}>
-                      <ListItemIcon>
-                        <EditIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                        編集
-                      </ListItemText>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleDeletePost(matchPost?.attributes.id)} disableRipple={true}>
-                      <ListItemIcon>
-                        <DeleteIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                        削除
-                      </ListItemText>
-                    </MenuItem>
-                    {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
-                  </Menu>
-                  <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                    <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                      閉じる
-                    </Button>
-                    {<MatchPostEdit handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} matchPost={matchPost} query={query} />}
-                  </Modal>
-                </>
-                {/* ) : (
+      <Box css={boxStyle}>
+        <Card css={cardStyle} sx={{ boxShadow: 0 }}>
+          <CardHeader
+            avatar={<Avatar src={matchPost?.attributes.userImage?.url} css={avatar} />}
+            title={
+              <>
+                <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
+                  <Typography variant="body2">{matchPost?.attributes.userName}</Typography>
+                  <Typography variant="body2" css={timeStyle}>
+                    {matchPost?.attributes.createdAt}
+                  </Typography>
+                  {/* {isSignedIn && currentUser?.id == matchPost.attributes.userId ? ( */}
+                  <>
+                    <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
+                      <MoreHorizIcon />
+                    </IconButton>
+                    <Menu
+                      id="menu-button"
+                      aria-labelledby="menu-button"
+                      anchorEl={anchorEl}
+                      open={openMenu}
+                      onClose={handleMenuClose}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                    >
+                      <MenuItem disableRipple={true} onClick={handleOpenModal}>
+                        <ListItemIcon>
+                          <EditIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                          編集
+                        </ListItemText>
+                      </MenuItem>
+                      <MenuItem onClick={() => handleDeletePost(matchPost?.attributes.id)} disableRipple={true}>
+                        <ListItemIcon>
+                          <DeleteIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                          削除
+                        </ListItemText>
+                      </MenuItem>
+                      {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                    </Menu>
+                    <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                      <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                        閉じる
+                      </Button>
+                      {<MatchPostEdit handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} matchPost={matchPost} query={query} />}
+                    </Modal>
+                  </>
+                  {/* ) : (
                   <></>
                 )} */}
+                </Grid>
+              </>
+            }
+          />
+          <CardContent>
+            <Typography variant="body2" component="span">
+              {matchPost?.attributes.content.split("\n").map((content: string, index: number) => {
+                return <p key={index}>{content}</p>;
+              })}
+            </Typography>
+            <Divider css={borderStyle} />
+            <Typography variant="h4" component="span" css={subTitle}>
+              ランク帯
+            </Typography>
+            <Typography variant="body2" component="span">
+              <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                {String(matchPost?.attributes.rank)
+                  .split(/,|\s/)
+                  .map((rank: string, index: number) => {
+                    return <Chip label={rank} key={index} css={chipStyle} />;
+                  })}
               </Grid>
-            </>
-          }
-        />
-        <CardContent>
-          <Typography variant="body2" component="span">
-            {matchPost?.attributes.content.split("\n").map((content: string, index: number) => {
-              return <p key={index}>{content}</p>;
-            })}
-          </Typography>
-          <Divider css={borderStyle} />
-          <Typography variant="h4" component="span" css={subTitle}>
-            ランク帯
-          </Typography>
-          <Typography variant="body2" component="span">
-            <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-              {String(matchPost?.attributes.rank)
-                .split(/,|\s/)
-                .map((rank: string, index: number) => {
-                  return <Chip label={rank} key={index} css={chipStyle} />;
+            </Typography>
+            <Divider css={borderStyle} />
+            <Typography variant="h4" component="span" css={subTitle}>
+              対戦モード
+            </Typography>
+            <Typography variant="body2" component="span">
+              <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                {matchPost?.attributes.mode.split("\n").map((mode: string, index: number) => {
+                  return <Chip label={mode} key={index} css={chipStyle} />;
                 })}
+              </Grid>
+            </Typography>
+            <Divider css={borderStyle} />
+            <Typography variant="h4" component="span" css={subTitle}>
+              雰囲気
+            </Typography>
+            <Typography variant="body2" component="span">
+              <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                {matchPost?.attributes.mood.split("\n").map((mood: string, index: number) => {
+                  return <Chip label={mood} key={index} css={chipStyle} />;
+                })}
+              </Grid>
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
+      <Grid container alignItems="center" css={commentTitle}>
+        <Grid item>
+          <QuestionAnswerOutlinedIcon css={commentIcon} />
+        </Grid>
+        <Grid item>
+          <Typography variant="h5">コメント一覧</Typography>
+        </Grid>
+      </Grid>
+      <Grid container direction="column" css={bottomSpace}>
+        {postComments?.map((postComment: MatchPostComment) => {
+          return <PostCommentItem key={postComment.attributes.id} postComment={postComment} query={query} />;
+        })}
+        {isSignedIn ? (
+          <>
+            <Grid container alignItems="center">
+              <Grid item>
+                <Avatar src={matchPost?.attributes.userImage?.url} css={avatar} />
+              </Grid>
+              <Grid item>
+                <Typography variant="h5" css={commentFormTitle}>
+                  コメントする
+                </Typography>
+              </Grid>
             </Grid>
-          </Typography>
-          <Divider css={borderStyle} />
-          <Typography variant="h4" component="span" css={subTitle}>
-            対戦モード
-          </Typography>
-          <Typography variant="body2" component="span">
-            <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-              {matchPost?.attributes.mode.split("\n").map((mode: string, index: number) => {
-                return <Chip label={mode} key={index} css={chipStyle} />;
-              })}
-            </Grid>
-          </Typography>
-          <Divider css={borderStyle} />
-          <Typography variant="h4" component="span" css={subTitle}>
-            雰囲気
-          </Typography>
-          <Typography variant="body2" component="span">
-            <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-              {matchPost?.attributes.mood.split("\n").map((mood: string, index: number) => {
-                return <Chip label={mood} key={index} css={chipStyle} />;
-              })}
-            </Grid>
-          </Typography>
-        </CardContent>
-      </Card>
+            <PostCommentForm query={query} />
+          </>
+        ) : (
+          <>
+            <Box textAlign="center" css={navBox}>
+              <Typography variant="body1" css={navStyle}>
+                コメントするためには
+                <Typography variant="body1" component={Link} to="/signin">
+                  ログイン
+                </Typography>
+                が必要です。
+              </Typography>
+              <Typography sx={{ mb: 1 }}>アカウントをお持ちでない場合は</Typography>
+              <Button variant="outlined" color="inherit" component={Link} to="/signup" disableRipple={true}>
+                新規登録する
+              </Button>
+            </Box>
+          </>
+        )}
+      </Grid>
     </>
   );
 };
@@ -238,34 +294,15 @@ const cardStyle = css`
   width: 900px;
   margin-top: 40px;
   margin-bottom: 40px;
-  position: relative;
-  line-height: 1.4;
-  padding: 0.25em 1em;
-  &: after,
-  &: before {
-    content: "";
-    width: 30px;
-    height: 40px;
-    position: absolute;
-    display: inline-block;
-  }
-  &: before {
-    border-left: solid 1px #ff5722;
-    border-top: solid 1px #ff5722;
-    top: 0;
-    left: 0;
-  }
-  &: after {
-    border-right: solid 1px #ff5722;
-    border-bottom: solid 1px #ff5722;
-    bottom: 0;
-    right: 0;
-  }
 `;
 
 const avatar = css`
   width: 48px;
   height: 48px;
+`;
+
+const flex = css`
+  display: flex;
 `;
 
 const borderStyle = css`
@@ -281,11 +318,9 @@ const subTitle = css`
 `;
 
 const timeStyle = css`
-  color: #7f7f7f;
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 600px;
-  margin-right: 30px;
+  olor: #7f7f7f;
+  margin-left: auto;
+  margin-right: 20px;
 `;
 
 const chipStyle = css`
@@ -321,4 +356,46 @@ const backButton = css`
   flex-grow: 1;
   margin-bottom: 50px;
   color: #ff4755;
+`;
+
+const boxStyle = css`
+  border-bottom: solid 1px #ced1d8;
+  position: relative;
+  &: after {
+    position: absolute;
+    content: " ";
+    display: block;
+    border-bottom: solid 1px #3f4551;
+    bottom: -1px;
+    width: 30%;
+  }
+`;
+
+const commentTitle = css`
+  margin-top: 50px;
+  margin-bottom: 30px;
+`;
+
+const commentIcon = css`
+  padding-top: 10px;
+  margin-right: 15px;
+`;
+
+const bottomSpace = css`
+  margin-bottom: 40px;
+`;
+
+const navStyle = css`
+  margin-top: 50px;
+  margin-bottom: 30px;
+`;
+
+const navBox = css`
+  border-top: dotted 1px #535aaa;
+`;
+
+const commentFormTitle = css`
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 15px;
 `;

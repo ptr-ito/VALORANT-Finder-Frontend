@@ -24,11 +24,11 @@ const Routers = memo(() => {
           <Route path="signup" element={<SignUp />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="sendemail" element={<SendEmail />} />
+          <Route path="post" element={<MatchPostList />} />
+          <Route path="post/:id" element={<MatchPostDetail />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route element={<DefaultLayout />}>
-            <Route path="post" element={<MatchPostList />} />
-            <Route path="post/:id" element={<MatchPostDetail />} />
             <Route path="mypage" element={<MyPage />} />
             <Route path="mypage/edit" element={<EditProfile />} />
             <Route path="mypage/usersettings" element={<UserSettings />} />

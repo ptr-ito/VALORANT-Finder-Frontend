@@ -99,6 +99,12 @@ export const MatchPostUpdateSchema = z.object({
   moodId: z.preprocess((v) => String(v), z.string()),
 });
 
+export const MatchPostCommentSchema = z.object({
+  content: z.string().min(1, { message: "コメントを入力してください" }),
+});
+
 export type MatchPostSchemaType = z.infer<typeof MatchPostSchema>;
 
 export type MatchPostUpdateSchemaType = z.infer<typeof MatchPostUpdateSchema>;
+
+export type MatchPostCommentSchemaType = z.infer<typeof MatchPostCommentSchema>;

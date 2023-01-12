@@ -90,7 +90,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
             avatar={<Avatar src={matchPost.attributes.userImage?.url} css={avatar} />}
             title={
               <>
-                <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
                   <Typography variant="body2">{matchPost.attributes.userName}</Typography>
                   <Typography variant="body2" css={timeStyle}>
                     {matchPost.attributes.createdAt}
@@ -244,6 +244,10 @@ const avatar = css`
   height: 48px;
 `;
 
+const flex = css`
+  display: flex;
+`;
+
 const borderStyle = css`
   margin-top: 10px;
   margin-bottom: 10px;
@@ -258,10 +262,8 @@ const subTitle = css`
 
 const timeStyle = css`
   color: #7f7f7f;
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 600px;
-  margin-right: 30px;
+  margin-left: auto;
+  margin-right: 20px;
 `;
 
 const chipStyle = css`

@@ -32,6 +32,7 @@ export interface User {
   updated_at: Date;
 }
 
+// ユーザー更新
 export interface UpdateUserData {
   id: number | undefined | null;
   name?: string;
@@ -44,6 +45,7 @@ export interface UpdateUserData {
   passwordConfirmation?: string;
 }
 
+// メールアドレス更新
 export interface UpdateEmailData {
   email?: string;
 }
@@ -66,11 +68,28 @@ export interface MatchPost {
   };
 }
 
+// マッチ募集投稿更新
 export interface MatchPostUpdate {
   content?: string;
   rankIds?: string;
   modeId?: string;
   moodId?: string;
+}
+
+// マッチ募集投稿コメント
+export interface MatchPostComment {
+  attributes: {
+    id: string;
+    content: string;
+    matchPostId: string;
+    parentId: string;
+    userId: string;
+    userName: string;
+    userImage?: {
+      url: string;
+    };
+    createdAt: string;
+  };
 }
 
 export interface UpdateUserFormData extends FormData {
@@ -89,6 +108,10 @@ export interface MatchPostUpdateFormData extends FormData {
   append(name: keyof MatchPostUpdate, value: String | Blob | Number): any;
 }
 
+export interface PostCommentFormData extends FormData {
+  append(name: keyof MatchPostComment, value: String | Blob | Number, fileName?: string): any;
+}
+
 export interface PostFormProps {
   handleGetPosts: Function;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -104,4 +127,19 @@ export interface PostEditProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   matchPost: MatchPost | undefined;
   query: any;
+}
+
+export interface PostCommentFormProps {
+  query: any;
+}
+
+export interface PostCommentItemProps {
+  postComment: MatchPostComment;
+  query: any;
+}
+
+export interface PostCommentEditProps {
+  postComment: MatchPostComment;
+  query: any;
+  setVisibleEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }

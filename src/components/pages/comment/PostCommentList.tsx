@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Box, Typography, cardActionAreaClasses } from "@mui/material";
 import MatchPostItem from "components/pages/post/MatchPostItem";
 import MatchPostForm from "components/pages/post/MatchPostForm";
 import Button from "@mui/material/Button";
 import { getPosts } from "lib/api/matchPosts";
-import { MatchPost } from "interfaces/index";
+import { MatchPost, MatchPostComment } from "interfaces/index";
 import Divider from "@mui/material/Divider";
 import { css } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
@@ -13,28 +13,16 @@ import "index.css";
 import macth_samb from "assets/images/macth_samb.jpeg";
 import Modal from "react-modal";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { AuthContext } from "App";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import useAlertMessage from "components/util/useAlertMessage";
-import { Icon } from "components/ui/icon/Icon";
+import PostCommentItem from "components/pages/comment/PostCommentItem";
+import { showPost } from "lib/api/matchPosts";
+import PostCommentForm from "components/pages/comment/PostCommentForm";
 
-const MatchPostList = () => {
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
-  const { error } = useAlertMessage();
-  const navigate = useNavigate();
+const PostCommentList = (query: any) => {
   const [matchPosts, setMatchPosts] = useState<MatchPost[]>([]);
   const [openModal, setOpenModal] = useState(false);
-  const handleOpen = () => {
-    if (isSignedIn) {
-      setOpenModal(true);
-    } else {
-      navigate("/signin");
-      {
-        error("ログインしてください");
-      }
-    }
-  };
+  const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
+  const [postComments, setPostComments] = useState<MatchPostComment[]>([]);
 
   useEffect(() => {
     if (openModal) document.body.style.overflow = "hidden";
@@ -44,13 +32,13 @@ const MatchPostList = () => {
     };
   }, [openModal]);
 
-  const handleGetPosts = async () => {
+  const handleGetComments = async (query: any) => {
     try {
-      const res = await getPosts();
+      const res = await showPost(query.id);
 
       if (res.status === 200) {
-        console.log(res);
-        setMatchPosts(res.data.data);
+        console.log(res.data.included);
+        setPostComments(res.data.included);
       } else {
         console.log("No posts");
       }
@@ -59,35 +47,17 @@ const MatchPostList = () => {
     }
   };
 
-  useEffect(() => {
-    handleGetPosts();
-  }, []);
+  // useEffect(() => {
+  //   handleGetComments(query);
+  // }, [query]);
 
   return (
     <Container maxWidth="lg">
       <Grid container direction="row" justifyContent="center">
-        <Box component="div" css={divStyle}>
-          <Grid item>
-            <img src={macth_samb} css={imgStyle} />
-          </Grid>
-          <Typography component="p" css={text}>
-            マッチ募集
-          </Typography>
-        </Box>
-        <Divider sx={{ mt: 5, mb: 2 }} />
+        <Grid item>{/* <PostCommentForm query={query} /> */}</Grid>
         <Grid item>
-          <Divider sx={{ mt: 5, mb: 2 }} />
-          <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
-            マッチ募集を投稿する
-          </Button>
-          <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
-            <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-              閉じる
-            </Button>
-            {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
-          </Modal>
-          {matchPosts?.map((matchPost: MatchPost) => {
-            return <MatchPostItem key={matchPost.attributes.id} matchPost={matchPost} handleGetPosts={handleGetPosts} />;
+          {postComments?.map((postComment: MatchPostComment) => {
+            return <PostCommentItem key={postComment.attributes.id} postComment={postComment} />;
           })}
         </Grid>
       </Grid>
@@ -95,7 +65,7 @@ const MatchPostList = () => {
   );
 };
 
-export default MatchPostList;
+export default PostCommentList;
 
 // css
 
