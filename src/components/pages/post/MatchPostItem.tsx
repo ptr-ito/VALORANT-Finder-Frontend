@@ -48,15 +48,15 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
         setDeleteConfirmDialogConfig({ onClose: resolve });
       });
       setDeleteConfirmDialogConfig(undefined);
-      console.log(ret);
-      console.log(id);
       if (ret === "ok") {
-        deletePost(id);
-        handleGetPosts();
-        {
-          success("投稿を削除しました");
+        const res = await deletePost(id);
+        if (res.status === 200) {
+          handleGetPosts();
+          {
+            success("投稿を削除しました");
+          }
+          console.log("削除する:OK時の処理を実行する");
         }
-        console.log("削除する:OK時の処理を実行する");
       }
       if (ret === "cancel") {
         console.log("削除する:Cancel時の処理を実行する");

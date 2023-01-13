@@ -15,7 +15,7 @@ import { css } from "@emotion/react";
 import ForumIcon from "@mui/icons-material/Forum";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 
-const PostCommentEdit = ({ postComment, query, setVisibleEdit }: PostCommentEditProps) => {
+const PostCommentEdit = ({ postComment, query, setVisibleEdit, handleGetComments }: PostCommentEditProps) => {
   const [content, setContent] = useState<string>(postComment.attributes.content);
   const navigate = useNavigate();
   const { success } = useAlertMessage();
@@ -48,7 +48,7 @@ const PostCommentEdit = ({ postComment, query, setVisibleEdit }: PostCommentEdit
       if (res.status === 200) {
         setContent("");
         setVisibleEdit(false);
-        navigate(`/post/${query.id}`);
+        navigate(`/post/${query.query.id}`);
         {
           success("コメントを更新しました");
         }

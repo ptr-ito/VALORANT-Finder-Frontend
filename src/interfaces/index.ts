@@ -82,7 +82,7 @@ export interface MatchPostComment {
     id: string;
     content: string;
     matchPostId: string;
-    parentId: string;
+    rootId: string;
     userId: string;
     userName: string;
     userImage?: {
@@ -130,16 +130,26 @@ export interface PostEditProps {
 }
 
 export interface PostCommentFormProps {
+  handleGetComments: Function;
   query: any;
+}
+
+export interface PostCommentReplyProps {
+  handleGetComments: Function;
+  query: any;
+  rootId: string;
 }
 
 export interface PostCommentItemProps {
   postComment: MatchPostComment;
+  handleGetComments: Function;
   query: any;
+  replies: any;
 }
 
 export interface PostCommentEditProps {
   postComment: MatchPostComment;
   query: any;
   setVisibleEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  handleGetComments: Function;
 }

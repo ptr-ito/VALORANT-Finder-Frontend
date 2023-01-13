@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createPostComment } from "lib/api/comments";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MatchPostComment, PostCommentFormData, PostCommentFormProps } from "interfaces/index";
+import { MatchPostComment, PostCommentFormData, PostCommentReplyProps } from "interfaces/index";
 import { MatchPostCommentSchema, MatchPostCommentSchemaType } from "validation/Schema";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -15,7 +15,7 @@ import { css } from "@emotion/react";
 import ForumIcon from "@mui/icons-material/Forum";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 
-const PostComment = ({ query, handleGetComments }: PostCommentFormProps) => {
+const PostCommentReply = ({ query, handleGetComments, rootId }: PostCommentReplyProps) => {
   const [content, setContent] = useState<string>("");
   const navigate = useNavigate();
   const { success } = useAlertMessage();
@@ -34,6 +34,7 @@ const PostComment = ({ query, handleGetComments }: PostCommentFormProps) => {
     const formData = new FormData();
 
     formData.append("content", content);
+    formData.append("rootId", rootId);
 
     return formData;
   };
@@ -85,7 +86,7 @@ const PostComment = ({ query, handleGetComments }: PostCommentFormProps) => {
   );
 };
 
-export default PostComment;
+export default PostCommentReply;
 
 // css
 

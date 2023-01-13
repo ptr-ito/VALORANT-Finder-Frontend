@@ -13,7 +13,7 @@ import { PostCommentItemProps, PostCommentFormData, PostCommentFormProps } from 
 import SendIcon from "@mui/icons-material/Send";
 import { AuthContext } from "App";
 import useAlertMessage from "components/util/useAlertMessage";
-import PostCommentForm from "components/pages/comment/PostCommentForm";
+import PostCommentReply from "components/pages/comment/PostCommentReply";
 import PostCommentEdit from "components/pages/comment/PostCommentEdit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Menu from "@mui/material/Menu";
@@ -21,11 +21,12 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deletePostComment } from "lib/api/comments";
 import { DeleteConfirmDialog, DeleteConfirmDialogProps } from "components/util/DeleteConfirmDaialog";
 
-const PostCommentItem = ({ postComment, query }: PostCommentItemProps) => {
+const PostCommentItem = ({ postComment, query, handleGetComments, replies }: PostCommentItemProps) => {
   const [visibleReply, setVisibleReply] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
   const { error } = useAlertMessage();
@@ -33,6 +34,7 @@ const PostCommentItem = ({ postComment, query }: PostCommentItemProps) => {
   const [deleteConfirmDialogConfig, setDeleteConfirmDialogConfig] = React.useState<DeleteConfirmDialogProps | undefined>();
   const { success } = useAlertMessage();
   const navigate = useNavigate();
+  const [rootId, setRootId] = useState<string>("");
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
@@ -55,17 +57,18 @@ const PostCommentItem = ({ postComment, query }: PostCommentItemProps) => {
         setDeleteConfirmDialogConfig({ onClose: resolve });
       });
       setDeleteConfirmDialogConfig(undefined);
-      console.log(ret);
-      console.log(id);
       if (ret === "ok") {
-        deletePostComment(id);
-        navigate(`/post/${query.id}`);
-        {
-          success("コメントを削除しました");
+        const res = await deletePostComment(id);
+        if (res.status === 200) {
+          navigate(`/post/${query.query.id}`);
+          {
+            success("コメントを削除しました");
+          }
+          console.log("削除する:OK時の処理を実行する");
         }
-        console.log("削除する:OK時の処理を実行する");
       }
       if (ret === "cancel") {
+        setAnchorEl(null);
         console.log("削除する:Cancel時の処理を実行する");
       }
     } catch (err) {
@@ -73,48 +76,147 @@ const PostCommentItem = ({ postComment, query }: PostCommentItemProps) => {
     }
   };
 
-  // const handleOpenReply = () => {
-  //   if (isSignedIn) {
-  //     setVisible(!visible);
-  //   } else {
-  //     setVisible(false);
-  //     {
-  //       error("ログインしてください");
-  //     }
-  //   }
-  // };
+  const handleOpenReply = () => {
+    if (isSignedIn) {
+      setVisibleReply(!visibleReply);
+      setRootId(postComment.attributes.id);
+    } else {
+      setVisibleReply(false);
+      {
+        error("ログインしてください");
+      }
+    }
+  };
+
+  console.log(replies);
 
   return (
     <>
       <Box>
-        <Card css={cardStyle} sx={{ boxShadow: 0 }}>
-          <Grid container direction="row">
-            <Avatar src={postComment.attributes.userImage?.url} css={avatar} />
-            <CardHeader
-              // avatar={<Avatar src={postComment.attributes.userImage?.url} css={avatar} />}
+        <Card sx={{ boxShadow: 0 }}>
+          <Box css={flex}>
+            <Paper css={paperStyle}>
+              <Grid container wrap="nowrap" spacing={2} css={flex}>
+                <Grid item>
+                  <Avatar src={postComment.attributes.userImage?.url} css={avatar} />
+                </Grid>
+                <Grid container justifyContent="left" item xs zeroMinWidth>
+                  <Typography variant="body2" css={userNameStyle}>
+                    {postComment.attributes.userName}
+                  </Typography>
+                  <Typography variant="body2" css={timeStyle}>
+                    {postComment.attributes.createdAt}
+                  </Typography>
+                  <IconButton
+                    css={menuStyle}
+                    id="menu-button"
+                    aria-controls={openMenu ? "menu-button" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openMenu ? "true" : undefined}
+                    onClick={handleMenuClick}
+                  >
+                    <MoreHorizIcon />
+                  </IconButton>
+                  <Menu
+                    id="menu-button"
+                    aria-labelledby="menu-button"
+                    anchorEl={anchorEl}
+                    open={openMenu}
+                    onClose={handleMenuClose}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                  >
+                    <MenuItem disableRipple={true} onClick={handleOpenEdit}>
+                      <ListItemIcon>
+                        <EditIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                        編集
+                      </ListItemText>
+                    </MenuItem>
+                    <MenuItem disableRipple={true} onClick={() => handleDeletePostComment(postComment.attributes.id)}>
+                      <ListItemIcon>
+                        <DeleteIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                        削除
+                      </ListItemText>
+                    </MenuItem>
+                    {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                  </Menu>
+                </Grid>
+              </Grid>
+              {visibleEdit ? (
+                <Box css={contentStyle}>
+                  <PostCommentEdit postComment={postComment} query={query} setVisibleEdit={setVisibleEdit} handleGetComments={handleGetComments} />
+                </Box>
+              ) : (
+                <>
+                  <Box css={contentDisplay}>
+                    <Typography variant="body2" component="span" css={contentStyle}>
+                      {postComment.attributes.content.split("\n").map((content: string, index: number) => {
+                        return <p key={index}>{content}</p>;
+                      })}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    {replies.length > 0 &&
+                      replies.map((reply: any) => {
+                        return <PostCommentItem key={reply.id} postComment={reply} query={query} handleGetComments={handleGetComments} replies={[]} />;
+                      })}
+                  </Box>
+                </>
+              )}
+              {postComment.attributes.rootId === null ? (
+                <>
+                  <Button onClick={handleOpenReply} startIcon={<SendIcon />} variant="outlined" disableRipple={true} css={replyStyle}>
+                    {visibleReply ? "返信する" : "返信する"}
+                  </Button>
+                  {visibleReply && (
+                    <Box css={replyTextForm} sx={{ width: "100px" }}>
+                      <PostCommentReply query={query} handleGetComments={handleGetComments} rootId={rootId} />
+                    </Box>
+                  )}
+                </>
+              ) : (
+                <></>
+              )}
+            </Paper>
+            {/* <CardHeader
+              avatar={<Avatar src={postComment.attributes.userImage?.url} css={avatar} />}
               title={
                 <>
-                  <Grid container alignItems="center" css={flex}>
+                  <Grid container alignItems="center">
                     <Typography variant="body2" css={userNameStyle}>
                       {postComment.attributes.userName}
                     </Typography>
                     <Typography variant="body2" css={timeStyle}>
                       {postComment.attributes.createdAt}
                     </Typography>
-                    {isSignedIn && currentUser?.id == postComment.attributes.userId ? (
-                      <IconButton
-                        css={menuStyle}
-                        id="menu-button"
-                        aria-controls={openMenu ? "menu-button" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openMenu ? "true" : undefined}
-                        onClick={handleMenuClick}
-                      >
-                        <MoreHorizIcon />
-                      </IconButton>
-                    ) : (
-                      <></>
-                    )}
+                    {/* {isSignedIn && currentUser?.id == postComment.attributes.userId ? ( }
+                    <IconButton
+                      css={menuStyle}
+                      id="menu-button"
+                      aria-controls={openMenu ? "menu-button" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={openMenu ? "true" : undefined}
+                      onClick={handleMenuClick}
+                    >
+                      <MoreHorizIcon />
+                    </IconButton>
+                    {/* ) : (
+                      <>
+                        <Box component="span" css={menuStyle}>
+                          &nbsp;
+                        </Box>
+                      </>
+                    )} }
                     <Menu
                       id="menu-button"
                       aria-labelledby="menu-button"
@@ -154,29 +256,34 @@ const PostCommentItem = ({ postComment, query }: PostCommentItemProps) => {
               subheader={
                 visibleEdit ? (
                   <Box css={contentStyle}>
-                    <PostCommentEdit postComment={postComment} query={query} setVisibleEdit={setVisibleEdit} />
+                    <PostCommentEdit postComment={postComment} query={query} setVisibleEdit={setVisibleEdit} handleGetComments={handleGetComments} />
                   </Box>
                 ) : (
-                  <>
+                  <Box>
                     <Typography variant="body2" component="span" css={contentStyle}>
                       {postComment.attributes.content.split("\n").map((content: string, index: number) => {
                         return <p key={index}>{content}</p>;
                       })}
                     </Typography>
-                  </>
+                    <Box>
+                      {replies.length > 0 &&
+                        replies.map((reply: any) => {
+                          return <PostCommentItem key={reply.id} postComment={reply} query={query} handleGetComments={handleGetComments} replies={[]} />;
+                        })}
+                    </Box>
+                  </Box>
                 )
               }
-              sx={{ width: "900px" }}
-            />
-            {/* <Button onClick={handleOpen} startIcon={<SendIcon />} variant="outlined" disableRipple={true} css={replyStyle}>
-              {visible ? "返信する" : "返信する"}
-            </Button>
-            {visible && (
-              <Box css={replyTextForm}>
-                <PostCommentForm query={query} />
-              </Box>
-            )} */}
-          </Grid>
+            /> */}
+            {/* <Button onClick={handleOpenReply} startIcon={<SendIcon />} variant="outlined" disableRipple={true} css={replyStyle}>
+                {visibleReply ? "返信する" : "返信する"}
+              </Button>
+              {visibleReply && (
+                <Box css={replyTextForm} sx={{ width: "100px" }}>
+                  <PostCommentReply query={query} handleGetComments={handleGetComments} rootId={rootId} />
+                </Box>
+              )} */}
+          </Box>
         </Card>
       </Box>
     </>
@@ -187,12 +294,9 @@ export default PostCommentItem;
 
 // css
 
-const cardStyle = css``;
-
 const avatar = css`
   width: 40px;
   height: 40px;
-  margin-top: 30px;
 `;
 
 const timeStyle = css`
@@ -201,9 +305,9 @@ const timeStyle = css`
 `;
 
 const replyStyle = css`
-  margin-top: 40px;
-  font-size: 0.75rem;
-  width: 104px;
+  margin-top: 20px;
+  font-size: 0.5px;
+  width: 100px;
   height: 30px;
   color: #3f4551;
   border-color: #cccccc;
@@ -236,6 +340,14 @@ const menuStyle = css`
   margin-left: auto;
 `;
 
-const flex = css`
-  display: flex;
+const flex = css``;
+
+const contentDisplay = css`
+  margin-left: 56px;
+`;
+
+const paperStyle = css`
+  padding-top: 40px;
+  padding-bottom: 30px;
+  padding-left: 56px;
 `;

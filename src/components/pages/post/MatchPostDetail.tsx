@@ -248,7 +248,8 @@ const MatchPostDetail = () => {
           <Typography variant="h5">コメント一覧</Typography>
         </Grid>
       </Grid>
-      <Grid container direction="column" css={bottomSpace}>
+      <PostCommentList query={query} />
+      {/* <Grid container direction="column" css={bottomSpace}>
         {postComments?.map((postComment: MatchPostComment) => {
           return <PostCommentItem key={postComment.attributes.id} postComment={postComment} query={query} />;
         })}
@@ -283,7 +284,7 @@ const MatchPostDetail = () => {
             </Box>
           </>
         )}
-      </Grid>
+      </Grid> */}
     </>
   );
 };
