@@ -48,15 +48,15 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
         setDeleteConfirmDialogConfig({ onClose: resolve });
       });
       setDeleteConfirmDialogConfig(undefined);
-      console.log(ret);
-      console.log(id);
       if (ret === "ok") {
-        deletePost(id);
-        handleGetPosts();
-        {
-          success("投稿を削除しました");
+        const res = await deletePost(id);
+        if (res.status === 200) {
+          handleGetPosts();
+          {
+            success("投稿を削除しました");
+          }
+          console.log("削除する:OK時の処理を実行する");
         }
-        console.log("削除する:OK時の処理を実行する");
       }
       if (ret === "cancel") {
         console.log("削除する:Cancel時の処理を実行する");
@@ -90,7 +90,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
             avatar={<Avatar src={matchPost.attributes.userImage?.url} css={avatar} />}
             title={
               <>
-                <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
                   <Typography variant="body2">{matchPost.attributes.userName}</Typography>
                   <Typography variant="body2" css={timeStyle}>
                     {matchPost.attributes.createdAt}
@@ -244,6 +244,10 @@ const avatar = css`
   height: 48px;
 `;
 
+const flex = css`
+  display: flex;
+`;
+
 const borderStyle = css`
   margin-top: 10px;
   margin-bottom: 10px;
@@ -258,10 +262,8 @@ const subTitle = css`
 
 const timeStyle = css`
   color: #7f7f7f;
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 600px;
-  margin-right: 30px;
+  margin-left: auto;
+  margin-right: 20px;
 `;
 
 const chipStyle = css`

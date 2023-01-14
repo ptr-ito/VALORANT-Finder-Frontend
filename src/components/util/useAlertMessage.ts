@@ -7,8 +7,8 @@ const useAlertMessage = () => {
   const error = (msg: string) => {
     toast.error(msg, {
       position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: true,
+      autoClose: 1700,
+      hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -19,8 +19,8 @@ const useAlertMessage = () => {
   const success = (msg: string) => {
     toast.success(msg, {
       position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: true,
+      autoClose: 1700,
+      hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Grid, Box, Typography, cardActionAreaClasses } from "@mui/material";
 import MatchPostItem from "components/pages/post/MatchPostItem";
 import MatchPostForm from "components/pages/post/MatchPostForm";
@@ -13,11 +13,27 @@ import "index.css";
 import macth_samb from "assets/images/macth_samb.jpeg";
 import Modal from "react-modal";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { AuthContext } from "App";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import useAlertMessage from "components/util/useAlertMessage";
+import { Icon } from "components/ui/icon/Icon";
 
 const MatchPostList = () => {
+  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const { error } = useAlertMessage();
+  const navigate = useNavigate();
   const [matchPosts, setMatchPosts] = useState<MatchPost[]>([]);
   const [openModal, setOpenModal] = useState(false);
-  const handleOpen = () => setOpenModal(true);
+  const handleOpen = () => {
+    if (isSignedIn) {
+      setOpenModal(true);
+    } else {
+      navigate("/signin");
+      {
+        error("ログインしてください");
+      }
+    }
+  };
   const handleClose = () => setOpenModal(false);
 
   useEffect(() => {
@@ -33,7 +49,7 @@ const MatchPostList = () => {
       const res = await getPosts();
 
       if (res.status === 200) {
-        console.log(res.data.data);
+        console.log(res);
         setMatchPosts(res.data.data);
       } else {
         console.log("No posts");
@@ -58,10 +74,8 @@ const MatchPostList = () => {
             マッチ募集
           </Typography>
         </Box>
-        <Divider sx={{ mt: 5, mb: 2 }} />
-        <Grid item>
-          <Divider sx={{ mt: 5, mb: 2 }} />
-          <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<AddCircleIcon />}>
+        <Grid item css={border}>
+          <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
             マッチ募集を投稿する
           </Button>
           <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
@@ -109,6 +123,7 @@ const text = css`
 
 const openButtonStyle = css`
   background-color: #ff4755;
+  margin-top: 50px;
   &:hover {
     background-color: #ff4755;
   }
@@ -131,3 +146,18 @@ const customStyles = {
     height: "800px",
   },
 };
+
+const border = css`
+  margin-top: 50px;
+  padding-bottom: 50px;
+  border-top: solid 1px #ced1d8;
+  position: relative;
+  &: after {
+    position: absolute;
+    content: " ";
+    display: block;
+    border-top: solid 1px #3f4551;
+    top: -1px;
+    width: 21%;
+  }
+`;
