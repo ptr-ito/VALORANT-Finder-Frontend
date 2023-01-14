@@ -138,6 +138,7 @@ export interface PostCommentReplyProps {
   handleGetComments: Function;
   query: any;
   rootId: string;
+  setVisibleReply: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface PostCommentItemProps {

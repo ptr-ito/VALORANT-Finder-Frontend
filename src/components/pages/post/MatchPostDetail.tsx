@@ -249,42 +249,6 @@ const MatchPostDetail = () => {
         </Grid>
       </Grid>
       <PostCommentList query={query} />
-      {/* <Grid container direction="column" css={bottomSpace}>
-        {postComments?.map((postComment: MatchPostComment) => {
-          return <PostCommentItem key={postComment.attributes.id} postComment={postComment} query={query} />;
-        })}
-        {isSignedIn ? (
-          <>
-            <Grid container alignItems="center">
-              <Grid item>
-                <Avatar src={matchPost?.attributes.userImage?.url} css={avatar} />
-              </Grid>
-              <Grid item>
-                <Typography variant="h5" css={commentFormTitle}>
-                  コメントする
-                </Typography>
-              </Grid>
-            </Grid>
-            <PostCommentForm query={query} />
-          </>
-        ) : (
-          <>
-            <Box textAlign="center" css={navBox}>
-              <Typography variant="body1" css={navStyle}>
-                コメントするためには
-                <Typography variant="body1" component={Link} to="/signin">
-                  ログイン
-                </Typography>
-                が必要です。
-              </Typography>
-              <Typography sx={{ mb: 1 }}>アカウントをお持ちでない場合は</Typography>
-              <Button variant="outlined" color="inherit" component={Link} to="/signup" disableRipple={true}>
-                新規登録する
-              </Button>
-            </Box>
-          </>
-        )}
-      </Grid> */}
     </>
   );
 };
@@ -360,6 +324,7 @@ const backButton = css`
 `;
 
 const boxStyle = css`
+  border-top: solid 1px #ced1d8;
   border-bottom: solid 1px #ced1d8;
   position: relative;
   &: after {

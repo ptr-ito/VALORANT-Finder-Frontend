@@ -1,5 +1,5 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Button, Grid } from "@mui/material";
-import { css } from "@emotion/react";
+import { SerializedStyles, css } from "@emotion/react";
 
 export type MyDialogProps = {
   onClose: (value: string) => void;
@@ -7,14 +7,17 @@ export type MyDialogProps = {
   message?: string;
   ok?: string;
   cancel?: string;
+  css?: SerializedStyles;
 };
 
 export function MyDialog(props: MyDialogProps) {
-  const { onClose, title, message, ok, cancel } = props;
+  const { onClose, title, message, ok, cancel, css } = props;
 
   return (
     <Dialog open onClose={() => onClose("close")} fullWidth>
-      <DialogTitle css={dialogTitle}>{title}</DialogTitle>
+      <DialogTitle sx={{ mt: 3 }} css={dialogTitle}>
+        {title}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>{message}</DialogContentText>
       </DialogContent>

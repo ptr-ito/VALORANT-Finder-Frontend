@@ -15,7 +15,7 @@ import { css } from "@emotion/react";
 import ForumIcon from "@mui/icons-material/Forum";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 
-const PostCommentReply = ({ query, handleGetComments, rootId }: PostCommentReplyProps) => {
+const PostCommentReply = ({ query, handleGetComments, rootId, setVisibleReply }: PostCommentReplyProps) => {
   const [content, setContent] = useState<string>("");
   const navigate = useNavigate();
   const { success } = useAlertMessage();
@@ -37,6 +37,10 @@ const PostCommentReply = ({ query, handleGetComments, rootId }: PostCommentReply
     formData.append("rootId", rootId);
 
     return formData;
+  };
+
+  const handleCancelSubmit = () => {
+    setVisibleReply(false);
   };
 
   const handleCreatePostComment: SubmitHandler<MatchPostCommentSchemaType> = async () => {
@@ -78,9 +82,14 @@ const PostCommentReply = ({ query, handleGetComments, rootId }: PostCommentReply
         <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
           {errors.content ? errors.content?.message : ""}
         </FormHelperText>
-        <Button type="submit" variant="contained" fullWidth disableRipple={true} css={commentSubmit}>
-          投稿する
-        </Button>
+        <Grid container justifyContent="center">
+          <Button type="submit" variant="contained" disableRipple={true} css={commentSubmit}>
+            返信
+          </Button>
+          <Button variant="outlined" onClick={handleCancelSubmit} disableRipple={true} css={commentCancelSubmit}>
+            キャンセル
+          </Button>
+        </Grid>
       </form>
     </>
   );
@@ -95,4 +104,14 @@ const commentSubmit = css`
   &:hover {
     background-color: #3f4551;
   }
+`;
+
+const commentCancelSubmit = css`
+  color: #3f4551;
+  border-color: #3f4551;
+  &:hover {
+    bcolor: #3f4551;
+    border-color: #3f4551;
+  }
+  margin-left: 15px;
 `;

@@ -74,9 +74,7 @@ const MatchPostList = () => {
             マッチ募集
           </Typography>
         </Box>
-        <Divider sx={{ mt: 5, mb: 2 }} />
-        <Grid item>
-          <Divider sx={{ mt: 5, mb: 2 }} />
+        <Grid item css={border}>
           <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
             マッチ募集を投稿する
           </Button>
@@ -125,6 +123,7 @@ const text = css`
 
 const openButtonStyle = css`
   background-color: #ff4755;
+  margin-top: 50px;
   &:hover {
     background-color: #ff4755;
   }
@@ -147,3 +146,18 @@ const customStyles = {
     height: "800px",
   },
 };
+
+const border = css`
+  margin-top: 50px;
+  padding-bottom: 50px;
+  border-top: solid 1px #ced1d8;
+  position: relative;
+  &: after {
+    position: absolute;
+    content: " ";
+    display: block;
+    border-top: solid 1px #3f4551;
+    top: -1px;
+    width: 21%;
+  }
+`;
