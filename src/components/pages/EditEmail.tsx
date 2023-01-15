@@ -25,7 +25,7 @@ const EditEmail = () => {
   const navigate = useNavigate();
 
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
-  const [email, setEmail] = useState<string | undefined>(currentUser?.email);
+  const [email, setEmail] = useState<string | undefined>(currentUser?.attributes.email);
 
   const { success } = useAlertMessage();
 

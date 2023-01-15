@@ -54,9 +54,19 @@ export const ProfileSchema = z.object({
       message: "ユーザーネームは2文字以上20文字以下で入力してください",
     }),
 
+  ingameName: z.string(),
+
+  startedOnVal: z.string(),
+
+  twitterName: z.string(),
+
+  youtubeUrl: z.string(),
+
+  highestRankId: z.preprocess((v) => String(v), z.string()),
+
   rankId: z.preprocess((v) => String(v), z.string()),
 
-  agentId: z.preprocess((v) => String(v), z.string()),
+  agentId: z.preprocess((v) => String(v), z.string().min(1, { message: "エージェントを選ばない場合は「未選択」を選択してください" })),
 
   selfIntroduction: z.string().max(1000, {
     message: "自己紹介は1000文字以下で入力してください",

@@ -42,6 +42,8 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
 
   const [deleteConfirmDialogConfig, setDeleteConfirmDialogConfig] = React.useState<DeleteConfirmDialogProps | undefined>();
 
+  console.log(matchPost?.attributes);
+
   const handleDeletePost = async (id: string) => {
     try {
       const ret = await new Promise<string>((resolve) => {

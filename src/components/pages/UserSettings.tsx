@@ -34,7 +34,7 @@ const UserSettings = () => {
               <List>
                 <ListItem>
                   <ListItemText primary="メールアドレス" sx={{ mr: 7 }} css={spacing} />
-                  <ListItemText primary={currentUser?.email} />
+                  <ListItemText primary={currentUser?.attributes.email} />
                   <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/email">
                     <Typography>編集</Typography>
                   </Button>

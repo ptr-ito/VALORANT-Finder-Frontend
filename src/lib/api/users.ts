@@ -3,7 +3,7 @@ import { UpdateUserFormData } from "interfaces/index";
 
 // id指定でユーザー情報を個別に取得
 export const getUser = (id: number | undefined) => {
-  return client.get(`users/${id}`);
+  return client.get(`user/users/${id}`);
 };
 
 // ユーザー情報を更新

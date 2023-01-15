@@ -70,7 +70,7 @@ const PostCommentList = (query: any) => {
         <>
           <Grid container alignItems="center">
             <Grid item>
-              <Avatar src={currentUser?.image.url} css={avatar} />
+              <Avatar src={currentUser?.attributes.image.url} css={avatar} />
             </Grid>
             <Grid item>
               <Typography variant="h5" css={commentFormTitle}>

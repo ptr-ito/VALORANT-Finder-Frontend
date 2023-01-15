@@ -25,17 +25,6 @@ import { updatePost } from "lib/api/matchPosts";
 import { MatchPostUpdate } from "interfaces/index";
 import { useNavigate } from "react-router-dom";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
 const MatchPostEdit = ({ handleGetPosts, setOpenModal, matchPost, query }: PostEditProps) => {
   const navigate = useNavigate();
 
@@ -171,7 +160,7 @@ const MatchPostEdit = ({ handleGetPosts, setOpenModal, matchPost, query }: PostE
                           <Chip
                             key={value}
                             label={rankOptions.find((item) => item.value === value)?.label}
-                            onDelete={(event) => chipDelete(value)}
+                            onDelete={() => chipDelete(value)}
                             onMouseDown={(event) => {
                               event.stopPropagation();
                             }}
@@ -242,6 +231,17 @@ const MatchPostEdit = ({ handleGetPosts, setOpenModal, matchPost, query }: PostE
 export default MatchPostEdit;
 
 // css
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const title = css`
   font-weight: bold;

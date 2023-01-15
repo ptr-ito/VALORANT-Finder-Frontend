@@ -29,11 +29,11 @@ const App = () => {
     try {
       const res = await getCurrentUser();
 
-      if (res?.data.isLogin === true) {
-        setIsSignedIn(true);
-        setCurrentUser(res?.data.currentUser);
+      console.log(res?.data.data);
 
-        console.log(res?.data.currentUser);
+      if (res?.data.data.attributes.isLogin === true) {
+        setIsSignedIn(true);
+        setCurrentUser(res?.data.data);
       } else {
         console.log("No current user");
       }
