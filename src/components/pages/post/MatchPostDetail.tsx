@@ -63,6 +63,7 @@ const MatchPostDetail = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  
 
   const { success } = useAlertMessage();
 
@@ -135,11 +136,11 @@ const MatchPostDetail = () => {
       <Box css={boxStyle}>
         <Card css={cardStyle} sx={{ boxShadow: 0 }}>
           <CardHeader
-            avatar={<Avatar src={matchPost?.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${matchPost?.attributes.userId}`} />}
+            avatar={<Avatar src={matchPost?.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${matchPost?.attributes.userUuid}`} />}
             title={
               <>
                 <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
-                  <Typography variant="body2" component={Link} to={`/user/${matchPost?.attributes.userId}`} css={userLink}>
+                  <Typography variant="body2" component={Link} to={`/user/${matchPost?.attributes.userUuid}`} css={userLink}>
                     {matchPost?.attributes.userName}
                   </Typography>
                   <Typography variant="body2" css={timeStyle}>

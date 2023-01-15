@@ -30,6 +30,8 @@ const UserProfile = () => {
     navigate(-1);
   };
 
+  console.log(query);
+
   const handleGetUser = async (query: any) => {
     try {
       const res = await getUser(query.id);

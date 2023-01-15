@@ -18,6 +18,7 @@ export interface SignInParams {
 export interface User {
   attributes: {
     id: string;
+    uuid: string;
     uid: string;
     provider: string;
     email: string;
@@ -67,6 +68,7 @@ export interface UpdateEmailData {
 export interface MatchPost {
   attributes: {
     id: string;
+    userUuid: string;
     userId: string;
     content: string;
     status: string;
@@ -93,6 +95,7 @@ export interface MatchPostUpdate {
 export interface MatchPostComment {
   attributes: {
     id: string;
+    uuid: string;
     content: string;
     matchPostId: string;
     rootId: string;
