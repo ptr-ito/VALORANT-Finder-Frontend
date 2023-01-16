@@ -20,7 +20,7 @@ import Chip from "@mui/material/Chip";
 const MyPage = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
 
-  console.log(currentUser);
+  console.log(currentUser?.attributes);
 
   return (
     <>
@@ -82,15 +82,19 @@ const MyPage = () => {
                 <ListItemText primary="最高ランク" css={spacing} />
                 <ListItemText
                   primary={
-                    <Typography css={textAlign}>
-                      {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
-                        return (
-                          <Box component="span" key={index}>
-                            {rank}
-                          </Box>
-                        );
-                      })}
-                    </Typography>
+                    currentUser?.attributes.highestRank === "未選択" ? (
+                      <></>
+                    ) : (
+                      <Typography css={textAlign}>
+                        {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
+                          return (
+                            <Box component="span" key={index}>
+                              {rank}
+                            </Box>
+                          );
+                        })}
+                      </Typography>
+                    )
                   }
                 />
               </ListItem>
@@ -99,15 +103,19 @@ const MyPage = () => {
                 <ListItemText primary="現在のランク" css={spacing} />
                 <ListItemText
                   primary={
-                    <Typography css={textAlign}>
-                      {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
-                        return (
-                          <Box component="span" key={index}>
-                            {rank}
-                          </Box>
-                        );
-                      })}
-                    </Typography>
+                    currentUser?.attributes.rank === "未選択" ? (
+                      <></>
+                    ) : (
+                      <Typography css={textAlign}>
+                        {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
+                          return (
+                            <Box component="span" key={index}>
+                              {rank}
+                            </Box>
+                          );
+                        })}
+                      </Typography>
+                    )
                   }
                 />
               </ListItem>
@@ -116,13 +124,19 @@ const MyPage = () => {
                 <ListItemText primary="エージェント" css={spacing} />
                 <ListItemText
                   primary={
-                    <Typography css={textAlign}>
-                      {String(currentUser?.attributes.agent)
-                        .split(/,|\s/)
-                        .map((agent: string, index: number) => {
-                          return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
-                        })}
-                    </Typography>
+                    currentUser?.attributes.agent == "未選択" ? (
+                      <></>
+                    ) : (
+                      <>
+                        <Typography css={textAlign}>
+                          {String(currentUser?.attributes.agent)
+                            .split(/,|\s/)
+                            .map((agent: string, index: number) => {
+                              return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
+                            })}
+                        </Typography>
+                      </>
+                    )
                   }
                 />
               </ListItem>

@@ -120,7 +120,6 @@ const EditProfile = () => {
         Cookies.set("_uid", res.headers["uid"] || "");
 
         console.log(res?.data.data);
-
         navigate("/mypage");
 
         setIsSignedIn(true);
@@ -249,30 +248,39 @@ const EditProfile = () => {
               <Select
                 {...register("agentIds")}
                 error={!!errors["agentIds"]}
+                displayEmpty
                 multiple
                 value={agentIds}
                 onChange={handleChange}
                 renderValue={(selected) => {
-                  return (
-                    <>
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                        {(selected as string[]).map((value) => (
-                          <Chip
-                            key={value}
-                            label={agentOptions.find((item) => item.value === value)?.label}
-                            onDelete={() => chipDelete(value)}
-                            onMouseDown={(event) => {
-                              event.stopPropagation();
-                            }}
-                          />
-                        ))}
-                      </Box>
-                    </>
-                  );
+                  console.log(selected as string[]);
+                  if (selected.length === undefined) {
+                    return <em css={placeholder}>雰囲気を選択してください</em>;
+                  } else {
+                    return (
+                      <>
+                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                          {(selected as string[]).map((value) => (
+                            <Chip
+                              key={value}
+                              label={agentOptions.find((item) => item.value === value)?.label}
+                              onDelete={() => chipDelete(value)}
+                              onMouseDown={(event) => {
+                                event.stopPropagation();
+                              }}
+                            />
+                          ))}
+                        </Box>
+                      </>
+                    );
+                  }
                 }}
                 MenuProps={MenuProps}
                 css={selectStyle}
               >
+                <MenuItem disabled value="">
+                  <em>普段使用しているエージェントを選択してください</em>
+                </MenuItem>
                 {agentOptions.map((agent) => (
                   <MenuItem key={agent.value} value={agent.value}>
                     {agent.label}
@@ -383,4 +391,8 @@ const backButton = css`
 
 const selectStyle = css`
   margin-bottom: 20px;
+`;
+
+const placeholder = css`
+  opacity: 0.5;
 `;

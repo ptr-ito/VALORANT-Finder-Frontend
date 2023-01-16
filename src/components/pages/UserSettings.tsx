@@ -16,6 +16,7 @@ import { css } from "@emotion/react";
 
 const UserSettings = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
+  console.log(currentUser?.attributes);
 
   return (
     <>

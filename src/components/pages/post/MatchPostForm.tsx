@@ -162,6 +162,7 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
                 value={rankIds}
                 onChange={handleChange}
                 renderValue={(selected) => {
+                  console.log(selected);
                   if (selected.length === 0) {
                     return <em css={placeholder}>募集するランク帯を選択してください ※複数選択可</em>;
                   }
@@ -173,7 +174,7 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
                           <Chip
                             key={value}
                             label={ensure(rankOptions.find((item) => item.value === value)).label}
-                            onDelete={(event) => chipDelete(value)}
+                            onDelete={() => chipDelete(value)}
                             onMouseDown={(event) => {
                               event.stopPropagation();
                             }}
