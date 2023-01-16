@@ -54,9 +54,17 @@ export interface UpdateUserData {
   passwordConfirmation?: string;
 }
 
-export interface ResetPassword {
+export interface ForgotPassword {
   email: string;
   redirectUrl: string;
+}
+
+export interface ResetPassword {
+  password: string;
+  passwordConfirmation: string;
+  accessToken: string;
+  client: string;
+  uid: string;
 }
 
 export interface EmailData {

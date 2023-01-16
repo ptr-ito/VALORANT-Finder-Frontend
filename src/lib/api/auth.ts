@@ -1,7 +1,7 @@
 import client from "lib/api/client";
 import Cookies from "js-cookie";
 
-import { SignUpParams, SignInParams, UpdateUserFormData, EmailFormData, ResetPassword } from "interfaces/index";
+import { SignUpParams, SignInParams, UpdateUserFormData, ResetPasswordFormData, ForgotPassword, ResetPassword } from "interfaces/index";
 
 export const signUp = (params: SignUpParams) => {
   return client.post("auth", params);
@@ -42,6 +42,16 @@ export const updateUserSettings = (data: UpdateUserFormData) => {
   });
 };
 
-export const passwordReset = (params: ResetPassword) => {
+export const forgotPassword = (params: ForgotPassword) => {
   return client.post("/auth/password", params);
+};
+
+export const resetPassword = (params: ResetPassword) => {
+  return client.put("/auth/password", params, {
+    headers: {
+      "access-token": params.accessToken,
+      client: params.client,
+      uid: params.uid,
+    },
+  });
 };
