@@ -14,18 +14,11 @@ const DefaultLayout = memo(() => {
       </Box>
       <Box component="main" css={main}>
         {/* <SideBar /> */}
-        <Container maxWidth="lg">
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Grid item>
-              <Outlet />
-            </Grid>
+        <Grid container direction="column" justifyContent="center" alignItems="center">
+          <Grid item>
+            <Outlet />
           </Grid>
-        </Container>
+        </Grid>
       </Box>
     </>
   );
@@ -40,5 +33,5 @@ const main = css`
   flex-direction: row;
   flex-grow: 1;
   padding-top: 8rem;
-  height: 140vh;
+  padding-bottom: 8rem;
 `;

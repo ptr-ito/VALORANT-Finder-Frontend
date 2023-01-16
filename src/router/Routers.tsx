@@ -14,6 +14,7 @@ import SendEmail from "components/pages/SendEmail";
 import { PrivateRoute } from "router/PrivateRoute";
 import MatchPostList from "components/pages/post/MatchPostList";
 import MatchPostDetail from "components/pages/post/MatchPostDetail";
+import UserProfile from "components/pages/user/UserProfile";
 
 const Routers = memo(() => {
   return (
@@ -26,6 +27,7 @@ const Routers = memo(() => {
           <Route path="sendemail" element={<SendEmail />} />
           <Route path="post" element={<MatchPostList />} />
           <Route path="post/:id" element={<MatchPostDetail />} />
+          <Route path="user/:id" element={<UserProfile />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route element={<DefaultLayout />}>

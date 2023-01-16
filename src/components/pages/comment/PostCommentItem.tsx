@@ -94,14 +94,14 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
     <>
       <Box>
         <Card sx={{ boxShadow: 0 }}>
-          <Box css={flex}>
+          <Box>
             <Paper css={paperStyle}>
-              <Grid container wrap="nowrap" spacing={2} css={flex}>
+              <Grid container wrap="nowrap" spacing={2}>
                 <Grid item>
-                  <Avatar src={postComment.attributes.userImage?.url} css={avatar} />
+                  <Avatar src={postComment.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${postComment?.attributes.uuid}`} />
                 </Grid>
                 <Grid container justifyContent="left" item xs zeroMinWidth>
-                  <Typography variant="body2" css={userNameStyle}>
+                  <Typography variant="body2" component={Link} to={`/user/${postComment?.attributes.uuid}`} css={userLink}>
                     {postComment.attributes.userName}
                   </Typography>
                   <Typography variant="body2" css={timeStyle}>
@@ -237,15 +237,15 @@ const contentStyle = css`
   color: #333333;
 `;
 
-const userNameStyle = css`
+const userLink = css`
   font-weight: 500;
+  text-decoration: none;
+  color: #333333;
 `;
 
 const menuStyle = css`
   margin-left: auto;
 `;
-
-const flex = css``;
 
 const contentDisplay = css`
   margin-left: 56px;

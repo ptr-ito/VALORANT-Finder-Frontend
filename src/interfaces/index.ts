@@ -14,30 +14,44 @@ export interface SignInParams {
 }
 
 // ユーザー
+
 export interface User {
-  id: string;
-  uid: string;
-  provider: string;
-  email: string;
-  name: string;
-  nickname?: string;
-  rankId: number;
-  agentId: number;
-  selfIntroduction: string;
-  image: {
-    url: string;
+  attributes: {
+    id: string;
+    uuid: string;
+    uid: string;
+    provider: string;
+    email: string;
+    name: string;
+    nickname?: string;
+    rank: string;
+    agent: string;
+    twitterName: string;
+    youtubeUrl: string;
+    startedOnVal: string;
+    ingameName: string;
+    highestRank: string;
+    selfIntroduction: string;
+    image: {
+      url: string;
+    };
+    allowPasswordChange: boolean;
+    created_at: Date;
+    updated_at: Date;
   };
-  allowPasswordChange: boolean;
-  created_at: Date;
-  updated_at: Date;
 }
 
 // ユーザー更新
 export interface UpdateUserData {
   id: number | undefined | null;
   name?: string;
-  rankId?: number;
-  agentId?: number;
+  rankId?: string;
+  agentIds?: string;
+  twitterName?: string;
+  youtubeUrl?: string;
+  startedOnVal?: string;
+  ingameName?: string;
+  highestRankId?: string;
   selfIntroduction?: string;
   image?: string;
   email?: string;
@@ -54,6 +68,7 @@ export interface UpdateEmailData {
 export interface MatchPost {
   attributes: {
     id: string;
+    userUuid: string;
     userId: string;
     content: string;
     status: string;
@@ -80,6 +95,7 @@ export interface MatchPostUpdate {
 export interface MatchPostComment {
   attributes: {
     id: string;
+    uuid: string;
     content: string;
     matchPostId: string;
     rootId: string;

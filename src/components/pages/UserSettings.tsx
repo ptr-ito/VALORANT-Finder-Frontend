@@ -16,6 +16,7 @@ import { css } from "@emotion/react";
 
 const UserSettings = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
+  console.log(currentUser?.attributes);
 
   return (
     <>
@@ -34,7 +35,7 @@ const UserSettings = () => {
               <List>
                 <ListItem>
                   <ListItemText primary="メールアドレス" sx={{ mr: 7 }} css={spacing} />
-                  <ListItemText primary={currentUser?.email} />
+                  <ListItemText primary={currentUser?.attributes.email} />
                   <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/email">
                     <Typography>編集</Typography>
                   </Button>

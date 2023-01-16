@@ -25,17 +25,15 @@ const App = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>();
 
-  // 認証済みのユーザーがいるかどうかチェック
-  // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
     try {
       const res = await getCurrentUser();
 
-      if (res?.data.isLogin === true) {
+      console.log(res?.data.data);
+
+      if (res?.data.data.attributes.isLogin === true) {
         setIsSignedIn(true);
         setCurrentUser(res?.data.data);
-
-        console.log(res?.data.data);
       } else {
         console.log("No current user");
       }
