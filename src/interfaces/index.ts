@@ -1,4 +1,3 @@
-// サインアップ
 export interface SignUpParams {
   name: string;
   email: string;
@@ -7,13 +6,10 @@ export interface SignUpParams {
   confirmSuccessUrl: string;
 }
 
-// サインイン
 export interface SignInParams {
   email: string;
   password: string;
 }
-
-// ユーザー
 
 export interface User {
   attributes: {
@@ -41,7 +37,6 @@ export interface User {
   };
 }
 
-// ユーザー更新
 export interface UpdateUserData {
   id: number | undefined | null;
   name?: string;
@@ -59,12 +54,15 @@ export interface UpdateUserData {
   passwordConfirmation?: string;
 }
 
-// メールアドレス更新
-export interface UpdateEmailData {
+export interface ResetPassword {
+  email: string;
+  redirectUrl: string;
+}
+
+export interface EmailData {
   email?: string;
 }
 
-// マッチ募集投稿
 export interface MatchPost {
   attributes: {
     id: string;
@@ -112,8 +110,12 @@ export interface UpdateUserFormData extends FormData {
   append(name: keyof UpdateUserData, value: String | Blob, fileName?: string): any;
 }
 
-export interface UpdateEmailFormData extends FormData {
-  append(name: keyof UpdateEmailData, value: String | Blob, fileName?: string): any;
+export interface EmailFormData extends FormData {
+  append(name: keyof EmailData, value: String | Blob, fileName?: string): any;
+}
+
+export interface ResetPasswordFormData extends FormData {
+  append(name: keyof ResetPassword, value: String | Blob, fileName?: string): any;
 }
 
 export interface MatchPostFormData extends FormData {

@@ -15,6 +15,7 @@ import { PrivateRoute } from "router/PrivateRoute";
 import MatchPostList from "components/pages/post/MatchPostList";
 import MatchPostDetail from "components/pages/post/MatchPostDetail";
 import UserProfile from "components/pages/user/UserProfile";
+import PasswordReset from "components/pages/PasswordReset";
 
 const Routers = memo(() => {
   return (
@@ -24,7 +25,9 @@ const Routers = memo(() => {
           <Route path="/" element={<SampleHome />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signin" element={<SignIn />} />
+          <Route path="signin" element={<SignIn />} />
           <Route path="sendemail" element={<SendEmail />} />
+          <Route path="password_reset" element={<PasswordReset />} />
           <Route path="post" element={<MatchPostList />} />
           <Route path="post/:id" element={<MatchPostDetail />} />
           <Route path="user/:id" element={<UserProfile />} />

@@ -113,6 +113,13 @@ export const MatchPostCommentSchema = z.object({
   content: z.string().min(1, { message: "コメントを入力してください" }),
 });
 
+export const ResetPasswordSchema = z.object({
+  email: z.string().min(1, { message: "メールアドレスを入力してください" }).email({
+    message: "このメールアドレスは無効です。example@email.comのような形式でメールアドレスが入力されているか確認してください",
+  }),
+  redirectUrl: z.string(),
+});
+
 export type MatchPostSchemaType = z.infer<typeof MatchPostSchema>;
 
 export type MatchPostUpdateSchemaType = z.infer<typeof MatchPostUpdateSchema>;
