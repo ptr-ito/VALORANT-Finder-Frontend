@@ -30,12 +30,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 const EditProfile = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
 
-  const styles = () => ({
-    dropdownStyle: {
-      maxHeight: 300,
-    },
-  });
-
   const agentParams: any = String(currentUser?.attributes.agent)
     .split(/,|\s/)
     .map((v) => agentOptions.find((agent) => agent.label == v)?.value);

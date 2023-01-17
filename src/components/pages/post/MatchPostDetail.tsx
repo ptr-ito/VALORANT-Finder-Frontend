@@ -6,7 +6,6 @@ import Avatar from "@mui/material/Avatar";
 import { css } from "@emotion/react";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { deletePost } from "lib/api/matchPosts";
@@ -26,20 +25,18 @@ import { getPosts } from "lib/api/matchPosts";
 import MatchPostEdit from "components/pages/post/MatchPostEdit";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { PostItemProps } from "interfaces/index";
 import PostCommentList from "components/pages/comment/PostCommentList";
-import PostCommentForm from "components/pages/comment/PostCommentForm";
 import { MatchPostComment } from "interfaces/index";
-import PostCommentItem from "components/pages/comment/PostCommentItem";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import { AuthContext } from "App";
+import { TwitterShareBtn } from "components/ui/icon/TwitterShareBtn";
 
 const MatchPostDetail = () => {
   const navigate = useNavigate();
   const query = useParams<{ query: string }>();
   const [matchPost, setMatchPost] = useState<MatchPost>();
   const [postComments, setPostComments] = useState<MatchPostComment[]>([]);
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const { isSignedIn, currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     handleGetDetail(query);
@@ -63,7 +60,6 @@ const MatchPostDetail = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  
 
   const { success } = useAlertMessage();
 
@@ -146,54 +142,54 @@ const MatchPostDetail = () => {
                   <Typography variant="body2" css={timeStyle}>
                     {matchPost?.attributes.createdAt}
                   </Typography>
-                  {/* {isSignedIn && currentUser?.id == matchPost.attributes.userId ? ( */}
-                  <>
-                    <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
-                      <MoreHorizIcon />
-                    </IconButton>
-                    <Menu
-                      id="menu-button"
-                      aria-labelledby="menu-button"
-                      anchorEl={anchorEl}
-                      open={openMenu}
-                      onClose={handleMenuClose}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "left",
-                      }}
-                    >
-                      <MenuItem disableRipple={true} onClick={handleOpenModal}>
-                        <ListItemIcon>
-                          <EditIcon fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                          編集
-                        </ListItemText>
-                      </MenuItem>
-                      <MenuItem onClick={() => handleDeletePost(matchPost?.attributes.id)} disableRipple={true}>
-                        <ListItemIcon>
-                          <DeleteIcon fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                          削除
-                        </ListItemText>
-                      </MenuItem>
-                      {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
-                    </Menu>
-                    <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                      <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                        閉じる
-                      </Button>
-                      {<MatchPostEdit handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} matchPost={matchPost} query={query} />}
-                    </Modal>
-                  </>
-                  {/* ) : (
-                  <></>
-                )} */}
+                  {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
+                    <>
+                      <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
+                        <MoreHorizIcon />
+                      </IconButton>
+                      <Menu
+                        id="menu-button"
+                        aria-labelledby="menu-button"
+                        anchorEl={anchorEl}
+                        open={openMenu}
+                        onClose={handleMenuClose}
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
+                      >
+                        <MenuItem disableRipple={true} onClick={handleOpenModal}>
+                          <ListItemIcon>
+                            <EditIcon fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                            編集
+                          </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={() => handleDeletePost(matchPost?.attributes.id)} disableRipple={true}>
+                          <ListItemIcon>
+                            <DeleteIcon fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                            削除
+                          </ListItemText>
+                        </MenuItem>
+                        {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                      </Menu>
+                      <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                        <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                          閉じる
+                        </Button>
+                        {<MatchPostEdit handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} matchPost={matchPost} query={query} />}
+                      </Modal>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </Grid>
               </>
             }
@@ -239,6 +235,13 @@ const MatchPostDetail = () => {
                 })}
               </Grid>
             </Typography>
+            <Grid container direction="row" justifyContent="flex-end" alignItems="flex-end">
+              <TwitterShareBtn
+                title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                url={`http://localhost:3001/post/${matchPost?.attributes.id}\n\n`}
+                hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
+              />
+            </Grid>
           </CardContent>
         </Card>
       </Box>
@@ -260,7 +263,6 @@ export default MatchPostDetail;
 const cardStyle = css`
   width: 900px;
   margin-top: 40px;
-  margin-bottom: 40px;
 `;
 
 const avatar = css`
@@ -308,14 +310,17 @@ const closeButtonStyle = css`
 
 const customStyles = {
   content: {
-    top: "54%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "900px",
-    height: "800px",
+    height: "880px",
+  },
+  overlay: {
+    zIndex: 10,
   },
 };
 
@@ -347,25 +352,6 @@ const commentTitle = css`
 const commentIcon = css`
   padding-top: 10px;
   margin-right: 15px;
-`;
-
-const bottomSpace = css`
-  margin-bottom: 40px;
-`;
-
-const navStyle = css`
-  margin-top: 50px;
-  margin-bottom: 30px;
-`;
-
-const navBox = css`
-  border-top: dotted 1px #535aaa;
-`;
-
-const commentFormTitle = css`
-  margin-top: 30px;
-  margin-bottom: 30px;
-  margin-left: 15px;
 `;
 
 const userLink = css`

@@ -36,6 +36,7 @@
     "react-pro-sidebar": "^1.0.0-alpha.7",
     "react-router-dom": "^6.4.3",
     "react-select": "^5.7.0",
+    "react-share": "^4.4.1",
     "react-toastify": "^9.1.1",
     "rodal": "^2.0.1",
     "vite-plugin-svgr": "^2.2.2",

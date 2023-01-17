@@ -5,16 +5,13 @@ import MatchPostForm from "components/pages/post/MatchPostForm";
 import Button from "@mui/material/Button";
 import { getPosts } from "lib/api/matchPosts";
 import { MatchPost } from "interfaces/index";
-import Divider from "@mui/material/Divider";
 import { css } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import "index.css";
 import macth_samb from "assets/images/macth_samb.jpeg";
 import Modal from "react-modal";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { AuthContext } from "App";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAlertMessage from "components/util/useAlertMessage";
 import { Icon } from "components/ui/icon/Icon";
 
@@ -136,14 +133,17 @@ const closeButtonStyle = css`
 
 const customStyles = {
   content: {
-    top: "54%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "900px",
-    height: "800px",
+    height: "880px",
+  },
+  overlay: {
+    zIndex: 10,
   },
 };
 

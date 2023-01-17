@@ -97,12 +97,12 @@ const Header = () => {
               <Button component={NavLink} to="post" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={contentButtonStyle}>
                 <Typography css={contentMenuText}>マッチ募集</Typography>
               </Button>
-              <Button component={NavLink} to="friend" startIcon={<PersonSearchIcon />} disableRipple={true} css={contentButtonStyle}>
+              {/* <Button component={NavLink} to="friend" startIcon={<PersonSearchIcon />} disableRipple={true} css={contentButtonStyle}>
                 <Typography css={contentMenuText}>フレンド募集</Typography>
               </Button>
               <Button component={NavLink} to="teams" startIcon={<PersonAddIcon />} disableRipple={true} css={contentButtonStyle}>
                 <Typography css={contentMenuText}>固定パーティ募集</Typography>
-              </Button>
+              </Button> */}
               <Button component={NavLink} to="mypage" startIcon={<AccountCircleIcon />} disableRipple={true} css={contentButtonStyle}>
                 <Typography css={contentMenuText}>マイページ</Typography>
               </Button>
@@ -123,7 +123,7 @@ const appBar = css`
   background-color: #3f4551;
   color: #fff;
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
 `;
 
 const signupButton = css`

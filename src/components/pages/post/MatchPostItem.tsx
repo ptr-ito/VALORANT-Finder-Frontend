@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { PostItemProps } from "interfaces/index";
 import Avatar from "@mui/material/Avatar";
 import { css } from "@emotion/react";
@@ -19,11 +19,15 @@ import useAlertMessage from "components/util/useAlertMessage";
 import Modal from "react-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
-import { Link, useNavigate, useParams, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import InfoIcon from "@mui/icons-material/Info";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import { TwitterShareButton } from "react-share";
+import { AuthContext } from "App";
 
 const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
+  const { isSignedIn, currentUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -116,14 +120,6 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                           horizontal: "left",
                         }}
                       >
-                        <MenuItem disableRipple={true} onClick={handleOpenModal}>
-                          <ListItemIcon>
-                            <EditIcon fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                            編集
-                          </ListItemText>
-                        </MenuItem>
                         <MenuItem disableRipple={true} component={Link} to={`/post/${matchPost.attributes.id}`}>
                           <ListItemIcon>
                             <InfoIcon fontSize="small" />
@@ -132,15 +128,36 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                             詳細
                           </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
-                          <ListItemIcon>
-                            <DeleteIcon fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                            削除
-                          </ListItemText>
-                        </MenuItem>
-                        {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                        <TwitterShareButton
+                          title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                          url={`http://localhost:3001/post/${matchPost?.attributes.id}\n\n`}
+                          hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
+                          onClick={handleMenuClose}
+                        >
+                          <MenuItem disableRipple={true}>
+                            <ListItemIcon>
+                              <TwitterIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                              募集内容をtwitterでシェア
+                            </ListItemText>
+                          </MenuItem>
+                        </TwitterShareButton>
+                        {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
+                          <>
+                            <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
+                              <ListItemIcon>
+                                <DeleteIcon fontSize="small" />
+                              </ListItemIcon>
+                              <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                                削除
+                              </ListItemText>
+                            </MenuItem>
+                            {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                          </>
+                        ) : (
+                          <></>
+                        )}
                       </Menu>
                       <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
                         <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
