@@ -66,7 +66,7 @@ export const ProfileSchema = z.object({
 
   rankId: z.preprocess((v) => String(v), z.string()),
 
-  agentId: z.preprocess((v) => String(v), z.string().min(1, { message: "エージェントを選ばない場合は「未選択」を選択してください" })),
+  agentIds: z.preprocess((v) => String(v), z.string().min(1, { message: "エージェントを選ばない場合は「未選択」を選択してください" }).max(6, { message: "エージェントは6人まで選択可能です" })),
 
   selfIntroduction: z.string().max(1000, {
     message: "自己紹介は1000文字以下で入力してください",
@@ -112,6 +112,29 @@ export const MatchPostUpdateSchema = z.object({
 export const MatchPostCommentSchema = z.object({
   content: z.string().min(1, { message: "コメントを入力してください" }),
 });
+
+export const ForgotPasswordSchema = z.object({
+  email: z.string().min(1, { message: "メールアドレスを入力してください" }).email({
+    message: "このメールアドレスは無効です。example@email.comのような形式でメールアドレスが入力されているか確認してください",
+  }),
+  redirectUrl: z.string(),
+});
+
+export const ResetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(1, { message: "パスワードを入力してください" })
+      .regex(/^([a-zA-Z0-9]{6,})$/, {
+        message: "半角英数字6文字以上で入力してください",
+      }),
+
+    passwordConfirmation: z.string().min(1, { message: "もう一度パスワードを入力してください" }),
+  })
+  .refine((data) => data.password === data.passwordConfirmation, {
+    path: ["passwordConfirmation"],
+    message: "パスワードが一致しません",
+  });
 
 export type MatchPostSchemaType = z.infer<typeof MatchPostSchema>;
 

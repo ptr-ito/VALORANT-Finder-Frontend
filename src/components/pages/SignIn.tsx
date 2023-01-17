@@ -13,6 +13,7 @@ import { css } from "@emotion/react";
 import { signInSchema } from "validation/Schema";
 import useAlertMessage from "components/util/useAlertMessage";
 import Divider from "@mui/material/Divider";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export const SignIn = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
@@ -123,6 +124,9 @@ export const SignIn = () => {
                 新規登録する
               </Button>
             </Box>
+            <Button fullWidth component={Link} to="/password/forgot" disableRipple={true} endIcon={<ArrowForwardIosIcon />} css={forgotPassword}>
+              パスワードを忘れた方はこちら
+            </Button>
           </form>
         </Box>
       </Grid>
@@ -156,5 +160,12 @@ const borderBottom = css`
     border-top: solid 1px #3f4551;
     top: -1px;
     width: 35%;
+  }
+`;
+
+const forgotPassword = css`
+  margin-top: 25px;
+  &:hover {
+    opacity: 0.5;
   }
 `;

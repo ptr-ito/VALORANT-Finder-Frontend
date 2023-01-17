@@ -1,7 +1,7 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Button, Grid } from "@mui/material";
 import { SerializedStyles, css } from "@emotion/react";
 
-export type MyDialogProps = {
+export type ConfirmDialogProps = {
   onClose: (value: string) => void;
   title?: string;
   message?: string;
@@ -10,7 +10,7 @@ export type MyDialogProps = {
   css?: SerializedStyles;
 };
 
-export function MyDialog(props: MyDialogProps) {
+export function ConfirmDialog(props: ConfirmDialogProps) {
   const { onClose, title, message, ok, cancel, css } = props;
 
   return (
@@ -28,9 +28,6 @@ export function MyDialog(props: MyDialogProps) {
           <Button disableRipple={true} color="inherit" onClick={() => onClose("ok")} css={okButton}>
             {ok}
           </Button>
-          <Button disableRipple={true} color="inherit" onClick={() => onClose("cancel")} autoFocus css={cancelButton}>
-            {cancel}
-          </Button>
         </DialogActions>
       </Grid>
     </Dialog>
@@ -45,10 +42,7 @@ const okButton = css`
   &:hover {
     background-color: rgba(255, 15, 0, 1);
   }
-`;
-
-const cancelButton = css`
-  color: #ff4755;
+  width: 200px;
 `;
 
 const dialogTitle = css`
