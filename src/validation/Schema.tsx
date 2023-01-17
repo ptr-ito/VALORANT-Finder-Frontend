@@ -66,7 +66,7 @@ export const ProfileSchema = z.object({
 
   rankId: z.preprocess((v) => String(v), z.string()),
 
-  agentId: z.preprocess((v) => String(v), z.string().min(1, { message: "エージェントを選ばない場合は「未選択」を選択してください" })),
+  agentIds: z.preprocess((v) => String(v), z.string().min(1, { message: "エージェントを選ばない場合は「未選択」を選択してください" }).max(6, { message: "エージェントは6人まで選択可能です" })),
 
   selfIntroduction: z.string().max(1000, {
     message: "自己紹介は1000文字以下で入力してください",

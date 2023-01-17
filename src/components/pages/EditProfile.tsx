@@ -24,13 +24,17 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FormHelperText from "@mui/material/FormHelperText";
 import useAlertMessage from "components/util/useAlertMessage";
 import Chip from "@mui/material/Chip";
-
-// import Select from "react-select";
-
 import { css } from "@emotion/react";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const EditProfile = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
+
+  const styles = () => ({
+    dropdownStyle: {
+      maxHeight: 300,
+    },
+  });
 
   const agentParams: any = String(currentUser?.attributes.agent)
     .split(/,|\s/)
@@ -52,7 +56,6 @@ const EditProfile = () => {
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>("");
 
-  console.log(currentUser?.attributes.rank);
   // アップロードした画像の情報を取得
   const uploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) {
@@ -223,7 +226,15 @@ const EditProfile = () => {
             />
             <Typography sx={{ mt: 4 }}>最高ランク</Typography>
             <FormControl variant="outlined" margin="dense" fullWidth>
-              <Select value={highestRankId} {...register("highestRankId")} error={!!errors["highestRankId"]} onChange={(e: SelectChangeEvent<string>) => setHighestRankId(e.target.value)}>
+              <Select
+                value={highestRankId}
+                {...register("highestRankId")}
+                error={!!errors["highestRankId"]}
+                onChange={(e: SelectChangeEvent<string>) => setHighestRankId(e.target.value)}
+                MenuProps={{
+                  sx: { maxHeight: "300px" },
+                }}
+              >
                 {rankOptions.map((highestRankId, index) => (
                   <MenuItem key={index} value={highestRankId.value}>
                     {highestRankId.label}
@@ -234,7 +245,15 @@ const EditProfile = () => {
             </FormControl>
             <Typography sx={{ mt: 4 }}>現在のランク</Typography>
             <FormControl variant="outlined" margin="dense" fullWidth>
-              <Select value={rankId} {...register("rankId")} error={!!errors["rankId"]} onChange={(e: SelectChangeEvent<string>) => setRankId(e.target.value)}>
+              <Select
+                value={rankId}
+                {...register("rankId")}
+                error={!!errors["rankId"]}
+                onChange={(e: SelectChangeEvent<string>) => setRankId(e.target.value)}
+                MenuProps={{
+                  sx: { maxHeight: "300px" },
+                }}
+              >
                 {rankOptions.map((rank, index) => (
                   <MenuItem key={index} value={rank.value}>
                     {rank.label}
@@ -253,27 +272,29 @@ const EditProfile = () => {
                 value={agentIds}
                 onChange={handleChange}
                 renderValue={(selected) => {
-                  console.log(selected as string[]);
-                  if (selected.length === undefined) {
-                    return <em css={placeholder}>雰囲気を選択してください</em>;
-                  } else {
-                    return (
-                      <>
-                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                          {(selected as string[]).map((value) => (
-                            <Chip
-                              key={value}
-                              label={agentOptions.find((item) => item.value === value)?.label}
-                              onDelete={() => chipDelete(value)}
-                              onMouseDown={(event) => {
-                                event.stopPropagation();
-                              }}
-                            />
-                          ))}
-                        </Box>
-                      </>
-                    );
+                  console.log(selected);
+                  if (selected[0] === undefined) {
+                    selected.shift();
+                    return <em css={placeholder}>普段使用しているエージェントを選択してください ※6人まで選べます</em>;
                   }
+
+                  return (
+                    <>
+                      {console.log("no")}
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                        {(selected as string[]).map((value) => (
+                          <Chip
+                            key={value}
+                            label={agentOptions.find((item) => item.value === value)?.label}
+                            onDelete={() => chipDelete(value)}
+                            onMouseDown={(event) => {
+                              event.stopPropagation();
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    </>
+                  );
                 }}
                 MenuProps={MenuProps}
                 css={selectStyle}
@@ -309,9 +330,12 @@ const EditProfile = () => {
             <Typography sx={{ mt: 7 }}>Twitter</Typography>
             <TextField
               variant="outlined"
+              InputProps={{
+                startAdornment: <InputAdornment position="start">@</InputAdornment>,
+              }}
               minRows="10"
               rows="15"
-              placeholder="Twitterのアカウント名を入力してください  例: VALORANTjp（@は不要です）"
+              placeholder="Twitterのアカウント名を入力してください"
               required
               value={twitterName}
               margin="dense"
@@ -321,29 +345,29 @@ const EditProfile = () => {
               helperText={errors.twitterName ? errors.twitterName?.message : ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTwitterName(e.target.value)}
             />
-            <Typography sx={{ mt: 4 }}>自己紹介</Typography>
-            <TextField
-              placeholder="1000文字以内で書いてください。"
-              variant="outlined"
-              fullWidth
-              multiline
-              minRows="10"
-              rows="15"
-              value={selfIntroduction ?? ""}
-              margin="dense"
-              {...register("selfIntroduction")}
-              error={!!errors["selfIntroduction"]}
-              helperText={errors.selfIntroduction ? errors.selfIntroduction?.message : ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSelfIntroduction(e.target.value);
-              }}
-            />
-            <Box textAlign="center">
-              <Button css={submitButton} variant="contained" color="primary" type="submit" disableRipple={true} fullWidth>
-                プロフィール更新
-              </Button>
-            </Box>
           </Grid>
+          <Typography sx={{ mt: 4 }}>自己紹介</Typography>
+          <TextField
+            placeholder="1000文字以内で書いてください。"
+            variant="outlined"
+            fullWidth
+            multiline
+            minRows="10"
+            rows="15"
+            value={selfIntroduction ?? ""}
+            margin="dense"
+            {...register("selfIntroduction")}
+            error={!!errors["selfIntroduction"]}
+            helperText={errors.selfIntroduction ? errors.selfIntroduction?.message : ""}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSelfIntroduction(e.target.value);
+            }}
+          />
+          <Box textAlign="center">
+            <Button css={submitButton} variant="contained" color="primary" type="submit" disableRipple={true} fullWidth>
+              プロフィール更新
+            </Button>
+          </Box>
         </Grid>
       </form>
     </>

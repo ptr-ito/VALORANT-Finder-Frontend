@@ -93,7 +93,7 @@ const PasswordForgot = () => {
               helperText={errors.email ? errors.email?.message : ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
-            <TextField type="hidden" label="confirm_redirect_url" value={redirectUrl} {...register("redirectUrl")} css={hiddenContent} />
+            <TextField type="hidden" value={redirectUrl} {...register("redirectUrl")} css={hiddenContent} />
             <Button css={submitButton} variant="contained" color="primary" fullWidth disableRipple={true} type="submit">
               パスワードをリセット
             </Button>

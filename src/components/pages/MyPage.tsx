@@ -124,7 +124,7 @@ const MyPage = () => {
                 <ListItemText primary="エージェント" css={spacing} />
                 <ListItemText
                   primary={
-                    currentUser?.attributes.agent == "未選択" ? (
+                    currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent === "未選択" ? (
                       <></>
                     ) : (
                       <>
