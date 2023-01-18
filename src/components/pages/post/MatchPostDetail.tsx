@@ -134,64 +134,62 @@ const MatchPostDetail = () => {
           <CardHeader
             avatar={<Avatar src={matchPost?.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${matchPost?.attributes.userUuid}`} />}
             title={
-              <>
-                <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
-                  <Typography variant="body2" component={Link} to={`/user/${matchPost?.attributes.userUuid}`} css={userLink}>
-                    {matchPost?.attributes.userName}
-                  </Typography>
-                  <Typography variant="body2" css={timeStyle}>
-                    {matchPost?.attributes.createdAt}
-                  </Typography>
-                  {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
-                    <>
-                      <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
-                        <MoreHorizIcon />
-                      </IconButton>
-                      <Menu
-                        id="menu-button"
-                        aria-labelledby="menu-button"
-                        anchorEl={anchorEl}
-                        open={openMenu}
-                        onClose={handleMenuClose}
-                        anchorOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                      >
-                        <MenuItem disableRipple={true} onClick={handleOpenModal}>
-                          <ListItemIcon>
-                            <EditIcon fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                            編集
-                          </ListItemText>
-                        </MenuItem>
-                        <MenuItem onClick={() => handleDeletePost(matchPost?.attributes.id)} disableRipple={true}>
-                          <ListItemIcon>
-                            <DeleteIcon fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                            削除
-                          </ListItemText>
-                        </MenuItem>
-                        {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
-                      </Menu>
-                      <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                        <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                          閉じる
-                        </Button>
-                        {<MatchPostEdit handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} matchPost={matchPost} query={query} />}
-                      </Modal>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </Grid>
-              </>
+              <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
+                <Typography variant="body2" component={Link} to={`/user/${matchPost?.attributes.userUuid}`} css={userLink}>
+                  {matchPost?.attributes.userName}
+                </Typography>
+                <Typography variant="body2" css={timeStyle}>
+                  {matchPost?.attributes.createdAt}
+                </Typography>
+                {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
+                  <>
+                    <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
+                      <MoreHorizIcon />
+                    </IconButton>
+                    <Menu
+                      id="menu-button"
+                      aria-labelledby="menu-button"
+                      anchorEl={anchorEl}
+                      open={openMenu}
+                      onClose={handleMenuClose}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                    >
+                      <MenuItem disableRipple={true} onClick={handleOpenModal}>
+                        <ListItemIcon>
+                          <EditIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                          編集
+                        </ListItemText>
+                      </MenuItem>
+                      <MenuItem onClick={() => handleDeletePost(matchPost?.attributes.id)} disableRipple={true}>
+                        <ListItemIcon>
+                          <DeleteIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                          削除
+                        </ListItemText>
+                      </MenuItem>
+                      {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                    </Menu>
+                    <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                      <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                        閉じる
+                      </Button>
+                      {<MatchPostEdit handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} matchPost={matchPost} query={query} />}
+                    </Modal>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </Grid>
             }
           />
           <CardContent>

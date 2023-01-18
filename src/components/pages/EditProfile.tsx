@@ -273,21 +273,18 @@ const EditProfile = () => {
                   }
 
                   return (
-                    <>
-                      {console.log("no")}
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                        {(selected as string[]).map((value) => (
-                          <Chip
-                            key={value}
-                            label={agentOptions.find((item) => item.value === value)?.label}
-                            onDelete={() => chipDelete(value)}
-                            onMouseDown={(event) => {
-                              event.stopPropagation();
-                            }}
-                          />
-                        ))}
-                      </Box>
-                    </>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {(selected as string[]).map((value) => (
+                        <Chip
+                          key={value}
+                          label={agentOptions.find((item) => item.value === value)?.label}
+                          onDelete={() => chipDelete(value)}
+                          onMouseDown={(event) => {
+                            event.stopPropagation();
+                          }}
+                        />
+                      ))}
+                    </Box>
                   );
                 }}
                 MenuProps={MenuProps}

@@ -4,7 +4,7 @@ import MatchPostItem from "components/pages/post/MatchPostItem";
 import MatchPostForm from "components/pages/post/MatchPostForm";
 import Button from "@mui/material/Button";
 import { getPostComment } from "lib/api/comments";
-import { MatchPost, MatchPostComment } from "interfaces/index";
+import { MatchPost, MatchPostComment, GetComments } from "interfaces/index";
 import Divider from "@mui/material/Divider";
 import { css } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
@@ -33,15 +33,21 @@ const PostCommentList = (query: any) => {
     return postComments.filter((comment) => comment.attributes.rootId === commentId);
   };
 
-  // console.log(postComments.filter((comment) => comment.attributes.rootId == "83"));
+  const commentableId = query.query.id;
+  const commentableType = "MatchPost";
+
+  const params: GetComments = {
+    commentableId: commentableId,
+    commentableType: commentableType,
+  };
 
   useEffect(() => {
-    handleGetComments(query);
+    handleGetComments();
   }, [query]);
 
-  const handleGetComments = async (query: any) => {
+  const handleGetComments = async () => {
     try {
-      const res = await getPostComment(query.query.id);
+      const res = await getPostComment(params);
 
       if (res.status === 200) {
         setPostComments(res.data.data);
@@ -52,14 +58,6 @@ const PostCommentList = (query: any) => {
       console.log(err);
     }
   };
-
-  // useEffect(() => {
-  //   if (openModal) document.body.style.overflow = "hidden";
-  //   else document.body.removeAttribute("style");
-  //   return () => {
-  //     document.body.removeAttribute("style");
-  //   };
-  // }, [openModal]);
 
   return (
     <Grid container direction="column" css={bottomSpace}>

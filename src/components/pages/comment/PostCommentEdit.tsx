@@ -3,7 +3,7 @@ import { updatePostComment } from "lib/api/comments";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MatchPostComment, PostCommentFormData, PostCommentEditProps } from "interfaces/index";
-import { MatchPostCommentSchema, MatchPostCommentSchemaType } from "validation/Schema";
+import { MatchPostCommentEditSchema, MatchPostCommentEditSchemaType } from "validation/Schema";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -25,21 +25,20 @@ const PostCommentEdit = ({ postComment, query, setVisibleEdit, handleGetComments
     handleSubmit,
     register,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<MatchPostCommentSchemaType>({
+  } = useForm<MatchPostCommentEditSchemaType>({
     mode: "onBlur",
-    resolver: zodResolver(MatchPostCommentSchema),
+    resolver: zodResolver(MatchPostCommentEditSchema),
   });
 
   const createFormData = (): PostCommentFormData => {
     const formData = new FormData();
 
     formData.append("content", content);
-    formData.append("matchPostId", postComment.attributes.matchPostId);
 
     return formData;
   };
 
-  const handleUpdatePostComment: SubmitHandler<MatchPostCommentSchemaType> = async () => {
+  const handleUpdatePostComment: SubmitHandler<MatchPostCommentEditSchemaType> = async () => {
     const data = createFormData();
 
     try {
