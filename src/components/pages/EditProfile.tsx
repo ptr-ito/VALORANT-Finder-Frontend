@@ -195,7 +195,7 @@ const EditProfile = () => {
               rows="15"
               placeholder="test-name#123"
               required
-              value={ingameName}
+              value={ingameName || ""}
               margin="dense"
               sx={{ width: 600 }}
               {...register("ingameName")}
@@ -210,7 +210,7 @@ const EditProfile = () => {
               rows="15"
               placeholder="1年"
               required
-              value={startedOnVal}
+              value={startedOnVal || ""}
               margin="dense"
               sx={{ width: 600 }}
               {...register("startedOnVal")}
@@ -266,7 +266,6 @@ const EditProfile = () => {
                 value={agentIds}
                 onChange={handleChange}
                 renderValue={(selected) => {
-                  console.log(selected);
                   if (selected[0] === undefined) {
                     selected.shift();
                     return <em css={placeholder}>普段使用しているエージェントを選択してください ※6人まで選べます</em>;
@@ -310,7 +309,7 @@ const EditProfile = () => {
               rows="15"
               placeholder="https://www.youtube.com/"
               required
-              value={youtubeUrl}
+              value={youtubeUrl || ""}
               margin="dense"
               sx={{ width: 600 }}
               {...register("youtubeUrl")}
@@ -328,7 +327,7 @@ const EditProfile = () => {
               rows="15"
               placeholder="Twitterのアカウント名を入力してください"
               required
-              value={twitterName}
+              value={twitterName || ""}
               margin="dense"
               sx={{ width: 600 }}
               {...register("twitterName")}
@@ -336,24 +335,24 @@ const EditProfile = () => {
               helperText={errors.twitterName ? errors.twitterName?.message : ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTwitterName(e.target.value)}
             />
+            <Typography sx={{ mt: 4 }}>自己紹介</Typography>
+            <TextField
+              placeholder="1000文字以内で書いてください。"
+              variant="outlined"
+              fullWidth
+              multiline
+              rows="15"
+              value={selfIntroduction ?? ""}
+              margin="dense"
+              {...register("selfIntroduction")}
+              error={!!errors["selfIntroduction"]}
+              helperText={errors.selfIntroduction ? errors.selfIntroduction?.message : ""}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSelfIntroduction(e.target.value);
+              }}
+            />
           </Grid>
-          <Typography sx={{ mt: 4 }}>自己紹介</Typography>
-          <TextField
-            placeholder="1000文字以内で書いてください。"
-            variant="outlined"
-            fullWidth
-            multiline
-            minRows="10"
-            rows="15"
-            value={selfIntroduction ?? ""}
-            margin="dense"
-            {...register("selfIntroduction")}
-            error={!!errors["selfIntroduction"]}
-            helperText={errors.selfIntroduction ? errors.selfIntroduction?.message : ""}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSelfIntroduction(e.target.value);
-            }}
-          />
+
           <Box textAlign="center">
             <Button css={submitButton} variant="contained" color="primary" type="submit" disableRipple={true} fullWidth>
               プロフィール更新

@@ -8,8 +8,8 @@ export const signupSchema = z
       .min(3, {
         message: "ユーザーネームは3文字以上10文字以下で入力してください",
       })
-      .max(10, {
-        message: "ユーザーネームは2文字以上10文字以下で入力してください",
+      .max(20, {
+        message: "ユーザーネームは2文字以上20文字以下で入力してください",
       })
       .refine((value) => {
         return Boolean(value.trim().length);

@@ -93,80 +93,76 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
           <CardHeader
             avatar={<Avatar src={matchPost.attributes.userImage?.url} css={avatar} />}
             title={
-              <>
-                <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
-                  <Typography variant="body2">{matchPost.attributes.userName}</Typography>
-                  <Typography variant="body2" css={timeStyle}>
-                    {matchPost.attributes.createdAt}
-                  </Typography>
-                  <Box onClick={inActiveLink}>
-                    <>
-                      <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
-                        <MoreHorizIcon />
-                      </IconButton>
-                      <Menu
-                        id="menu-button"
-                        aria-labelledby="menu-button"
-                        anchorEl={anchorEl}
-                        open={openMenu}
-                        onClose={handleMenuClose}
-                        anchorOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                      >
-                        <MenuItem disableRipple={true} component={Link} to={`/post/${matchPost.attributes.id}`}>
+              <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
+                <Typography variant="body2">{matchPost.attributes.userName}</Typography>
+                <Typography variant="body2" css={timeStyle}>
+                  {matchPost.attributes.createdAt}
+                </Typography>
+                <Box onClick={inActiveLink}>
+                  <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
+                    <MoreHorizIcon />
+                  </IconButton>
+                  <Menu
+                    id="menu-button"
+                    aria-labelledby="menu-button"
+                    anchorEl={anchorEl}
+                    open={openMenu}
+                    onClose={handleMenuClose}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                  >
+                    <MenuItem disableRipple={true} component={Link} to={`/post/${matchPost.attributes.id}`}>
+                      <ListItemIcon>
+                        <InfoIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                        詳細
+                      </ListItemText>
+                    </MenuItem>
+                    <TwitterShareButton
+                      title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                      url={`http://localhost:3001/post/${matchPost?.attributes.id}\n\n`}
+                      hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
+                      onClick={handleMenuClose}
+                    >
+                      <MenuItem disableRipple={true}>
+                        <ListItemIcon>
+                          <TwitterIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                          募集内容をtwitterでシェア
+                        </ListItemText>
+                      </MenuItem>
+                    </TwitterShareButton>
+                    {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
+                      <Box>
+                        <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
                           <ListItemIcon>
-                            <InfoIcon fontSize="small" />
+                            <DeleteIcon fontSize="small" />
                           </ListItemIcon>
                           <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                            詳細
+                            削除
                           </ListItemText>
                         </MenuItem>
-                        <TwitterShareButton
-                          title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                          url={`http://localhost:3001/post/${matchPost?.attributes.id}\n\n`}
-                          hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
-                          onClick={handleMenuClose}
-                        >
-                          <MenuItem disableRipple={true}>
-                            <ListItemIcon>
-                              <TwitterIcon fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                              募集内容をtwitterでシェア
-                            </ListItemText>
-                          </MenuItem>
-                        </TwitterShareButton>
-                        {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
-                          <>
-                            <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
-                              <ListItemIcon>
-                                <DeleteIcon fontSize="small" />
-                              </ListItemIcon>
-                              <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                                削除
-                              </ListItemText>
-                            </MenuItem>
-                            {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                      </Menu>
-                      <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                        <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                          閉じる
-                        </Button>
-                      </Modal>
-                    </>
-                  </Box>
-                </Grid>
-              </>
+                        {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                      </Box>
+                    ) : (
+                      <Box></Box>
+                    )}
+                  </Menu>
+                  <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                    <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                      閉じる
+                    </Button>
+                  </Modal>
+                </Box>
+              </Grid>
             }
           />
           <CardContent>
