@@ -245,6 +245,7 @@ const userLink = css`
 
 const menuStyle = css`
   margin-left: auto;
+  margin-right: 56px;
 `;
 
 const contentDisplay = css`

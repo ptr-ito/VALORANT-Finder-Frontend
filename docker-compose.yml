@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  front:
+    build:
+      args:
+        - NODE_VER=18.12.1
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/front:cached
+      - node-modules:/front/node_modules
+volumes:
+  node-modules:

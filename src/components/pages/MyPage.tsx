@@ -36,26 +36,17 @@ const MyPage = () => {
       </Grid>
       <Card sx={{ boxShadow: 0 }} css={cardStyle}>
         <Grid container direction="row" justifyContent="center" alignItems="center">
-          <CardHeader
-            avatar={<Avatar src={currentUser?.attributes.image.url} css={avatar} />}
-            title={
-              <>
-                <Typography variant="h5" sx={{ pr: 40 }}>
-                  {currentUser?.attributes.name}
-                </Typography>
-              </>
-            }
-          />
-          <Box>
-            <IconButton target="_blank" href={currentUser?.attributes.youtubeUrl || ""} disableRipple={true} css={youtube} sx={{ ml: -35, mr: 2 }}>
+          <CardHeader avatar={<Avatar src={currentUser?.attributes.image.url} css={avatar} />} />
+          <Box css={linkButtonPosition}>
+            <IconButton target="_blank" href={currentUser?.attributes.youtubeUrl || ""} disableRipple={true} css={linkButton}>
               <YouTubeIcon sx={{ fontSize: 34 }} />
             </IconButton>
             {currentUser?.attributes.twitterName === "" ? (
-              <IconButton target="_blank" href={``} disableRipple={true} css={youtube}>
+              <IconButton target="_blank" href={``} disableRipple={true} css={linkButton}>
                 <TwitterIcon sx={{ fontSize: 34 }} />
               </IconButton>
             ) : (
-              <IconButton target="_blank" href={`https://twitter.com/${currentUser?.attributes.twitterName}`} disableRipple={true} css={youtube}>
+              <IconButton target="_blank" href={`https://twitter.com/${currentUser?.attributes.twitterName}`} disableRipple={true} css={linkButton}>
                 <TwitterIcon sx={{ fontSize: 34 }} />
               </IconButton>
             )}
@@ -65,6 +56,9 @@ const MyPage = () => {
           </Button>
         </Grid>
         <CardContent>
+          <Typography variant="h5" sx={{ mb: 3, mt: -2 }}>
+            {currentUser?.attributes.name}
+          </Typography>
           <List>
             <ListItem>
               <ListItemText primary="ゲーム内の名前" css={spacing} />
@@ -125,15 +119,13 @@ const MyPage = () => {
                   currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent === "未選択" ? (
                     <></>
                   ) : (
-                    <>
-                      <Typography css={textAlign}>
-                        {String(currentUser?.attributes.agent)
-                          .split(/,|\s/)
-                          .map((agent: string, index: number) => {
-                            return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
-                          })}
-                      </Typography>
-                    </>
+                    <Typography component="div" css={textAlign}>
+                      {String(currentUser?.attributes.agent)
+                        .split(/,|\s/)
+                        .map((agent: string, index: number) => {
+                          return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
+                        })}
+                    </Typography>
                   )
                 }
               />
@@ -164,7 +156,7 @@ export default MyPage;
 const border = css`
   border: 1px solid #dcdfe4;
   width: 800px;
-  height: 300px;
+  height: 400px;
   padding: 10px;
   border-radius: 5px;
 `;
@@ -172,26 +164,11 @@ const border = css`
 const avatar = css`
   width: 100px;
   height: 100px;
-  margin-left: -40px;
 `;
 
 const spacing = css`
   padding-top: 10px;
   padding-bottom: 10px;
-`;
-
-const navUserSettings = css`
-  margin-top: 20px;
-  color: #fff;
-  background-color: #ff4755;
-  &:hover {
-    background-color: #ff4755;
-  }
-`;
-
-const navText = css`
-  font-weight: 500;
-  text-align: center;
 `;
 
 const textAlign = css`
@@ -200,7 +177,7 @@ const textAlign = css`
 
 const cardStyle = css`
   width: 800px;
-  height: 900px;
+  height: 1050px;
   position: relative;
   line-height: 1.4;
   padding: 0.25em 1em;
@@ -234,6 +211,7 @@ const editLinkButton = css`
     border-color: #ff4755;
     background-color: RGB(255, 71, 85, 0.1);
   }
+  margin-left: auto;
 `;
 
 const userSettingLinkButton = css`
@@ -242,9 +220,10 @@ const userSettingLinkButton = css`
   letter-spacing: 1px;
 `;
 
-const youtube = css`
+const linkButton = css`
   color: #3f4551;
   border-color: #3f4551;
+  margin-right: 10px;
   &:hover {
     color: #3f4551;
     border-color: #3f4551;
@@ -257,4 +236,8 @@ const chipStyle = css`
   border-color: #3f4551;
   margin-top: 10px;
   margin-right: 10px;
+`;
+
+const linkButtonPosition = css`
+  margin-right: auto;
 `;
