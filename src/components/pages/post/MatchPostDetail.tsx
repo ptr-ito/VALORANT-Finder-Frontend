@@ -333,6 +333,7 @@ const backButton = css`
 const boxStyle = css`
   border-top: solid 1px #ced1d8;
   border-bottom: solid 1px #ced1d8;
+  padding-bottom: 35px;
   position: relative;
   &: after {
     position: absolute;
