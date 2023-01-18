@@ -38,8 +38,8 @@ const MenuProps = {
 const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
   const [content, setContent] = useState<string>("");
   const [rankIds, setRankIds] = useState<string[]>([]);
-  const [modeId, setModeId] = useState<number>();
-  const [moodId, setMoodId] = useState<number>();
+  const [modeId, setModeId] = useState<number>(0);
+  const [moodId, setMoodId] = useState<number>(0);
 
   const { success } = useAlertMessage();
 
@@ -95,8 +95,8 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
 
         setContent("");
         setRankIds([]);
-        setModeId(undefined);
-        setMoodId(undefined);
+        setModeId(0);
+        setMoodId(0);
         handleGetPosts();
         submitCloseModal();
         {
@@ -111,12 +111,6 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
 
   const chipDelete = (name: string) => {
     setRankIds(rankIds.filter((value) => value !== name));
-  };
-
-  // undifined エラーハンドリング
-  const ensure = function <T>(arg: T | undefined | null) {
-    if (arg === undefined || arg === null) throw new Error("arg is undefined unexpectedly");
-    return arg;
   };
 
   return (
@@ -156,6 +150,7 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
             <FormControl variant="outlined" margin="dense" fullWidth>
               <Select
                 {...register("rankIds")}
+                defaultValue={[]}
                 error={!!errors["rankIds"]}
                 multiple
                 displayEmpty
@@ -172,7 +167,7 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
                       {(selected as string[]).map((value) => (
                         <Chip
                           key={value}
-                          label={ensure(rankOptions.find((item) => item.value === value)).label}
+                          label={rankOptions.find((item) => item.value === value)?.label}
                           onDelete={() => chipDelete(value)}
                           onMouseDown={(event) => {
                             event.stopPropagation();
@@ -206,20 +201,21 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
             <FormControl variant="outlined" margin="dense" fullWidth>
               <Select
                 displayEmpty
+                defaultValue={Number("0")}
                 {...register("modeId")}
                 error={!!errors["modeId"]}
                 value={modeId}
                 renderValue={(selected) => {
-                  if (selected === undefined) {
+                  if (selected === 0) {
                     return <em css={placeholder}>プレイする対戦モードを選択してください</em>;
                   }
 
-                  return ensure(modeOptions.find((item) => item.value === selected)).label;
+                  return modeOptions.find((item) => item.value === selected)?.label;
                 }}
                 onChange={(e: SelectChangeEvent<number>) => setModeId(e.target.value as number)}
                 css={selectStyle}
               >
-                <MenuItem disabled value="">
+                <MenuItem disabled value="0">
                   <em>プレイする対戦モードを選択してください</em>
                 </MenuItem>
                 {modeOptions.map((mode) => (
@@ -240,20 +236,21 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
             <FormControl variant="outlined" margin="dense" fullWidth>
               <Select
                 displayEmpty
+                defaultValue={Number("0")}
                 {...register("moodId")}
                 error={!!errors["moodId"]}
                 renderValue={(selected) => {
-                  if (selected === undefined) {
+                  if (selected === 0) {
                     return <em css={placeholder}>雰囲気を選択してください</em>;
                   }
 
-                  return ensure(moodOptions.find((item) => item.value === selected)).label;
+                  return moodOptions.find((item) => item.value === selected)?.label;
                 }}
                 value={moodId}
                 onChange={(e: SelectChangeEvent<number>) => setMoodId(e.target.value as number)}
                 css={selectStyle}
               >
-                <MenuItem disabled value="">
+                <MenuItem disabled value="0">
                   <em>雰囲気を選択してください</em>
                 </MenuItem>
                 {moodOptions.map((mood) => (

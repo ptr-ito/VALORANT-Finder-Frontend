@@ -24,142 +24,136 @@ const MyPage = () => {
 
   return (
     <>
-      {/* {isSignedIn && currentUser ? ( */}
-      <>
-        <Grid container justifyContent="flex-end" alignItems="flex-end">
-          <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={userSettingLinkButton} component={Link} to="/mypage/usersettings">
-            個人設定
+      <Grid container justifyContent="flex-end" alignItems="flex-end">
+        <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={userSettingLinkButton} component={Link} to="/mypage/usersettings">
+          個人設定
+        </Button>
+      </Grid>
+      <Grid container justifyContent="center">
+        <Typography variant="h4" sx={{ mb: 5 }}>
+          プロフィール
+        </Typography>
+      </Grid>
+      <Card sx={{ boxShadow: 0 }} css={cardStyle}>
+        <Grid container direction="row" justifyContent="center" alignItems="center">
+          <CardHeader
+            avatar={<Avatar src={currentUser?.attributes.image.url} css={avatar} />}
+            title={
+              <>
+                <Typography variant="h5" sx={{ pr: 40 }}>
+                  {currentUser?.attributes.name}
+                </Typography>
+              </>
+            }
+          />
+          <Box>
+            <IconButton target="_blank" href={currentUser?.attributes.youtubeUrl || ""} disableRipple={true} css={youtube} sx={{ ml: -35, mr: 2 }}>
+              <YouTubeIcon sx={{ fontSize: 34 }} />
+            </IconButton>
+            {currentUser?.attributes.twitterName === "" ? (
+              <IconButton target="_blank" href={``} disableRipple={true} css={youtube}>
+                <TwitterIcon sx={{ fontSize: 34 }} />
+              </IconButton>
+            ) : (
+              <IconButton target="_blank" href={`https://twitter.com/${currentUser?.attributes.twitterName}`} disableRipple={true} css={youtube}>
+                <TwitterIcon sx={{ fontSize: 34 }} />
+              </IconButton>
+            )}
+          </Box>
+          <Button variant="outlined" css={editLinkButton} disableRipple={true} component={Link} to="/mypage/edit">
+            <Typography>プロフィール編集</Typography>
           </Button>
         </Grid>
-        <Grid container justifyContent="center">
-          <Typography variant="h4" sx={{ mb: 5 }}>
-            プロフィール
-          </Typography>
-        </Grid>
-        <Card sx={{ boxShadow: 0 }} css={cardStyle}>
-          <Grid container direction="row" justifyContent="center" alignItems="center">
-            <CardHeader
-              avatar={<Avatar src={currentUser?.attributes.image.url} css={avatar} />}
-              title={
-                <>
-                  <Typography variant="h5" sx={{ pr: 40 }}>
-                    {currentUser?.attributes.name}
-                  </Typography>
-                </>
-              }
-            />
-            <Box>
-              <IconButton target="_blank" href={currentUser?.attributes.youtubeUrl || ""} disableRipple={true} css={youtube} sx={{ ml: -35, mr: 2 }}>
-                <YouTubeIcon sx={{ fontSize: 34 }} />
-              </IconButton>
-              {currentUser?.attributes.twitterName === "" ? (
-                <IconButton target="_blank" href={``} disableRipple={true} css={youtube}>
-                  <TwitterIcon sx={{ fontSize: 34 }} />
-                </IconButton>
+        <CardContent>
+          <List>
+            <ListItem>
+              <ListItemText primary="ゲーム内の名前" css={spacing} />
+              <ListItemText primary={<Typography css={textAlign}>{currentUser?.attributes.ingameName}</Typography>} />
+            </ListItem>
+            <Divider component="li" />
+            <ListItem>
+              <ListItemText primary="VALORANT歴" css={spacing} />
+              <ListItemText primary={<Typography css={textAlign}>{currentUser?.attributes.startedOnVal}</Typography>} />
+            </ListItem>
+            <Divider component="li" />
+            <ListItem>
+              <ListItemText primary="最高ランク" css={spacing} />
+              <ListItemText
+                primary={
+                  currentUser?.attributes.highestRank === "未選択" ? (
+                    <></>
+                  ) : (
+                    <Typography css={textAlign}>
+                      {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
+                        return (
+                          <Box component="span" key={index}>
+                            {rank}
+                          </Box>
+                        );
+                      })}
+                    </Typography>
+                  )
+                }
+              />
+            </ListItem>
+            <Divider component="li" />
+            <ListItem>
+              <ListItemText primary="現在のランク" css={spacing} />
+              <ListItemText
+                primary={
+                  currentUser?.attributes.rank === "未選択" ? (
+                    <></>
+                  ) : (
+                    <Typography css={textAlign}>
+                      {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
+                        return (
+                          <Box component="span" key={index}>
+                            {rank}
+                          </Box>
+                        );
+                      })}
+                    </Typography>
+                  )
+                }
+              />
+            </ListItem>
+            <Divider component="li" />
+            <ListItem>
+              <ListItemText primary="エージェント" css={spacing} />
+              <ListItemText
+                primary={
+                  currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent === "未選択" ? (
+                    <></>
+                  ) : (
+                    <>
+                      <Typography css={textAlign}>
+                        {String(currentUser?.attributes.agent)
+                          .split(/,|\s/)
+                          .map((agent: string, index: number) => {
+                            return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
+                          })}
+                      </Typography>
+                    </>
+                  )
+                }
+              />
+            </ListItem>
+            <Divider component="li" />
+            <ListItem>
+              <ListItemText primary="自己紹介" sx={{ pt: 1 }} />
+            </ListItem>
+            <ListItem>
+              {currentUser?.attributes.selfIntroduction ? (
+                <Typography css={border}>{currentUser?.attributes.selfIntroduction}</Typography>
               ) : (
-                <IconButton target="_blank" href={`https://twitter.com/${currentUser?.attributes.twitterName}`} disableRipple={true} css={youtube}>
-                  <TwitterIcon sx={{ fontSize: 34 }} />
-                </IconButton>
+                <Typography css={border} variant="body2">
+                  よろしくお願いします！
+                </Typography>
               )}
-            </Box>
-            <Button variant="outlined" css={editLinkButton} disableRipple={true} component={Link} to="/mypage/edit">
-              <Typography>プロフィール編集</Typography>
-            </Button>
-          </Grid>
-          <CardContent>
-            <List>
-              <ListItem>
-                <ListItemText primary="ゲーム内の名前" css={spacing} />
-                <ListItemText primary={<Typography css={textAlign}>{currentUser?.attributes.ingameName}</Typography>} />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem>
-                <ListItemText primary="VALORANT歴" css={spacing} />
-                <ListItemText primary={<Typography css={textAlign}>{currentUser?.attributes.startedOnVal}</Typography>} />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem>
-                <ListItemText primary="最高ランク" css={spacing} />
-                <ListItemText
-                  primary={
-                    currentUser?.attributes.highestRank === "未選択" ? (
-                      <></>
-                    ) : (
-                      <Typography css={textAlign}>
-                        {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
-                          return (
-                            <Box component="span" key={index}>
-                              {rank}
-                            </Box>
-                          );
-                        })}
-                      </Typography>
-                    )
-                  }
-                />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem>
-                <ListItemText primary="現在のランク" css={spacing} />
-                <ListItemText
-                  primary={
-                    currentUser?.attributes.rank === "未選択" ? (
-                      <></>
-                    ) : (
-                      <Typography css={textAlign}>
-                        {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
-                          return (
-                            <Box component="span" key={index}>
-                              {rank}
-                            </Box>
-                          );
-                        })}
-                      </Typography>
-                    )
-                  }
-                />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem>
-                <ListItemText primary="エージェント" css={spacing} />
-                <ListItemText
-                  primary={
-                    currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent === "未選択" ? (
-                      <></>
-                    ) : (
-                      <>
-                        <Typography css={textAlign}>
-                          {String(currentUser?.attributes.agent)
-                            .split(/,|\s/)
-                            .map((agent: string, index: number) => {
-                              return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
-                            })}
-                        </Typography>
-                      </>
-                    )
-                  }
-                />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem>
-                <ListItemText primary="自己紹介" sx={{ pt: 1 }} />
-              </ListItem>
-              <ListItem>
-                {currentUser?.attributes.selfIntroduction ? (
-                  <Typography css={border}>{currentUser?.attributes.selfIntroduction}</Typography>
-                ) : (
-                  <Typography css={border} variant="body2">
-                    よろしくお願いします！
-                  </Typography>
-                )}
-              </ListItem>
-            </List>
-          </CardContent>
-        </Card>
-      </>
-      {/* ) : (
-        <></>
-      )} */}
+            </ListItem>
+          </List>
+        </CardContent>
+      </Card>
     </>
   );
 };

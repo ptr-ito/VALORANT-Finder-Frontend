@@ -14,6 +14,7 @@ import { AuthContext } from "App";
 import { useNavigate } from "react-router-dom";
 import useAlertMessage from "components/util/useAlertMessage";
 import { Icon } from "components/ui/icon/Icon";
+import { RotatingSquare } from "react-loader-spinner";
 
 const MatchPostList = () => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
@@ -61,32 +62,38 @@ const MatchPostList = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg">
-      <Grid container direction="row" justifyContent="center">
-        <Box component="div" css={divStyle}>
-          <Grid item>
-            <img src={macth_samb} css={imgStyle} />
+    <>
+      {!loading ? (
+        <Container maxWidth="lg">
+          <Grid container direction="row" justifyContent="center">
+            <Box component="div" css={divStyle}>
+              <Grid item>
+                <img src={macth_samb} css={imgStyle} />
+              </Grid>
+              <Typography component="p" css={text}>
+                マッチ募集
+              </Typography>
+            </Box>
+            <Grid item css={border}>
+              <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
+                マッチ募集を投稿する
+              </Button>
+              <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                  閉じる
+                </Button>
+                {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
+              </Modal>
+              {matchPosts?.map((matchPost: MatchPost) => {
+                return <MatchPostItem key={matchPost.attributes.id} matchPost={matchPost} handleGetPosts={handleGetPosts} />;
+              })}
+            </Grid>
           </Grid>
-          <Typography component="p" css={text}>
-            マッチ募集
-          </Typography>
-        </Box>
-        <Grid item css={border}>
-          <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
-            マッチ募集を投稿する
-          </Button>
-          <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
-            <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-              閉じる
-            </Button>
-            {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
-          </Modal>
-          {matchPosts?.map((matchPost: MatchPost) => {
-            return <MatchPostItem key={matchPost.attributes.id} matchPost={matchPost} handleGetPosts={handleGetPosts} />;
-          })}
-        </Grid>
-      </Grid>
-    </Container>
+        </Container>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
