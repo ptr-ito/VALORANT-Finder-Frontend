@@ -14,7 +14,7 @@ interface Props {
 
 export const TwitterShareBtn = ({ url, title, hashtags }: Props) => {
   return (
-    <TwitterShareButton url={url} title={title} hashtags={hashtags} css={color}>
+    <TwitterShareButton url={url} title={title} hashtags={hashtags}>
       <Grid container direction="row" justifyContent="center" alignItems="center" css={color}>
         <Box p={0.8}>
           <TwitterIcon />
@@ -28,5 +28,8 @@ export const TwitterShareBtn = ({ url, title, hashtags }: Props) => {
 // css
 
 const color = css`
-  color: #3f4551;
+  color: #1da1f2;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
