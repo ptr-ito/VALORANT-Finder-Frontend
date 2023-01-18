@@ -19,6 +19,8 @@ const PostCommentReply = ({ query, handleGetComments, rootId, setVisibleReply }:
   const [content, setContent] = useState<string>("");
   const navigate = useNavigate();
   const { success } = useAlertMessage();
+  const commentableId = query.query.id;
+  const commentableType = "MatchPost";
 
   // form with zod
   const {
@@ -35,6 +37,8 @@ const PostCommentReply = ({ query, handleGetComments, rootId, setVisibleReply }:
 
     formData.append("content", content);
     formData.append("rootId", rootId);
+    formData.append("commentableId", commentableId);
+    formData.append("commentableType", commentableType);
 
     return formData;
   };
@@ -47,10 +51,9 @@ const PostCommentReply = ({ query, handleGetComments, rootId, setVisibleReply }:
     const data = createFormData();
 
     try {
-      const res = await createPostComment(data, String(query.query.id));
+      const res = await createPostComment(data);
 
       if (res.status === 200) {
-        console.log(query);
         setContent("");
         navigate(`/post/${query.query.id}`);
         {
@@ -82,6 +85,8 @@ const PostCommentReply = ({ query, handleGetComments, rootId, setVisibleReply }:
         <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
           {errors.content ? errors.content?.message : ""}
         </FormHelperText>
+        <TextField type="hidden" label="commentable_id" value={commentableId} {...register("commentableId")} css={hiddenContent} />
+        <TextField type="hidden" label="commentable_type" value={commentableType} {...register("commentableType")} css={hiddenContent} />
         <Grid container justifyContent="center">
           <Button type="submit" variant="contained" disableRipple={true} css={commentSubmit}>
             返信
@@ -114,4 +119,8 @@ const commentCancelSubmit = css`
     border-color: #3f4551;
   }
   margin-left: 15px;
+`;
+
+const hiddenContent = css`
+  display: none;
 `;

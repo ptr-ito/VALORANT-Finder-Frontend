@@ -1,16 +1,21 @@
 import { AxiosPromise } from "axios";
 import client from "./client";
 import Cookies from "js-cookie";
-import { PostCommentFormData } from "interfaces/index";
+import { PostCommentFormData, GetComments } from "interfaces/index";
 
 // マッチ募集コメント一覧
-export const getPostComment = (match_post_id: string): AxiosPromise => {
-  return client.get(`/posts/match_posts/${match_post_id}/comments`);
+export const getPostComment = (params: GetComments): AxiosPromise => {
+  return client.get(`/comments`, {
+    params: {
+      commentable_type: params.commentableType,
+      commentable_id: params.commentableId,
+    },
+  });
 };
 
 // マッチ募集コメント作成
-export const createPostComment = (data: FormData, match_post_id: string): AxiosPromise => {
-  return client.post(`/posts/match_posts/${match_post_id}/comments`, data, {
+export const createPostComment = (data: FormData): AxiosPromise => {
+  return client.post(`/comments/`, data, {
     headers: {
       "access-token": Cookies.get("_access_token"),
       client: Cookies.get("_client"),
@@ -21,7 +26,7 @@ export const createPostComment = (data: FormData, match_post_id: string): AxiosP
 
 // マッチ募集コメント更新
 export const updatePostComment = (data: PostCommentFormData, id: string): AxiosPromise => {
-  return client.put(`/posts/comments/${id}`, data, {
+  return client.put(`/comments/${id}`, data, {
     headers: {
       "access-token": Cookies.get("_access_token"),
       client: Cookies.get("_client"),
@@ -32,7 +37,7 @@ export const updatePostComment = (data: PostCommentFormData, id: string): AxiosP
 
 // マッチ募集コメント削除
 export const deletePostComment = (id: string): AxiosPromise => {
-  return client.delete(`/posts/comments/${id}`, {
+  return client.delete(`/comments/${id}`, {
     headers: {
       "access-token": Cookies.get("_access_token"),
       client: Cookies.get("_client"),

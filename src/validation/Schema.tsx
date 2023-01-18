@@ -111,6 +111,12 @@ export const MatchPostUpdateSchema = z.object({
 
 export const MatchPostCommentSchema = z.object({
   content: z.string().min(1, { message: "コメントを入力してください" }),
+  commentableId: z.string(),
+  commentableType: z.string(),
+});
+
+export const MatchPostCommentEditSchema = z.object({
+  content: z.string().min(1, { message: "コメントを入力してください" }),
 });
 
 export const ForgotPasswordSchema = z.object({
@@ -141,3 +147,5 @@ export type MatchPostSchemaType = z.infer<typeof MatchPostSchema>;
 export type MatchPostUpdateSchemaType = z.infer<typeof MatchPostUpdateSchema>;
 
 export type MatchPostCommentSchemaType = z.infer<typeof MatchPostCommentSchema>;
+
+export type MatchPostCommentEditSchemaType = z.infer<typeof MatchPostCommentEditSchema>;

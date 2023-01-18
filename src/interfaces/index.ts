@@ -103,7 +103,6 @@ export interface MatchPostComment {
     id: string;
     uuid: string;
     content: string;
-    matchPostId: string;
     rootId: string;
     userId: string;
     userName: string;
@@ -111,7 +110,14 @@ export interface MatchPostComment {
       url: string;
     };
     createdAt: string;
+    commentableId: string;
+    commentableType: string;
   };
+}
+
+export interface GetComments {
+  commentableId: string;
+  commentableType: string;
 }
 
 export interface UpdateUserFormData extends FormData {

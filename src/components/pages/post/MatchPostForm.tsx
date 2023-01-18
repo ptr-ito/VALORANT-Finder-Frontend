@@ -168,20 +168,18 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
                   }
 
                   return (
-                    <>
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                        {(selected as string[]).map((value) => (
-                          <Chip
-                            key={value}
-                            label={ensure(rankOptions.find((item) => item.value === value)).label}
-                            onDelete={() => chipDelete(value)}
-                            onMouseDown={(event) => {
-                              event.stopPropagation();
-                            }}
-                          />
-                        ))}
-                      </Box>
-                    </>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {(selected as string[]).map((value) => (
+                        <Chip
+                          key={value}
+                          label={ensure(rankOptions.find((item) => item.value === value)).label}
+                          onDelete={() => chipDelete(value)}
+                          onMouseDown={(event) => {
+                            event.stopPropagation();
+                          }}
+                        />
+                      ))}
+                    </Box>
                   );
                 }}
                 MenuProps={MenuProps}

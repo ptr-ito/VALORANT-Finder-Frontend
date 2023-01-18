@@ -100,7 +100,6 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                     {matchPost.attributes.createdAt}
                   </Typography>
                   <Box onClick={inActiveLink}>
-                    {/* {isSignedIn && currentUser?.id == matchPost.attributes.userId ? ( */}
                     <>
                       <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
                         <MoreHorizIcon />
@@ -163,12 +162,8 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                         <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
                           閉じる
                         </Button>
-                        {/* {<MatchPostEdit handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} matchPost={matchPost} query={matchPost.attributes} />} */}
                       </Modal>
                     </>
-                    {/* ) : (
-                  <></>
-                )} */}
                   </Box>
                 </Grid>
               </>
