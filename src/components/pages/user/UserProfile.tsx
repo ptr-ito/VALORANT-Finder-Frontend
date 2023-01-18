@@ -42,8 +42,12 @@ const UserProfile = () => {
       } else {
         console.log("No users");
       }
+      if (res?.data.data === null) {
+        navigate("NotFound");
+      }
     } catch (err) {
       console.log(err);
+      navigate("NotFound");
     }
 
     setLoading(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { showPost } from "lib/api/matchPosts";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link, Route } from "react-router-dom";
 import { MatchPost } from "interfaces/index";
 import Avatar from "@mui/material/Avatar";
 import { css } from "@emotion/react";
@@ -30,6 +30,7 @@ import { MatchPostComment } from "interfaces/index";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import { AuthContext } from "App";
 import { TwitterShareBtn } from "components/ui/icon/TwitterShareBtn";
+import NotFound from "components/pages/Page404";
 
 const MatchPostDetail = () => {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ const MatchPostDetail = () => {
       setMatchPost(res.data.data);
     } catch (e) {
       console.log(e);
+      navigate("NotFound");
     }
   };
 
