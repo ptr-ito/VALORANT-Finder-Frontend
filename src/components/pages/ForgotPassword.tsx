@@ -19,7 +19,7 @@ const PasswordForgot = () => {
   const navigate = useNavigate();
   const [modalConfig, setModalConfig] = React.useState<ConfirmDialogProps | undefined>();
   const [email, setEmail] = useState("");
-  const redirectUrl = "http://localhost:3001/password/reset";
+  const redirectUrl = `${import.meta.env.VITE_FRONT_URL}/password/reset`;
 
   const { success } = useAlertMessage();
 
