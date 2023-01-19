@@ -2,7 +2,6 @@ import { memo } from "react";
 import { Outlet } from "react-router-dom";
 import { Container, Grid, Box } from "@mui/material";
 import Header from "components/layouts/Header";
-import SideBar from "components/layouts/Sidebar";
 import { css } from "@emotion/react";
 
 // 全てのページで共通となるレイアウト
@@ -13,7 +12,6 @@ const DefaultLayout = memo(() => {
         <Header />
       </Box>
       <Box component="main" css={main}>
-        {/* <SideBar /> */}
         <Grid container direction="column" justifyContent="center" alignItems="center">
           <Grid item>
             <Outlet />
