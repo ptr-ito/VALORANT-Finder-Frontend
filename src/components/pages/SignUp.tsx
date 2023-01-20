@@ -46,16 +46,20 @@ export const SignUp = () => {
   const signUpSubmit: SubmitHandler<SignUpParams> = async () => {
     try {
       const res = await signUp(params);
-      console.log(res);
+      if (res.status === 200) {
+        console.log(res);
 
-      setName("");
-      setEmail("");
-      setPassword("");
-      setPasswordConfirmation("");
+        setName("");
+        setEmail("");
+        setPassword("");
+        setPasswordConfirmation("");
 
-      setFormSubmit(true);
+        setFormSubmit(true);
 
-      sessionStorage.setItem("form", JSON.stringify(email));
+        sessionStorage.setItem("form", JSON.stringify(email));
+      } else {
+        console.log(res);
+      }
     } catch (e) {
       console.log(e);
     }
