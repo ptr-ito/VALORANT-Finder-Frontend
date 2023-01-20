@@ -30,7 +30,6 @@ import { MatchPostComment } from "interfaces/index";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import { AuthContext } from "App";
 import { TwitterShareBtn } from "components/ui/icon/TwitterShareBtn";
-import NotFound from "components/pages/Page404";
 
 const MatchPostDetail = () => {
   const navigate = useNavigate();
