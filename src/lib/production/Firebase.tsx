@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 const config = {
@@ -11,6 +11,6 @@ const config = {
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
-const app = firebase.initializeApp(config);
+const app = initializeApp(config);
 
 export const analytics = getAnalytics(app);
