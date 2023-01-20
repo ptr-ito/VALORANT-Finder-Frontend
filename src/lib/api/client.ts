@@ -7,17 +7,12 @@ const options = {
 
 const client = applyCaseMiddleware(
   axios.create({
-    baseURL: "http://localhost:3000/api/v1",
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/v1`,
     headers: {
       "Content-Type": "multipart/form-data",
     },
   }),
   options
 );
-
-// client.interceptors.response.use((response: AxiosResponse): AxiosResponse => {
-//   const data = response.data;
-//   return { ...response.data, data };
-// });
 
 export default client;

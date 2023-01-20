@@ -24,7 +24,7 @@ export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const confirmSuccessUrl = "http://localhost:3001/mypage";
+  const confirmSuccessUrl = `${import.meta.env.VITE_FRONT_URL}/mypage`;
 
   const {
     register,
@@ -46,16 +46,20 @@ export const SignUp = () => {
   const signUpSubmit: SubmitHandler<SignUpParams> = async () => {
     try {
       const res = await signUp(params);
-      console.log(res);
+      if (res.status === 200) {
+        console.log(res);
 
-      setName("");
-      setEmail("");
-      setPassword("");
-      setPasswordConfirmation("");
+        setName("");
+        setEmail("");
+        setPassword("");
+        setPasswordConfirmation("");
 
-      setFormSubmit(true);
+        setFormSubmit(true);
 
-      sessionStorage.setItem("form", JSON.stringify(email));
+        sessionStorage.setItem("form", JSON.stringify(email));
+      } else {
+        console.log(res);
+      }
     } catch (e) {
       console.log(e);
     }
