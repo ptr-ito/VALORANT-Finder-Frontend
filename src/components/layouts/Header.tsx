@@ -14,6 +14,7 @@ import { Icon } from "components/ui/icon/Icon";
 import { signOut } from "lib/api/auth";
 import { AuthContext } from "App";
 import { RotatingSquare } from "react-loader-spinner";
+import title from "assets/images/title.png";
 
 const Header = () => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
@@ -88,9 +89,10 @@ const Header = () => {
       <Grid container>
         <AppBar position="static" elevation={0} css={appBar}>
           <Toolbar css={toolBar}>
-            <Typography variant="h5" component={Link} to="/" css={siteTitle}>
+            <img src={title} css={siteTitle} />
+            {/* <Typography variant="h5" component={Link} to="/" css={siteTitle}>
               VALORANT Finder
-            </Typography>
+            </Typography> */}
             <Grid item xs={6}>
               <Button component={NavLink} to="/" startIcon={<HomeIcon />} disableRipple={true} css={contentButtonStyle}>
                 <Typography css={contentMenuText}>ホーム</Typography>
@@ -129,6 +131,7 @@ const appBar = css`
 
 const signupButton = css`
   background-color: #ff4755;
+  marginrn-left: auto;
   &:hover {
     background-color: rgba(255, 15, 0, 1);
   }
@@ -139,11 +142,8 @@ const loginButton = css`
 `;
 
 const siteTitle = css`
-  flex-grow: 1;
-  font-family: ValorantFont;
-  letter-spacing: 0.1rem;
   color: #fff;
-  text-decoration: none;
+  margin-right: 450px;
 `;
 
 const contentButtonStyle = css`
@@ -167,4 +167,8 @@ const contentMenuText = css`
 
 const toolBar = css`
   height: 80px;
+`;
+
+const authButton = css`
+  marginrn-left: auto;
 `;

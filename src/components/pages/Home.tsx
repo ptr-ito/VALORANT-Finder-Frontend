@@ -11,10 +11,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import profile from "assets/images/profile.png";
 import post from "assets/images/post.png";
+import { HeadBlock } from "components/util/HeadBlock";
 
 export const SampleHome = () => {
   return (
     <>
+      <HeadBlock />
       <Grid container direction="row" justifyContent="center" alignItems="center">
         <Box component="div" css={divStyle}>
           <img src={home} css={imgStyle} />

@@ -1,13 +1,12 @@
 import React, { useContext, useState, useCallback } from "react";
 import Cookies from "js-cookie";
 import { AuthContext } from "App";
-
+import { HeadBlock } from "components/util/HeadBlock";
 import { EditPasswordSchema } from "validation/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { UpdateUserFormData } from "interfaces/index";
 import { UpdateUserData } from "interfaces/index";
-import { getUser, updateUser } from "lib/api/users";
 import { updateUserSettings } from "lib/api/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Grid, List } from "@mui/material";
@@ -79,6 +78,7 @@ const EditPassword = () => {
 
   return (
     <>
+      <HeadBlock title="パスワード変更 | VALORANT FINDER" />
       {isSignedIn && currentUser ? (
         <>
           <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage/usersettings">

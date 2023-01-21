@@ -13,6 +13,7 @@ import { signupSchema } from "validation/Schema";
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 import SendEmail from "./SendEmail";
+import { HeadBlock } from "components/util/HeadBlock";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ export const SignUp = () => {
 
   return (
     <>
+      <HeadBlock title="新規登録 | VALORANT FINDER" />
       {formSubmit ? (
         <SendEmail />
       ) : (

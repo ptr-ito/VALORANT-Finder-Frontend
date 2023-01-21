@@ -12,6 +12,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useAlertMessage from "components/util/useAlertMessage";
 import { forgotPassword } from "lib/api/auth";
 import { ConfirmDialog, ConfirmDialogProps } from "components/util/ConfirmDialog";
+import { HeadBlock } from "components/util/HeadBlock";
 
 import { css } from "@emotion/react";
 
@@ -70,6 +71,7 @@ const PasswordForgot = () => {
   return (
     <>
       <>
+        <HeadBlock title="パスワードを忘れた方 | VALORANT FINDER" />
         <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/signin">
           ログイン画面へ戻る
         </Button>

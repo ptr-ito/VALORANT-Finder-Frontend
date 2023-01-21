@@ -5,20 +5,16 @@ import { AuthContext } from "App";
 import { EditEmailSchema } from "validation/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import { UpdateUserFormData } from "interfaces/index";
 import { UpdateUserData } from "interfaces/index";
-import { getUser, updateUser } from "lib/api/users";
 import { updateUserSettings } from "lib/api/auth";
-
 import { Link, useNavigate } from "react-router-dom";
-
 import { Typography, Grid, List } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useAlertMessage from "components/util/useAlertMessage";
-
+import { HeadBlock } from "components/util/HeadBlock";
 import { css } from "@emotion/react";
 
 const EditEmail = () => {
@@ -81,6 +77,7 @@ const EditEmail = () => {
 
   return (
     <>
+      <HeadBlock title="メール変更 | VALORANT FINDER" />
       {isSignedIn && currentUser ? (
         <>
           <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage/usersettings">

@@ -16,6 +16,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Chip from "@mui/material/Chip";
+import { HeadBlock } from "components/util/HeadBlock";
 
 const MyPage = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const MyPage = () => {
 
   return (
     <>
+      <HeadBlock title="マイページ | VALORANT FINDER"></HeadBlock>
       <Grid container justifyContent="flex-end" alignItems="flex-end">
         <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={userSettingLinkButton} component={Link} to="/mypage/usersettings">
           個人設定

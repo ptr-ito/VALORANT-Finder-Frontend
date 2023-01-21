@@ -14,6 +14,7 @@ import { signInSchema } from "validation/Schema";
 import useAlertMessage from "components/util/useAlertMessage";
 import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { HeadBlock } from "components/util/HeadBlock";
 
 export const SignIn = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
@@ -77,6 +78,7 @@ export const SignIn = () => {
   };
   return (
     <>
+      <HeadBlock title="ログイン | VALORANT FINDER" />
       <Grid container direction="column" alignItems="center">
         <Typography variant="h4" sx={{ mb: 8 }}>
           ログイン

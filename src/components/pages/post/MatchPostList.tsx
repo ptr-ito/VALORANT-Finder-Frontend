@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import useAlertMessage from "components/util/useAlertMessage";
 import { Icon } from "components/ui/icon/Icon";
 import { RotatingSquare } from "react-loader-spinner";
+import { HeadBlock } from "components/util/HeadBlock";
 
 const MatchPostList = () => {
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
@@ -63,6 +64,7 @@ const MatchPostList = () => {
 
   return (
     <>
+      <HeadBlock title="マッチ募集一覧 | VALORANT FINDER" />
       {!loading ? (
         <Container maxWidth="lg">
           <Grid container direction="row" justifyContent="center">
