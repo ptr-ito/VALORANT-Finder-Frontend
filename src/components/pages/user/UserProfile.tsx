@@ -17,6 +17,7 @@ import Chip from "@mui/material/Chip";
 import { User } from "interfaces/index";
 import { getUser } from "lib/api/users";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { HeadBlock } from "components/util/HeadBlock";
 
 const UserProfile = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
@@ -63,6 +64,7 @@ const UserProfile = () => {
     <>
       {/* {isSignedIn && currentUser ? ( */}
       <>
+        <HeadBlock title="ユーザープロフィール | VALORANT FINDER" />
         <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} onClick={backPage}>
           募集詳細へ戻る
         </Button>

@@ -7,7 +7,6 @@ import { AuthGuardProvider } from "providers/AuthGuard";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Flip } from "react-toastify";
 import { css, Global } from "@emotion/react";
-import { MatchPost } from "interfaces/index";
 
 export const AuthContext = createContext(
   {} as {

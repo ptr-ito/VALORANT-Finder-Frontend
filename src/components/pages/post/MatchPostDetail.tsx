@@ -30,6 +30,7 @@ import { MatchPostComment } from "interfaces/index";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import { AuthContext } from "App";
 import { TwitterShareBtn } from "components/ui/icon/TwitterShareBtn";
+import { HeadBlock } from "components/util/HeadBlock";
 
 const MatchPostDetail = () => {
   const navigate = useNavigate();
@@ -127,6 +128,7 @@ const MatchPostDetail = () => {
 
   return (
     <>
+      <HeadBlock title="マッチ募集詳細 | VALORANT FINDER" />
       <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/post">
         マッチ募集一覧へ戻る
       </Button>

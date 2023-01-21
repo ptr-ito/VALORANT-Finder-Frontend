@@ -9,6 +9,7 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { HeadBlock } from "components/util/HeadBlock";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -20,6 +21,7 @@ const UserSettings = () => {
 
   return (
     <>
+      <HeadBlock title="プロフィール編集 | VALORANT FINDER" />
       {isSignedIn && currentUser ? (
         <>
           <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage">
