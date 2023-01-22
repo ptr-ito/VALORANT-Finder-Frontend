@@ -25,7 +25,7 @@ export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const confirmSuccessUrl = `${import.meta.env.VITE_FRONT_URL}/mypage`;
+  const confirmSuccessUrl = `${import.meta.env.VITE_FRONT_URL}/signin`;
 
   const {
     register,
