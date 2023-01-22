@@ -17,12 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "jsxImportSource": "@emotion/react",
-    "types": [
-      "node",
-      "jest",
-      "@testing-library/jest-dom",
-      "vite-plugin-svgr/client"
-    ]
+    "types": ["node", "jest", "@testing-library/jest-dom", "vite-plugin-svgr/client"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

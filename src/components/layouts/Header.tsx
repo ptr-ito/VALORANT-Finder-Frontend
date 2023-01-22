@@ -13,7 +13,6 @@ import { MyDialog, MyDialogProps } from "components/util/MyDialog";
 import { Icon } from "components/ui/icon/Icon";
 import { signOut } from "lib/api/auth";
 import { AuthContext } from "App";
-import { RotatingSquare } from "react-loader-spinner";
 import title from "assets/images/title.png";
 
 const Header = () => {

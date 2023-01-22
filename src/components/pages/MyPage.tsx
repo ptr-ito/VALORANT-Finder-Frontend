@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "App";
-import { ranks } from "data/ranks";
-import { agents } from "data/agents";
-import { Link, useLocation } from "react-router-dom";
-import { Typography, Grid, List, Box, ListItemIcon } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Typography, Grid, List, Box } from "@mui/material";
 import { Card, CardContent, CardHeader } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";

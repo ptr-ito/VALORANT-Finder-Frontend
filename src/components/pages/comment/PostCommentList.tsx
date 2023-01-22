@@ -1,22 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Grid, Box, Typography, cardActionAreaClasses } from "@mui/material";
-import MatchPostItem from "components/pages/post/MatchPostItem";
-import MatchPostForm from "components/pages/post/MatchPostForm";
+import { Grid, Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { getPostComment } from "lib/api/comments";
-import { MatchPost, MatchPostComment, GetComments } from "interfaces/index";
-import Divider from "@mui/material/Divider";
+import { MatchPostComment, GetComments } from "interfaces/index";
 import { css } from "@emotion/react";
-import CloseIcon from "@mui/icons-material/Close";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import "index.css";
-import macth_samb from "assets/images/macth_samb.jpeg";
-import Modal from "react-modal";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PostCommentItem from "components/pages/comment/PostCommentItem";
-import { showPost } from "lib/api/matchPosts";
 import PostCommentForm from "components/pages/comment/PostCommentForm";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { AuthContext } from "App";
 

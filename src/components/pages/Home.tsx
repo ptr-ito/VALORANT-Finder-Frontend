@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Typography, Grid, Box } from "@mui/material";
 import home from "assets/images/home.png";
 import { css } from "@emotion/react";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { Icon } from "components/ui/icon/Icon";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import profile from "assets/images/profile.png";

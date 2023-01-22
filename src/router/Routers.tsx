@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
 import { SampleHome } from "components/pages/Home";
-import NotFound from "components/pages/Page404";
+import NotFound from "components/pages/NotFound";
 import DefaultLayout from "components/layouts/DefaultLayout";
 import { SignUp } from "components/pages/SignUp";
 import { SignIn } from "components/pages/SignIn";

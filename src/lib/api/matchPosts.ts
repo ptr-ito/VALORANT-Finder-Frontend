@@ -4,8 +4,6 @@ import Cookies from "js-cookie";
 import { MatchPostUpdateFormData } from "interfaces/index";
 import { MatchPostFormData } from "interfaces/index";
 
-// import { MatchPostApiJson } from "interfaces/index";
-
 // マッチ募集一覧取得
 export const getPosts = () => {
   return client.get("/posts/match_posts");

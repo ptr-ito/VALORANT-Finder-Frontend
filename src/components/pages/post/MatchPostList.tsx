@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Grid, Box, Typography, cardActionAreaClasses } from "@mui/material";
+import { Container, Grid, Box, Typography } from "@mui/material";
 import MatchPostItem from "components/pages/post/MatchPostItem";
 import MatchPostForm from "components/pages/post/MatchPostForm";
 import Button from "@mui/material/Button";
@@ -14,7 +14,6 @@ import { AuthContext } from "App";
 import { useNavigate } from "react-router-dom";
 import useAlertMessage from "components/util/useAlertMessage";
 import { Icon } from "components/ui/icon/Icon";
-import { RotatingSquare } from "react-loader-spinner";
 import { HeadBlock } from "components/util/HeadBlock";
 
 const MatchPostList = () => {

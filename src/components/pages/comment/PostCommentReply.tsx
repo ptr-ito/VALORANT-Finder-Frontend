@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { createPostComment } from "lib/api/comments";
-import { Controller, useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MatchPostComment, PostCommentFormData, PostCommentReplyProps } from "interfaces/index";
+import { PostCommentFormData, PostCommentReplyProps } from "interfaces/index";
 import { MatchPostCommentSchema, MatchPostCommentSchemaType } from "validation/Schema";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import FormHelperText from "@mui/material/FormHelperText";
-import { Typography } from "@mui/material";
 import useAlertMessage from "components/util/useAlertMessage";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
-import ForumIcon from "@mui/icons-material/Forum";
-import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 
 const PostCommentReply = ({ query, handleGetComments, rootId, setVisibleReply }: PostCommentReplyProps) => {
   const [content, setContent] = useState<string>("");

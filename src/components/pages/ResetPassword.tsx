@@ -1,21 +1,17 @@
-import React, { useContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
-
-import { AuthContext } from "App";
+import React, { useState } from "react";
 import { ResetPasswordSchema } from "validation/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ResetPasswordFormData, ResetPassword } from "interfaces/index";
+import { ResetPassword } from "interfaces/index";
 import { Link, useNavigate } from "react-router-dom";
-import { Typography, Grid, List } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useAlertMessage from "components/util/useAlertMessage";
 import { resetPassword } from "lib/api/auth";
-import { ConfirmDialog, ConfirmDialogProps } from "components/util/ConfirmDialog";
+import { ConfirmDialogProps } from "components/util/ConfirmDialog";
 import { useLocation } from "react-router-dom";
-
 import { css } from "@emotion/react";
 
 const PasswordReset = () => {
@@ -49,14 +45,6 @@ const PasswordReset = () => {
     client: client || "",
     uid: uid || "",
   };
-
-  // const createFormData = (): ResetPasswordFormData => {
-  //   const formData = new FormData();
-
-  //   formData.append("password", password || "");
-  //   formData.append("passwordConfirmation", passwordConfirmation || "");
-  //   return formData;
-  // };
 
   const resetPasswordSubmit: SubmitHandler<ResetPassword> = async () => {
     console.log(params);

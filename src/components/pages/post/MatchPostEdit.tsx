@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Cookies from "js-cookie";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { rankOptions } from "data/ranks";
 import { modeOptions } from "data/mode";
 import { moodOptions } from "data/mood";
-import { Controller, useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { PostEditProps } from "interfaces/index";
 import { css } from "@emotion/react";
 import { MatchPostUpdateFormData } from "interfaces/index";

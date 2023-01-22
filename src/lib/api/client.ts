@@ -1,5 +1,5 @@
 import applyCaseMiddleware from "axios-case-converter";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const options = {
   ignoreHeaders: true,
