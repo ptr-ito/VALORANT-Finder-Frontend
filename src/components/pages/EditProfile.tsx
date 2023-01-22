@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useRef } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import Cookies from "js-cookie";
 import { AuthContext } from "App";
 import { rankOptions } from "data/ranks";

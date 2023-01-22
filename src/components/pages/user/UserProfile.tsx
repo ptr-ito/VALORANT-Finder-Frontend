@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "App";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Typography, Grid, List, Box, ListItemIcon } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Typography, Grid, List, Box } from "@mui/material";
 import { Card, CardContent, CardHeader } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -10,7 +10,6 @@ import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { css } from "@emotion/react";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Chip from "@mui/material/Chip";

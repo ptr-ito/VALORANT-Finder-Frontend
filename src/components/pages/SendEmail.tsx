@@ -1,10 +1,7 @@
-import { Grid, Typography, Box } from "@mui/material";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "App";
-import { css } from "@emotion/react";
+import { Grid, Typography } from "@mui/material";
+import React from "react";
 
 const SendEmail = () => {
-  const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
   const emailValue = JSON.parse(sessionStorage.getItem("form") || "");
   return (
     <>

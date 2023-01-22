@@ -1,5 +1,4 @@
-import Cookies from "js-cookie";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { signUp } from "lib/api/auth";

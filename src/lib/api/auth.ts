@@ -1,7 +1,7 @@
 import client from "lib/api/client";
 import Cookies from "js-cookie";
 
-import { SignUpParams, SignInParams, UpdateUserFormData, ResetPasswordFormData, ForgotPassword, ResetPassword } from "interfaces/index";
+import { SignUpParams, SignInParams, UpdateUserFormData, ForgotPassword, ResetPassword } from "interfaces/index";
 
 export const signUp = (params: SignUpParams) => {
   return client.post("auth", params);

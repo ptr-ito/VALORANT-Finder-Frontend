@@ -14,13 +14,7 @@ const NotFound = () => {
           <Typography variant="subtitle1" sx={{ mb: 3 }}>
             お探しのページはURLが間違っているか、削除された可能性があります。
           </Typography>
-          <Button
-            color="inherit"
-            variant="outlined"
-            component={Link}
-            to="/"
-            css={buttonStyle}
-          >
+          <Button color="inherit" variant="outlined" component={Link} to="/" css={buttonStyle}>
             <Typography variant="subtitle1" sx={{ pl: 10, pr: 10 }}>
               ホームへ
             </Typography>

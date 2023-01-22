@@ -5,7 +5,7 @@ import { getCurrentUser } from "lib/api/auth";
 import { User } from "interfaces/index";
 import { AuthGuardProvider } from "providers/AuthGuard";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, Flip } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { css, Global } from "@emotion/react";
 
 export const AuthContext = createContext(

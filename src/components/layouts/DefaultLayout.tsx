@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Outlet } from "react-router-dom";
-import { Container, Grid, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import Header from "components/layouts/Header";
 import { css } from "@emotion/react";
 

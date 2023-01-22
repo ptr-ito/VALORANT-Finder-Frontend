@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from "react";
+import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
 import { AuthContext } from "App";
 import { HeadBlock } from "components/util/HeadBlock";
@@ -9,7 +9,7 @@ import { UpdateUserFormData } from "interfaces/index";
 import { UpdateUserData } from "interfaces/index";
 import { updateUserSettings } from "lib/api/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { Typography, Grid, List } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
