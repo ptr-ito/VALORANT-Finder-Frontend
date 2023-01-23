@@ -10,7 +10,8 @@ import ListItemText from "@mui/material/ListItemText";
 import profile from "assets/images/profile.png";
 import post from "assets/images/post.png";
 import { HeadBlock } from "components/util/HeadBlock";
-import title from "assets/images/title.png";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 export const SampleHome = () => {
   return (
@@ -28,19 +29,25 @@ export const SampleHome = () => {
                   <ListItemIcon>
                     <Icon iconName="Problem" />
                   </ListItemIcon>
-                  <ListItemText primary={<Typography>SNSの募集から参加したけど思っていた雰囲気と違う...</Typography>} />
+                  <ListItemText primary={<Typography css={negativeStrongLine}>SNSの募集から参加したけど思っていた雰囲気と違う...</Typography>} />
                 </ListItem>
                 <ListItem disablePadding>
                   <ListItemIcon>
                     <Icon iconName="Problem" />
                   </ListItemIcon>
-                  <ListItemText primary={<Typography>誰かと一緒にプレイしてみたいけど中々踏み出せない...</Typography>} />
+                  <ListItemText primary={<Typography css={negativeStrongLine}>誰かと一緒にプレイしてみたいけど中々踏み出せない...</Typography>} />
                 </ListItem>
                 <ListItem disablePadding>
                   <ListItemIcon>
                     <Icon iconName="Problem" />
                   </ListItemIcon>
-                  <ListItemText primary={<Typography>募集したのに誰も来ない！</Typography>} />
+                  <ListItemText
+                    primary={
+                      <Typography component="span" css={negativeStrongLine}>
+                        募集したのに誰も来ない！
+                      </Typography>
+                    }
+                  />
                 </ListItem>
               </List>
             </Grid>
@@ -61,9 +68,17 @@ export const SampleHome = () => {
               </ListItem>
             </List>
             <img src={profile} css={introImage} />
-            <Typography variant="body1" sx={{ mt: 5, pb: 5 }} css={[listBorder, textStyle]}>
-              プロフィールを詳しく設定することで自分の情報を他のユーザーと共有できます。
-            </Typography>
+            <Box css={listBorder} sx={{ pb: 5, textAlign: "center" }}>
+              <Typography component="span" variant="body1" sx={{ mt: 5 }} css={[whiteSpace]}>
+                {`
+                プロフィールを詳しく設定することで自分の情報を他のユーザーと共有できます。\n
+                例えばランク帯やよく使用するエージェントを設定することで、募集する側や応募する側が\n
+                `}
+              </Typography>
+              <Typography component="span" css={strongLine}>
+                その人のプロフィールを見れば募集要項に対するミスマッチを防げます。
+              </Typography>
+            </Box>
             <List>
               <ListItem disablePadding sx={{ mt: 5 }}>
                 <ListItemIcon>
@@ -79,20 +94,29 @@ export const SampleHome = () => {
               </ListItem>
             </List>
             <img src={post} css={introImage} />
-            <Typography variant="body1" sx={{ mt: 5 }} css={textStyle}>
-              多様なプレイスタイルにマッチできるように様々な選択肢を用意しているので、
-            </Typography>
-            <Typography variant="body1" sx={{ mt: 2 }} css={textStyle}>
-              「雰囲気が合わなかった...」「使えるエージェントの枠が埋まっている...」「自分のランクに適正？」
-            </Typography>
-            <Typography variant="body1" sx={{ mt: 2 }} css={textStyle}>
-              などのミスマッチを事前に回避することが出来ます。
-            </Typography>
-            <Typography variant="body1" sx={{ mt: 2, pb: 5 }} css={[textStyle, listBorder]}>
-              合う募集がない場合は自分で投稿してみましょう！
-            </Typography>
+            <Box css={listBorder} sx={{ pb: 5, textAlign: "center" }}>
+              <Typography component="span" variant="body1" css={whiteSpace}>
+                {`多様なプレイスタイルにマッチできるように様々な選択肢を用意しているので、\n
+                「雰囲気が合わなかった...」「使えるエージェントの枠が埋まっている...」「自分のランクに適正？」\n
+                `}
+              </Typography>
+              <Typography component="span" variant="body1" css={whiteSpace}>
+                {`などのミスマッチを事前に回避することが出来ます。\n
+                `}
+              </Typography>
+              <Typography component="span" variant="body1" css={strongLine}>
+                合う募集がない場合は自分で投稿してみると案外すぐに見つかるかもしれません！
+              </Typography>
+            </Box>
           </Grid>
-          <Typography></Typography>
+          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mt: 10, pb: 8 }}>
+            <Typography variant="h5">自分にあったマッチを見つけてVALORANTを更に楽しみましょう！</Typography>
+            <Box css={buttonBorder}>
+              <Button variant="contained" disableRipple={true} css={beginButton} component={Link} to="/signup">
+                新規登録
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
       </Grid>
     </>
@@ -103,6 +127,7 @@ export const SampleHome = () => {
 
 const imgStyle = css`
   margin-top: -50px;
+  margin-left: -15px;
 `;
 
 const divStyle = css`
@@ -111,6 +136,14 @@ const divStyle = css`
 
 const textStyle = css`
   text-align: center;
+`;
+
+const secondHead = css`
+  padding-left: 1em;
+  text-indent: -1em;
+  &:before {
+    content: "";
+  }
 `;
 
 const boxStyle = css`
@@ -143,24 +176,9 @@ const boxStyleBottom = css`
   }
 `;
 
-const textContent = css`
-  position: absolute;
-  color: #fff;
-  left: 50%;
-  top: 55%;
-  font-family: "Noto Sans JP", sans-serif;
-  margin: 0;
-  padding: 0;
-  letter-spacing: 5px;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  white-space: pre-wrap;
-  text-align: center;
-`;
-
 const introImage = css`
   margin-top: 20px;
+  margin-bottom: 30px;
   box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.35);
 `;
 
@@ -177,4 +195,60 @@ const listBorder = css`
     left: 35%;
     width: 30%;
   }
+`;
+
+const beginButton = css`
+  letter-spacing: 4px;
+  width: 245px;
+  height: 60px;
+  margin: 5px;
+  background-color: #ff4755;
+  &:hover {
+    background-color: rgba(255, 15, 0, 1);
+  }
+`;
+
+const buttonBorder = css`
+  margin-top: 50px;
+  position: relative;
+  line-height: 1.4;
+  padding: 0.25em 1em;
+  display: inline-block;
+  top: 0;
+  &:before,
+  &:after {
+    position: absolute;
+    top: 0;
+    content: "";
+    width: 8px;
+    height: 100%;
+    display: inline-block;
+  }
+  &:before {
+    border-left: solid 1px black;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    left: 0;
+  }
+  &:after {
+    content: "";
+    border-top: solid 1px black;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+    right: 0;
+  }
+`;
+
+const strongLine = css`
+  background: linear-gradient(transparent 70%, #c1e0ff 40%);
+  font-weight: bold;
+`;
+
+const negativeStrongLine = css`
+  background: linear-gradient(transparent 70%, #ffadad 40%);
+  font-weight: bold;
+`;
+
+const whiteSpace = css`
+  white-space: pre-wrap;
 `;

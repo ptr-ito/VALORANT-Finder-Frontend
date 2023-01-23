@@ -76,9 +76,11 @@ const MatchPostList = () => {
               </Typography>
             </Box>
             <Grid item css={border}>
-              <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
-                マッチ募集を投稿する
-              </Button>
+              <Box css={buttonBorder}>
+                <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
+                  マッチ募集を投稿する
+                </Button>
+              </Box>
               <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
                 <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
                   閉じる
@@ -128,7 +130,6 @@ const text = css`
 
 const openButtonStyle = css`
   background-color: #ff4755;
-  margin-top: 50px;
   &:hover {
     background-color: #ff4755;
   }
@@ -167,5 +168,36 @@ const border = css`
     border-top: solid 1px #3f4551;
     top: -1px;
     width: 21%;
+  }
+`;
+
+const buttonBorder = css`
+  margin-top: 50px;
+  position: relative;
+  line-height: 1.4;
+  padding: 0.25em 1em;
+  display: inline-block;
+  top: 0;
+  &:before,
+  &:after {
+    position: absolute;
+    top: 0;
+    content: "";
+    width: 8px;
+    height: 100%;
+    display: inline-block;
+  }
+  &:before {
+    border-left: solid 1px black;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    left: 0;
+  }
+  &:after {
+    content: "";
+    border-top: solid 1px black;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+    right: 0;
   }
 `;
