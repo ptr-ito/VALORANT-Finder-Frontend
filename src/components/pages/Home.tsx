@@ -10,6 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import profile from "assets/images/profile.png";
 import post from "assets/images/post.png";
 import { HeadBlock } from "components/util/HeadBlock";
+import title from "assets/images/title.png";
 
 export const SampleHome = () => {
   return (
@@ -18,13 +19,6 @@ export const SampleHome = () => {
       <Grid container direction="row" justifyContent="center" alignItems="center">
         <Box component="div" css={divStyle}>
           <img src={home} css={imgStyle} />
-          <Typography css={text}>VALORANT FINDER</Typography>
-          <Typography variant="h5" sx={{ mt: 5 }} css={textContent}>
-            VALORANT FINDERへようこそ！
-          </Typography>
-          <Typography variant="h5" sx={{ mt: 5 }} css={textContentSub}>
-            気の合う仲間たちと一緒にVALORANTを更に楽しみましょう！
-          </Typography>
         </Box>
         <Grid item>
           <Box css={[boxStyle, boxStyleBottom]}>
@@ -115,24 +109,6 @@ const divStyle = css`
   position: relative;
 `;
 
-const text = css`
-  position: absolute;
-  text-shadow: 0px 4px;
-  color: #ff4755;
-  top: 30%;
-  left: 50%;
-  opacity: 0.9;
-  font-weight: bold;
-  font-size: 3em;
-  font-family: "Noto Sans JP", sans-serif;
-  margin: 0;
-  padding: 0;
-  letter-spacing: 4px;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-`;
-
 const textStyle = css`
   text-align: center;
 `;
@@ -175,24 +151,12 @@ const textContent = css`
   font-family: "Noto Sans JP", sans-serif;
   margin: 0;
   padding: 0;
-  letter-spacing: 4px;
+  letter-spacing: 5px;
   -ms-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-`;
-
-const textContentSub = css`
-  position: absolute;
-  color: #fff;
-  left: 50%;
-  top: 65%;
-  font-family: "Noto Sans JP", sans-serif;
-  margin: 0;
-  padding: 0;
-  letter-spacing: 4px;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  white-space: pre-wrap;
+  text-align: center;
 `;
 
 const introImage = css`
