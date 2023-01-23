@@ -89,9 +89,6 @@ const Header = () => {
         <AppBar position="static" elevation={0} css={appBar}>
           <Toolbar css={toolBar}>
             <img src={title} css={siteTitle} />
-            {/* <Typography variant="h5" component={Link} to="/" css={siteTitle}>
-              VALORANT Finder
-            </Typography> */}
             <Grid item xs={6}>
               <Button component={NavLink} to="/" startIcon={<HomeIcon />} disableRipple={true} css={contentButtonStyle}>
                 <Typography css={contentMenuText}>ホーム</Typography>
@@ -166,8 +163,4 @@ const contentMenuText = css`
 
 const toolBar = css`
   height: 80px;
-`;
-
-const authButton = css`
-  marginrn-left: auto;
 `;
