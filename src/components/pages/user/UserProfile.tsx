@@ -103,19 +103,19 @@ const UserProfile = () => {
             <List>
               <ListItem>
                 <ListItemText primary="ゲーム内の名前" css={spacing} />
-                <ListItemText primary={<Typography css={textAlign}>{user?.attributes.ingameName}</Typography>} />
+                <ListItemText primary={<Typography>{user?.attributes.ingameName}</Typography>} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
                 <ListItemText primary="VALORANT歴" css={spacing} />
-                <ListItemText primary={<Typography css={textAlign}>{user?.attributes.startedOnVal}</Typography>} />
+                <ListItemText primary={<Typography>{user?.attributes.startedOnVal}</Typography>} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
                 <ListItemText primary="最高ランク" css={spacing} />
                 <ListItemText
                   primary={
-                    <Typography css={textAlign}>
+                    <Typography>
                       {user?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
                         return (
                           <Box component="span" key={index}>
@@ -132,7 +132,7 @@ const UserProfile = () => {
                 <ListItemText primary="現在のランク" css={spacing} />
                 <ListItemText
                   primary={
-                    <Typography css={textAlign}>
+                    <Typography>
                       {user?.attributes.rank.split("\n").map((rank: string, index: number) => {
                         return (
                           <Box component="span" key={index}>
@@ -148,14 +148,29 @@ const UserProfile = () => {
               <ListItem>
                 <ListItemText primary="エージェント" css={spacing} />
                 <ListItemText
+                  sx={{ width: "300px" }}
                   primary={
-                    <Typography css={textAlign}>
-                      {String(user?.attributes.agent)
-                        .split(/,|\s/)
-                        .map((agent: string, index: number) => {
-                          return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
-                        })}
-                    </Typography>
+                    currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent == "未選択" ? (
+                      <></>
+                    ) : (
+                      <Typography component="div" css={agentPosition}>
+                        {String(currentUser?.attributes.agent)
+                          .split(/,|\s/)
+                          .map((agent: string, index: number) => {
+                            return (
+                              <Box component="span" key={index}>
+                                {agent == "未選択" ? (
+                                  <>
+                                    <Typography key={index} />
+                                  </>
+                                ) : (
+                                  <Chip variant="outlined" label={agent} css={chipStyle} />
+                                )}
+                              </Box>
+                            );
+                          })}
+                      </Typography>
+                    )
                   }
                 />
               </ListItem>
@@ -164,8 +179,8 @@ const UserProfile = () => {
                 <ListItemText primary="自己紹介" sx={{ pt: 1 }} />
               </ListItem>
               <ListItem>
-                {user?.attributes.selfIntroduction ? (
-                  <Typography css={border}>{user?.attributes.selfIntroduction}</Typography>
+                {currentUser?.attributes.selfIntroduction ? (
+                  <Typography css={border}>{currentUser?.attributes.selfIntroduction}</Typography>
                 ) : (
                   <Typography css={border} variant="body2">
                     よろしくお願いします！
@@ -202,27 +217,13 @@ const spacing = css`
   padding-bottom: 10px;
 `;
 
-const navUserSettings = css`
-  margin-top: 20px;
-  color: #fff;
-  background-color: #ff4755;
-  &:hover {
-    background-color: #ff4755;
-  }
-`;
-
-const navText = css`
-  font-weight: 500;
-  text-align: center;
-`;
-
-const textAlign = css`
-  text-align: center;
+const agentPosition = css`
+  margin-left: 90px;
 `;
 
 const cardStyle = css`
   width: 800px;
-  height: 900px;
+  height: auto;
   position: relative;
   line-height: 1.4;
   padding: 0.25em 1em;

@@ -239,7 +239,7 @@ const MatchPostDetail = () => {
             <Grid container direction="row" justifyContent="flex-end" alignItems="flex-end">
               <TwitterShareBtn
                 title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                url={`http://localhost:3001/post/${matchPost?.attributes.id}\n\n`}
+                url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
                 hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
               />
             </Grid>
