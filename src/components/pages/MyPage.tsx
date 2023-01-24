@@ -15,11 +15,12 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Chip from "@mui/material/Chip";
 import { HeadBlock } from "components/util/HeadBlock";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
 const MyPage = () => {
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
 
-  console.log(currentUser?.attributes);
+  console.log(currentUser?.attributes.rank);
 
   return (
     <>
@@ -115,15 +116,26 @@ const MyPage = () => {
             <ListItem>
               <ListItemText primary="エージェント" css={spacing} />
               <ListItemText
+                sx={{ width: "300px" }}
                 primary={
-                  currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent === "未選択" ? (
+                  currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent == "未選択" ? (
                     <></>
                   ) : (
-                    <Typography component="div" css={textAlign}>
+                    <Typography component="div">
                       {String(currentUser?.attributes.agent)
                         .split(/,|\s/)
                         .map((agent: string, index: number) => {
-                          return <Chip variant="outlined" label={agent} key={index} css={chipStyle} />;
+                          return (
+                            <Box component="span" key={index}>
+                              {agent == "未選択" ? (
+                                <>
+                                  <Typography key={index} />
+                                </>
+                              ) : (
+                                <Chip variant="outlined" label={agent} css={chipStyle} />
+                              )}
+                            </Box>
+                          );
                         })}
                     </Typography>
                   )
@@ -171,13 +183,11 @@ const spacing = css`
   padding-bottom: 10px;
 `;
 
-const textAlign = css`
-  text-align: center;
-`;
+const textAlign = css``;
 
 const cardStyle = css`
   width: 800px;
-  height: 1050px;
+  height: auto;
   position: relative;
   line-height: 1.4;
   padding: 0.25em 1em;
