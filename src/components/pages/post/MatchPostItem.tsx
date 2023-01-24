@@ -126,7 +126,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                     </MenuItem>
                     <TwitterShareButton
                       title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                      url={`http://localhost:3001/post/${matchPost?.attributes.id}\n\n`}
+                      url={`${import.meta.env.VITE_FRONT_URL}/${matchPost?.attributes.id}\n\n`}
                       hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
                       onClick={handleMenuClose}
                     >
