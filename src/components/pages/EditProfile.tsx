@@ -83,7 +83,7 @@ const EditProfile = () => {
     handleSubmit,
     formState: { errors, isSubmitSuccessful },
   } = useForm<UpdateUserData>({
-    mode: "onBlur",
+    mode: "onChange",
     resolver: zodResolver(ProfileSchema),
   });
 
@@ -259,6 +259,7 @@ const EditProfile = () => {
             <Typography sx={{ mt: 4 }}>エージェント</Typography>
             <FormControl variant="outlined" margin="dense" fullWidth>
               <Select
+                sx={{ width: 600 }}
                 {...register("agentIds")}
                 error={!!errors["agentIds"]}
                 displayEmpty
@@ -267,8 +268,7 @@ const EditProfile = () => {
                 onChange={handleChange}
                 renderValue={(selected) => {
                   if (selected[0] === undefined) {
-                    selected.shift();
-                    return <em css={placeholder}>普段使用しているエージェントを選択してください ※6人まで選べます</em>;
+                    return <em css={placeholder}>エージェントを選ばない場合は「未選択」を選択してください</em>;
                   }
 
                   return (
