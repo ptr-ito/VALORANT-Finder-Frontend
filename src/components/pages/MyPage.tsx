@@ -63,12 +63,12 @@ const MyPage = () => {
           <List>
             <ListItem>
               <ListItemText primary="ゲーム内の名前" css={spacing} />
-              <ListItemText primary={<Typography css={textAlign}>{currentUser?.attributes.ingameName}</Typography>} />
+              <ListItemText primary={<Typography>{currentUser?.attributes.ingameName}</Typography>} />
             </ListItem>
             <Divider component="li" />
             <ListItem>
               <ListItemText primary="VALORANT歴" css={spacing} />
-              <ListItemText primary={<Typography css={textAlign}>{currentUser?.attributes.startedOnVal}</Typography>} />
+              <ListItemText primary={<Typography>{currentUser?.attributes.startedOnVal}</Typography>} />
             </ListItem>
             <Divider component="li" />
             <ListItem>
@@ -78,7 +78,7 @@ const MyPage = () => {
                   currentUser?.attributes.highestRank === "未選択" ? (
                     <></>
                   ) : (
-                    <Typography css={textAlign}>
+                    <Typography>
                       {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
                         return (
                           <Box component="span" key={index}>
@@ -99,7 +99,7 @@ const MyPage = () => {
                   currentUser?.attributes.rank === "未選択" ? (
                     <></>
                   ) : (
-                    <Typography css={textAlign}>
+                    <Typography>
                       {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
                         return (
                           <Box component="span" key={index}>
@@ -121,7 +121,7 @@ const MyPage = () => {
                   currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent == "未選択" ? (
                     <></>
                   ) : (
-                    <Typography component="div">
+                    <Typography component="div" css={agentPosition}>
                       {String(currentUser?.attributes.agent)
                         .split(/,|\s/)
                         .map((agent: string, index: number) => {
@@ -183,7 +183,9 @@ const spacing = css`
   padding-bottom: 10px;
 `;
 
-const textAlign = css``;
+const agentPosition = css`
+  margin-left: 90px;
+`;
 
 const cardStyle = css`
   width: 800px;
