@@ -18,22 +18,15 @@ import { HeadBlock } from "components/util/HeadBlock";
 
 export const SignIn = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const [formError, setFormError] = useState("");
-
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
-
   const { error } = useAlertMessage();
-
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<SignInParams>({
     mode: "onBlur",

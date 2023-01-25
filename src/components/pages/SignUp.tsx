@@ -15,11 +15,7 @@ import SendEmail from "./SendEmail";
 import { HeadBlock } from "components/util/HeadBlock";
 
 export const SignUp = () => {
-  const navigate = useNavigate();
-  const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
-
   const [formSubmit, setFormSubmit] = useState<boolean>(false);
-
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
