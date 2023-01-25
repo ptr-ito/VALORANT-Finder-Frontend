@@ -267,10 +267,11 @@ const EditProfile = () => {
                 value={agentIds}
                 onChange={handleChange}
                 renderValue={(selected) => {
+                  console.log(selected[0]);
                   if (selected[0] === undefined) {
+                    selected.shift();
                     return <em css={placeholder}>エージェントを選ばない場合は「未選択」を選択してください</em>;
                   }
-
                   return (
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                       {(selected as string[]).map((value) => (
