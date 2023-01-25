@@ -9,6 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import profile from "assets/images/profile.png";
 import post from "assets/images/post.png";
+import twitterShare from "assets/images/twitterShare.png";
 import { HeadBlock } from "components/util/HeadBlock";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
@@ -105,12 +106,36 @@ export const SampleHome = () => {
                 `}
               </Typography>
               <Typography component="span" variant="body1" css={strongLine}>
-                合う募集がない場合は自分で投稿してみると案外すぐに見つかるかもしれません！
+                合う募集がない場合は自分で投稿してみましょう！
+              </Typography>
+            </Box>
+            <List sx={{ mt: 5 }}>
+              <ListItem disablePadding>
+                <ListItemIcon>
+                  <Icon iconName="Light" />
+                </ListItemIcon>
+                <ListItemText primary={<Typography variant="h5">Twitterシェア機能</Typography>} />
+              </ListItem>
+            </List>
+            <img src={twitterShare} css={introImage} />
+            <Box css={endBorderLine} sx={{ pb: 5, textAlign: "center" }}>
+              <Typography component="span" variant="body1" css={whiteSpace}>
+                {`もちろんTwitterでのシェアもできます！\n
+                募集投稿からシェアボタンを押していただければ簡単にTwitterへの投稿が出来ます。\n
+                `}
+              </Typography>
+              <Typography component="span" css={strongLine}>
+                VALORANT FINDERでの利用と合わせてTwitterでも募集を投稿
+              </Typography>
+              <Typography component="span" css={whiteSpace}>
+                {`してみると、\n
+                理想の募集や仲間が見つかりやすくなります！
+                `}
               </Typography>
             </Box>
           </Grid>
           <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mt: 10, pb: 8 }}>
-            <Typography variant="h5">自分にあったマッチを見つけてVALORANTを更に楽しみましょう！</Typography>
+            <Typography variant="h5">自分にあった募集を見つけてVALORANTを更に楽しみましょう！</Typography>
             <Box css={buttonBorder}>
               <Button variant="contained" disableRipple={true} css={beginButton} component={Link} to="/signup">
                 新規登録
@@ -136,14 +161,6 @@ const divStyle = css`
 
 const textStyle = css`
   text-align: center;
-`;
-
-const secondHead = css`
-  padding-left: 1em;
-  text-indent: -1em;
-  &:before {
-    content: "";
-  }
 `;
 
 const boxStyle = css`
@@ -180,6 +197,7 @@ const introImage = css`
   margin-top: 20px;
   margin-bottom: 30px;
   box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.35);
+  width: 700px;
 `;
 
 const listBorder = css`
@@ -192,8 +210,6 @@ const listBorder = css`
     display: block;
     border-bottom: solid 1px #3f4551;
     bottom: -1px;
-    left: 35%;
-    width: 30%;
   }
 `;
 
@@ -251,4 +267,18 @@ const negativeStrongLine = css`
 
 const whiteSpace = css`
   white-space: pre-wrap;
+`;
+
+const endBorderLine = css`
+  width: 900px;
+  border-bottom: solid 1px #ced1d8;
+  position: relative;
+  &: before {
+    position: absolute;
+    content: " ";
+    display: block;
+    border-bottom: solid 1px #3f4551;
+    bottom: -1px;
+    width: 21%;
+  }
 `;
