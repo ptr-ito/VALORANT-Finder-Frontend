@@ -63,6 +63,9 @@ export const SignUp = () => {
           error(`${e.response.data.data.email}はすでに登録済みです。`);
         }
       }
+      if (e.response.data.errors.fullMessages[0] === "Eメールは有効ではありません") {
+        error(`${e.response.data.data.email}は有効なメールアドレスではありません。`);
+      }
     }
   };
 
