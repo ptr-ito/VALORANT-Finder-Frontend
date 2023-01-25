@@ -144,6 +144,10 @@ export interface PostCommentFormData extends FormData {
   append(name: keyof MatchPostComment, value: String | Blob | Number, fileName?: string): any;
 }
 
+export interface ResendEmailFormData extends FormData {
+  append(name: keyof EmailData, value: String | Blob | Number, fileName?: string): any;
+}
+
 export interface PostFormProps {
   handleGetPosts: Function;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;

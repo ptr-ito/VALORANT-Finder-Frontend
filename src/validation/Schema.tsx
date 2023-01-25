@@ -43,6 +43,12 @@ export const signInSchema = z.object({
   password: z.string().min(1, { message: "パスワードを入力してください" }),
 });
 
+export const resendEmailSchema = z.object({
+  email: z.string().min(1, { message: "メールアドレスを入力してください" }).email({
+    message: "このメールアドレスは無効です。example@email.comのような形式でメールアドレスが入力されているか確認してください",
+  }),
+});
+
 export const ProfileSchema = z.object({
   name: z
     .string()
