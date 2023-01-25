@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { signUp } from "lib/api/auth";
-import { AuthContext } from "App";
 import { SignUpParams } from "interfaces/index";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,12 +9,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "validation/Schema";
 import { css } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
 import SendEmail from "./SendEmail";
 import { HeadBlock } from "components/util/HeadBlock";
+import useAlertMessage from "components/util/useAlertMessage";
 
 export const SignUp = () => {
   const [formSubmit, setFormSubmit] = useState<boolean>(false);
+  const { error } = useAlertMessage();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +25,7 @@ export const SignUp = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<SignUpParams>({
     mode: "onBlur",
     resolver: zodResolver(signupSchema),
@@ -56,8 +56,13 @@ export const SignUp = () => {
       } else {
         console.log(res);
       }
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
+      if (e.response.data.errors.fullMessages[0] === "Eメールはすでに存在します") {
+        {
+          error(`${e.response.data.data.email}はすでに登録済みです。`);
+        }
+      }
     }
   };
 
