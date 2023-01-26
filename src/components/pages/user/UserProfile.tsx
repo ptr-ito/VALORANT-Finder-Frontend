@@ -19,7 +19,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { HeadBlock } from "components/util/HeadBlock";
 
 const UserProfile = () => {
-  const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
   const [loading, setLoading] = useState<boolean>(true);
   const query = useParams<{ query: string }>();
   const navigate = useNavigate();
@@ -109,11 +108,11 @@ const UserProfile = () => {
                 <ListItemText primary="最高ランク" css={spacing} />
                 <ListItemText
                   primary={
-                    currentUser?.attributes.highestRank === "未選択" ? (
+                    user?.attributes.highestRank === "未選択" ? (
                       <></>
                     ) : (
                       <Typography css={listContent}>
-                        {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
+                        {user?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
                           return (
                             <Box component="span" key={index}>
                               {rank}
@@ -130,11 +129,11 @@ const UserProfile = () => {
                 <ListItemText primary="現在のランク" css={spacing} />
                 <ListItemText
                   primary={
-                    currentUser?.attributes.rank === "未選択" ? (
+                    user?.attributes.rank === "未選択" ? (
                       <></>
                     ) : (
                       <Typography css={listContent}>
-                        {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
+                        {user?.attributes.rank.split("\n").map((rank: string, index: number) => {
                           return (
                             <Box component="span" key={index}>
                               {rank}
@@ -152,11 +151,11 @@ const UserProfile = () => {
                 <ListItemText
                   sx={{ width: "300px" }}
                   primary={
-                    currentUser?.attributes.agent.length === 0 || currentUser?.attributes.agent == "未選択" ? (
+                    user?.attributes.agent.length === 0 || user?.attributes.agent == "未選択" ? (
                       <></>
                     ) : (
                       <Typography component="div" css={agentPosition}>
-                        {String(currentUser?.attributes.agent)
+                        {String(user?.attributes.agent)
                           .split(/,|\s/)
                           .map((agent: string, index: number) => {
                             return (
@@ -181,13 +180,7 @@ const UserProfile = () => {
                 <ListItemText primary="自己紹介" sx={{ pt: 1 }} />
               </ListItem>
               <ListItem>
-                {currentUser?.attributes.selfIntroduction ? (
-                  <Typography css={border}>{currentUser?.attributes.selfIntroduction}</Typography>
-                ) : (
-                  <Typography css={border} variant="body2">
-                    よろしくお願いします！
-                  </Typography>
-                )}
+                <Typography css={border}>{user?.attributes.selfIntroduction}</Typography>
               </ListItem>
             </List>
           </CardContent>
