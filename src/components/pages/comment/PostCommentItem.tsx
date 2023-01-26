@@ -94,10 +94,10 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
             <Paper css={paperStyle}>
               <Grid container wrap="nowrap" spacing={2}>
                 <Grid item>
-                  <Avatar src={postComment.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${postComment?.attributes.uuid}`} />
+                  <Avatar src={postComment.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${postComment?.attributes.userUuid}`} />
                 </Grid>
                 <Grid container justifyContent="left" item xs zeroMinWidth>
-                  <Typography variant="body2" component={Link} to={`/user/${postComment?.attributes.uuid}`} css={userLink}>
+                  <Typography variant="body2" component={Link} to={`/user/${postComment?.attributes.userUuid}`} css={userLink}>
                     {postComment.attributes.userName}
                   </Typography>
                   <Typography variant="body2" css={timeStyle}>
