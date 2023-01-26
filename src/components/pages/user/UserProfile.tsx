@@ -180,7 +180,13 @@ const UserProfile = () => {
                 <ListItemText primary="自己紹介" sx={{ pt: 1 }} />
               </ListItem>
               <ListItem>
-                <Typography css={border}>{user?.attributes.selfIntroduction}</Typography>
+                {user?.attributes.selfIntroduction ? (
+                  <Typography css={border}>{user?.attributes.selfIntroduction}</Typography>
+                ) : (
+                  <Typography css={border} variant="body2">
+                    よろしくお願いします！
+                  </Typography>
+                )}
               </ListItem>
             </List>
           </CardContent>
