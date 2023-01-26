@@ -101,7 +101,7 @@ export interface MatchPostUpdate {
 export interface MatchPostComment {
   attributes: {
     id: string;
-    uuid: string;
+    userUuid: string;
     content: string;
     rootId: string;
     userId: string;
