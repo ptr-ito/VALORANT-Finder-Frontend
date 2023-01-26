@@ -34,7 +34,6 @@ const Header = () => {
       if (ret === "ok") {
         const res = await signOut();
         if (res.data.success === true) {
-          // サインアウト時には各Cookieを削除
           Cookies.remove("_access_token");
           Cookies.remove("_client");
           Cookies.remove("_uid");
@@ -57,8 +56,6 @@ const Header = () => {
   };
 
   const AuthButtons = () => {
-    // 認証完了後はサインアウト用のボタンを表示
-    // 未認証時は認証用のボタンを表示
     if (!loading) {
       if (isSignedIn) {
         return (
@@ -88,7 +85,9 @@ const Header = () => {
       <Grid container>
         <AppBar position="static" elevation={0} css={appBar}>
           <Toolbar css={toolBar}>
-            <img src={title} css={siteTitle} />
+            <Link to="/">
+              <img src={title} css={siteTitle} />
+            </Link>
             <Grid item xs={6}>
               <Button component={NavLink} to="/" startIcon={<HomeIcon />} disableRipple={true} css={contentButtonStyle}>
                 <Typography css={contentMenuText}>ホーム</Typography>

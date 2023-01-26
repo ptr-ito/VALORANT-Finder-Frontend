@@ -57,7 +57,7 @@ const PostCommentList = (query: any) => {
       })}
       {isSignedIn ? (
         <>
-          <Grid container alignItems="center">
+          <Grid container alignItems="center" sx={{ mt: 10 }}>
             <Grid item>
               <Avatar src={currentUser?.attributes.image.url} css={avatar} />
             </Grid>
@@ -79,7 +79,7 @@ const PostCommentList = (query: any) => {
               </Typography>
               が必要です。
             </Typography>
-            <Typography sx={{ mb: 1 }}>アカウントをお持ちでない場合は</Typography>
+            <Typography sx={{ mb: 3 }}>アカウントをお持ちでない場合は</Typography>
             <Button variant="outlined" color="inherit" component={Link} to="/signup" disableRipple={true}>
               新規登録する
             </Button>
@@ -99,55 +99,6 @@ const avatar = css`
   height: 48px;
 `;
 
-const imgStyle = css`
-  margin-top: -40px;
-`;
-
-const divStyle = css`
-  position: relative;
-`;
-
-const text = css`
-  position: absolute;
-  color: white;
-  top: 50%;
-  left: 50%;
-  opacity: 0.9;
-  font-weight: bold;
-  font-size: 2em;
-  font-family: "Noto Sans JP", sans-serif;
-  margin: 0;
-  padding: 0;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-`;
-
-const openButtonStyle = css`
-  background-color: #ff4755;
-  &:hover {
-    background-color: #ff4755;
-  }
-`;
-
-const closeButtonStyle = css`
-  color: black;
-  font-size: 16px;
-`;
-
-const customStyles = {
-  content: {
-    top: "54%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    width: "900px",
-    height: "800px",
-  },
-};
-
 const bottomSpace = css`
   margin-bottom: 40px;
 `;
@@ -159,6 +110,7 @@ const navStyle = css`
 
 const navBox = css`
   border-top: dotted 1px #535aaa;
+  margin-top: 50px;
 `;
 
 const commentFormTitle = css`

@@ -84,8 +84,6 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
     }
   };
 
-  console.log(postComment?.attributes);
-
   return (
     <>
       <Box>

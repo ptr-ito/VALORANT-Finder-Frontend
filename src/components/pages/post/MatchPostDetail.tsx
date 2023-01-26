@@ -46,7 +46,6 @@ const MatchPostDetail = () => {
   const handleGetDetail = async (query: any) => {
     try {
       const res = await showPost(query.id);
-      console.log(res);
       setMatchPost(res.data.data);
     } catch (e) {
       console.log(e);
