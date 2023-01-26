@@ -15,7 +15,6 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Chip from "@mui/material/Chip";
 import { HeadBlock } from "components/util/HeadBlock";
-import ListItemIcon from "@mui/material/ListItemIcon";
 
 const MyPage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -183,7 +182,8 @@ const spacing = css`
 `;
 
 const agentPosition = css`
-  margin-left: 90px;
+  text-align: right;
+  margin-right: 132px;
 `;
 
 const cardStyle = css`

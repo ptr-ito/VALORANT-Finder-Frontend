@@ -213,7 +213,8 @@ const spacing = css`
 `;
 
 const agentPosition = css`
-  margin-left: 90px;
+  text-align: right;
+  margin-right: 132px;
 `;
 
 const cardStyle = css`
