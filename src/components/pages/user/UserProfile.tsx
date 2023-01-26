@@ -61,7 +61,6 @@ const UserProfile = () => {
 
   return (
     <>
-      {/* {isSignedIn && currentUser ? ( */}
       <>
         <HeadBlock title="ユーザープロフィール | VALORANT FINDER" />
         <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} onClick={backPage}>
@@ -115,15 +114,19 @@ const UserProfile = () => {
                 <ListItemText primary="最高ランク" css={spacing} />
                 <ListItemText
                   primary={
-                    <Typography>
-                      {user?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
-                        return (
-                          <Box component="span" key={index}>
-                            {rank}
-                          </Box>
-                        );
-                      })}
-                    </Typography>
+                    currentUser?.attributes.highestRank === "未選択" ? (
+                      <></>
+                    ) : (
+                      <Typography>
+                        {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
+                          return (
+                            <Box component="span" key={index}>
+                              {rank}
+                            </Box>
+                          );
+                        })}
+                      </Typography>
+                    )
                   }
                 />
               </ListItem>
@@ -132,15 +135,19 @@ const UserProfile = () => {
                 <ListItemText primary="現在のランク" css={spacing} />
                 <ListItemText
                   primary={
-                    <Typography>
-                      {user?.attributes.rank.split("\n").map((rank: string, index: number) => {
-                        return (
-                          <Box component="span" key={index}>
-                            {rank}
-                          </Box>
-                        );
-                      })}
-                    </Typography>
+                    currentUser?.attributes.rank === "未選択" ? (
+                      <></>
+                    ) : (
+                      <Typography>
+                        {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
+                          return (
+                            <Box component="span" key={index}>
+                              {rank}
+                            </Box>
+                          );
+                        })}
+                      </Typography>
+                    )
                   }
                 />
               </ListItem>
