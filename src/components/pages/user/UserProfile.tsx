@@ -30,12 +30,9 @@ const UserProfile = () => {
     navigate(-1);
   };
 
-  console.log(query);
-
   const handleGetUser = async (query: any) => {
     try {
       const res = await getUser(query.id);
-      console.log(res?.data.data);
 
       if (res?.status === 200) {
         setUser(res?.data.data);
@@ -57,8 +54,6 @@ const UserProfile = () => {
     handleGetUser(query);
   }, [query]);
 
-  console.log(user);
-
   return (
     <>
       <>
@@ -72,27 +67,27 @@ const UserProfile = () => {
           </Typography>
         </Grid>
         <Card sx={{ boxShadow: 0 }} css={cardStyle}>
-          <Grid container direction="row" justifyContent="center" alignItems="center">
+          <Grid container direction="row" justifyContent="start" alignItems="center">
             <CardHeader
               avatar={<Avatar src={user?.attributes.image.url} css={avatar} />}
               title={
                 <>
-                  <Typography variant="h5" sx={{ pr: 40 }}>
+                  <Typography variant="h5" sx={{ pl: 3 }}>
                     {user?.attributes.name}
                   </Typography>
                 </>
               }
             />
-            <Box>
-              <IconButton target="_blank" href={user?.attributes.youtubeUrl || ""} disableRipple={true} css={youtube} sx={{ ml: -35, mr: 2 }}>
+            <Box css={mediaLinkPosition}>
+              <IconButton target="_blank" href={user?.attributes.youtubeUrl || ""} disableRipple={true} css={mediaLinkButton} sx={{ ml: -35, mr: 2 }}>
                 <YouTubeIcon sx={{ fontSize: 34 }} />
               </IconButton>
               {user?.attributes.twitterName === "" ? (
-                <IconButton target="_blank" href={``} disableRipple={true} css={youtube}>
+                <IconButton target="_blank" href={``} disableRipple={true} css={mediaLinkButton}>
                   <TwitterIcon sx={{ fontSize: 34 }} />
                 </IconButton>
               ) : (
-                <IconButton target="_blank" href={`https://twitter.com/${user?.attributes.twitterName}`} disableRipple={true} css={youtube}>
+                <IconButton target="_blank" href={`https://twitter.com/${user?.attributes.twitterName}`} disableRipple={true} css={mediaLinkButton}>
                   <TwitterIcon sx={{ fontSize: 34 }} />
                 </IconButton>
               )}
@@ -216,7 +211,7 @@ const border = css`
 const avatar = css`
   width: 100px;
   height: 100px;
-  margin-left: -40px;
+  margin-left: 16px;
 `;
 
 const spacing = css`
@@ -256,26 +251,9 @@ const cardStyle = css`
   }
 `;
 
-const editLinkButton = css`
-  color: #ff4755;
-  border-color: #ff4755;
-  &:hover {
-    color: #ff4755;
-    border-color: #ff4755;
-    background-color: RGB(255, 71, 85, 0.1);
-  }
-`;
-
-const userSettingLinkButton = css`
-  margin-bottom: 50px;
-  color: #ff4755;
-  letter-spacing: 1px;
-`;
-
-const youtube = css`
+const mediaLinkButton = css`
   color: #3f4551;
   border-color: #3f4551;
-  margin-left: auto;
   &:hover {
     color: #3f4551;
     border-color: #3f4551;
@@ -294,4 +272,8 @@ const backButton = css`
   margin-bottom: 50px;
   color: #ff4755;
   margin-right: auto;
+`;
+
+const mediaLinkPosition = css`
+  margin-left: auto;
 `;
