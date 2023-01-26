@@ -72,7 +72,7 @@ export const ProfileSchema = z.object({
 
   rankId: z.preprocess((v) => String(v), z.string()),
 
-  agentIds: z.preprocess((v) => String(v), z.string()),
+  agentIds: z.coerce.string().min(1, { message: "エージェントを選ばない場合は「未選択を選択してください」" }),
 
   selfIntroduction: z.string().max(1000, {
     message: "自己紹介は1000文字以下で入力してください",
@@ -103,9 +103,9 @@ export const EditPasswordSchema = z
 
 export const MatchPostSchema = z.object({
   content: z.string().min(1, { message: "募集の内容を入力してください" }),
-  rankIds: z.string().array().nonempty({ message: "ランク帯を選択してください" }),
-  modeId: z.number({ required_error: "対戦モードを選択してください" }),
-  moodId: z.number({ required_error: "雰囲気を選択してください" }),
+  rankIds: z.coerce.string().min(1, { message: "ランク帯を選択してください" }),
+  modeId: z.coerce.number().min(1, { message: "対戦モードを選択してください" }),
+  moodId: z.coerce.number().min(1, { message: "雰囲気を選択してください" }),
 });
 
 export const MatchPostUpdateSchema = z.object({
