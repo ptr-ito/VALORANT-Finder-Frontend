@@ -18,9 +18,7 @@ import { HeadBlock } from "components/util/HeadBlock";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
 const MyPage = () => {
-  const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
-
-  console.log(currentUser?.attributes.rank);
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <>
@@ -36,7 +34,7 @@ const MyPage = () => {
         </Typography>
       </Grid>
       <Card sx={{ boxShadow: 0 }} css={cardStyle}>
-        <Grid container direction="row" justifyContent="center" alignItems="center">
+        <Grid container direction="row" justifyContent="start" alignItems="center">
           <CardHeader avatar={<Avatar src={currentUser?.attributes.image.url} css={avatar} />} />
           <Box css={linkButtonPosition}>
             <IconButton target="_blank" href={currentUser?.attributes.youtubeUrl || ""} disableRipple={true} css={linkButton}>
@@ -57,18 +55,18 @@ const MyPage = () => {
           </Button>
         </Grid>
         <CardContent>
-          <Typography variant="h5" sx={{ mb: 3, mt: -2 }}>
+          <Typography variant="h5" css={userName}>
             {currentUser?.attributes.name}
           </Typography>
           <List>
             <ListItem>
               <ListItemText primary="ゲーム内の名前" css={spacing} />
-              <ListItemText primary={<Typography>{currentUser?.attributes.ingameName}</Typography>} />
+              <ListItemText primary={<Typography css={listContent}>{currentUser?.attributes.ingameName}</Typography>} />
             </ListItem>
             <Divider component="li" />
             <ListItem>
               <ListItemText primary="VALORANT歴" css={spacing} />
-              <ListItemText primary={<Typography>{currentUser?.attributes.startedOnVal}</Typography>} />
+              <ListItemText primary={<Typography css={listContent}>{currentUser?.attributes.startedOnVal}</Typography>} />
             </ListItem>
             <Divider component="li" />
             <ListItem>
@@ -78,7 +76,7 @@ const MyPage = () => {
                   currentUser?.attributes.highestRank === "未選択" ? (
                     <></>
                   ) : (
-                    <Typography>
+                    <Typography css={listContent}>
                       {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
                         return (
                           <Box component="span" key={index}>
@@ -99,7 +97,7 @@ const MyPage = () => {
                   currentUser?.attributes.rank === "未選択" ? (
                     <></>
                   ) : (
-                    <Typography>
+                    <Typography css={listContent}>
                       {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
                         return (
                           <Box component="span" key={index}>
@@ -176,6 +174,7 @@ const border = css`
 const avatar = css`
   width: 100px;
   height: 100px;
+  margin-left: 16px;
 `;
 
 const spacing = css`
@@ -252,4 +251,15 @@ const chipStyle = css`
 
 const linkButtonPosition = css`
   margin-right: auto;
+`;
+
+const userName = css`
+  margin-left: 16px;
+  margin-bottom: 16px;
+  margin-top: -20px;
+`;
+
+const listContent = css`
+  text-align: right;
+  margin-right: 142px;
 `;

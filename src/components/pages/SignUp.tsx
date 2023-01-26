@@ -12,6 +12,7 @@ import { css } from "@emotion/react";
 import SendEmail from "./SendEmail";
 import { HeadBlock } from "components/util/HeadBlock";
 import useAlertMessage from "components/util/useAlertMessage";
+import FormHelperText from "@mui/material/FormHelperText";
 
 export const SignUp = () => {
   const [formSubmit, setFormSubmit] = useState<boolean>(false);
@@ -88,12 +89,12 @@ export const SignUp = () => {
                 fullWidth
                 required
                 value={name}
-                sx={{ mb: "2rem", mt: "0.5rem" }}
                 {...register("name")}
                 error={!!errors["name"]}
                 helperText={errors.name ? errors.name?.message : ""}
                 onChange={(event) => setName(event.target.value)}
               />
+              <FormHelperText sx={{ mb: "2rem", mt: "0.5rem" }}>{errors.name ? <></> : "3文字以上20文字以内"}</FormHelperText>
               <Typography>メールアドレス</Typography>
               <TextField
                 variant="outlined"
@@ -115,13 +116,13 @@ export const SignUp = () => {
                 required
                 type="password"
                 value={password}
-                sx={{ mb: "2rem", mt: "0.5rem" }}
                 autoComplete="current-password"
                 {...register("password")}
                 error={!!errors["password"]}
                 helperText={errors.password ? errors.password?.message : ""}
                 onChange={(event) => setPassword(event.target.value)}
               />
+              <FormHelperText sx={{ mb: "2rem", mt: "0.5rem" }}>{errors.password ? <></> : "半角英数字6文字以上"}</FormHelperText>
               <Typography>パスワードの確認</Typography>
               <TextField
                 variant="outlined"

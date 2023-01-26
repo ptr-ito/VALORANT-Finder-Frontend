@@ -28,7 +28,7 @@ import { css } from "@emotion/react";
 import InputAdornment from "@mui/material/InputAdornment";
 
 const EditProfile = () => {
-  const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
 
   const agentParams: any = String(currentUser?.attributes.agent)
     .split(/,|\s/)
@@ -50,7 +50,6 @@ const EditProfile = () => {
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>("");
 
-  // アップロードした画像の情報を取得
   const uploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) {
       return;
@@ -59,7 +58,6 @@ const EditProfile = () => {
     setImage(file);
   }, []);
 
-  // 画像プレビュー
   const previewImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) {
       return;
@@ -72,18 +70,15 @@ const EditProfile = () => {
     const {
       target: { value },
     } = event;
-    setAgentIds(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setAgentIds(typeof value === "string" ? value.split(",") : value);
   };
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<UpdateUserData>({
-    mode: "onChange",
+    mode: "onBlur",
     resolver: zodResolver(ProfileSchema),
   });
 
@@ -188,6 +183,7 @@ const EditProfile = () => {
               helperText={errors.name ? errors.name?.message : ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             />
+            <FormHelperText>{errors.name ? <></> : "3文字以上20文字以内"}</FormHelperText>
             <Typography sx={{ mt: 7 }}>ゲーム内の名前</Typography>
             <TextField
               variant="outlined"
