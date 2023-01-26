@@ -37,7 +37,6 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
   const openMenu = Boolean(anchorEl);
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-    console.log(openMenu);
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -85,7 +84,7 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
     }
   };
 
-  console.log(replies);
+  console.log(postComment?.attributes);
 
   return (
     <>
@@ -104,16 +103,20 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
                   <Typography variant="body2" css={timeStyle}>
                     {postComment.attributes.createdAt}
                   </Typography>
-                  <IconButton
-                    css={menuStyle}
-                    id="menu-button"
-                    aria-controls={openMenu ? "menu-button" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={openMenu ? "true" : undefined}
-                    onClick={handleMenuClick}
-                  >
-                    <MoreHorizIcon />
-                  </IconButton>
+                  {postComment.attributes.userId === currentUser?.attributes.id ? (
+                    <IconButton
+                      css={menuStyle}
+                      id="menu-button"
+                      aria-controls={openMenu ? "menu-button" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={openMenu ? "true" : undefined}
+                      onClick={handleMenuClick}
+                    >
+                      <MoreHorizIcon />
+                    </IconButton>
+                  ) : (
+                    <></>
+                  )}
                   <Menu
                     id="menu-button"
                     aria-labelledby="menu-button"
