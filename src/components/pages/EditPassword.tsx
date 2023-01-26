@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { css } from "@emotion/react";
 import useAlertMessage from "components/util/useAlertMessage";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const EditPassword = () => {
   const navigate = useNavigate();
@@ -98,13 +99,13 @@ const EditPassword = () => {
                 value={password}
                 type="password"
                 margin="dense"
-                sx={{ width: 600, mb: -4 }}
+                sx={{ width: 600 }}
                 {...register("password")}
                 error={!!errors["password"]}
                 helperText={errors.password ? errors.password?.message : ""}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
-              <Typography sx={{ mt: 7 }}>パスワード確認</Typography>
+              <FormHelperText sx={{ mb: "2rem", mt: "0.5rem" }}>{errors.password ? <></> : "半角英数字6文字以上"}</FormHelperText>
               <TextField
                 variant="outlined"
                 required

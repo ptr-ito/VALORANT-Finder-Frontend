@@ -183,6 +183,7 @@ const EditProfile = () => {
               helperText={errors.name ? errors.name?.message : ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             />
+            <FormHelperText>{errors.name ? <></> : "3文字以上20文字以内"}</FormHelperText>
             <Typography sx={{ mt: 7 }}>ゲーム内の名前</Typography>
             <TextField
               variant="outlined"

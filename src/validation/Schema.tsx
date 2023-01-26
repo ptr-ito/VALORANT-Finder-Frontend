@@ -9,7 +9,7 @@ export const signupSchema = z
         message: "ユーザーネームは3文字以上10文字以下で入力してください",
       })
       .max(20, {
-        message: "ユーザーネームは2文字以上20文字以下で入力してください",
+        message: "ユーザーネームは3文字以上20文字以下で入力してください",
       })
       .refine((value) => {
         return Boolean(value.trim().length);
@@ -57,7 +57,7 @@ export const ProfileSchema = z.object({
       message: "ユーザーネームは3文字以上20文字以下で入力してください",
     })
     .max(20, {
-      message: "ユーザーネームは2文字以上20文字以下で入力してください",
+      message: "ユーザーネームは3文字以上20文字以下で入力してください",
     }),
 
   ingameName: z.string(),
