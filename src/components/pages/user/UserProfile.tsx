@@ -97,12 +97,12 @@ const UserProfile = () => {
             <List>
               <ListItem>
                 <ListItemText primary="ゲーム内の名前" css={spacing} />
-                <ListItemText primary={<Typography>{user?.attributes.ingameName}</Typography>} />
+                <ListItemText primary={<Typography css={listContent}>{user?.attributes.ingameName}</Typography>} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
                 <ListItemText primary="VALORANT歴" css={spacing} />
-                <ListItemText primary={<Typography>{user?.attributes.startedOnVal}</Typography>} />
+                <ListItemText primary={<Typography css={listContent}>{user?.attributes.startedOnVal}</Typography>} />
               </ListItem>
               <Divider component="li" />
               <ListItem>
@@ -112,7 +112,7 @@ const UserProfile = () => {
                     currentUser?.attributes.highestRank === "未選択" ? (
                       <></>
                     ) : (
-                      <Typography>
+                      <Typography css={listContent}>
                         {currentUser?.attributes.highestRank.split("\n").map((rank: string, index: number) => {
                           return (
                             <Box component="span" key={index}>
@@ -133,7 +133,7 @@ const UserProfile = () => {
                     currentUser?.attributes.rank === "未選択" ? (
                       <></>
                     ) : (
-                      <Typography>
+                      <Typography css={listContent}>
                         {currentUser?.attributes.rank.split("\n").map((rank: string, index: number) => {
                           return (
                             <Box component="span" key={index}>
@@ -276,4 +276,9 @@ const backButton = css`
 
 const mediaLinkPosition = css`
   margin-left: auto;
+`;
+
+const listContent = css`
+  text-align: right;
+  margin-right: 142px;
 `;
