@@ -78,7 +78,7 @@ const UserProfile = () => {
               }
             />
             <Box css={mediaLinkPosition}>
-              <IconButton target="_blank" href={user?.attributes.youtubeUrl || ""} disableRipple={true} css={mediaLinkButton} sx={{ ml: -35, mr: 2 }}>
+              <IconButton target="_blank" href={user?.attributes.youtubeUrl || ""} disableRipple={true} css={mediaLinkButton}>
                 <YouTubeIcon sx={{ fontSize: 34 }} />
               </IconButton>
               {user?.attributes.twitterName === "" ? (
@@ -177,10 +177,27 @@ const UserProfile = () => {
               </ListItem>
               <Divider component="li" />
               <ListItem>
-                <ListItemText primary="自己紹介" sx={{ pt: 1 }} />
+                <ListItemText primary="自己紹介" css={spacing} />
               </ListItem>
               <ListItem>
-                <Typography css={border}>{user?.attributes.selfIntroduction}</Typography>
+                <ListItemText
+                  sx={{ width: "300px" }}
+                  primary={
+                    user?.attributes.selfIntroduction ? (
+                      <Box>
+                        {user?.attributes.selfIntroduction.split("\n").map((content: string, index: number) => {
+                          return (
+                            <Typography component="p" key={index}>
+                              {content}
+                            </Typography>
+                          );
+                        })}
+                      </Box>
+                    ) : (
+                      <Typography variant="body2">よろしくお願いします！</Typography>
+                    )
+                  }
+                />
               </ListItem>
             </List>
           </CardContent>
@@ -193,13 +210,6 @@ const UserProfile = () => {
 export default UserProfile;
 
 // css
-const border = css`
-  border: 1px solid #dcdfe4;
-  width: 800px;
-  height: 300px;
-  padding: 10px;
-  border-radius: 5px;
-`;
 
 const avatar = css`
   width: 100px;
@@ -213,7 +223,8 @@ const spacing = css`
 `;
 
 const agentPosition = css`
-  margin-left: 90px;
+  text-align: right;
+  margin-right: 6px;
 `;
 
 const cardStyle = css`
@@ -269,9 +280,10 @@ const backButton = css`
 
 const mediaLinkPosition = css`
   margin-left: auto;
+  margin-right: 36px;
 `;
 
 const listContent = css`
   text-align: right;
-  margin-right: 142px;
+  margin-right: 16px;
 `;

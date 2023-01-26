@@ -15,7 +15,6 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Chip from "@mui/material/Chip";
 import { HeadBlock } from "components/util/HeadBlock";
-import ListItemIcon from "@mui/material/ListItemIcon";
 
 const MyPage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -142,16 +141,27 @@ const MyPage = () => {
             </ListItem>
             <Divider component="li" />
             <ListItem>
-              <ListItemText primary="自己紹介" sx={{ pt: 1 }} />
+              <ListItemText primary="自己紹介" css={spacing} />
             </ListItem>
             <ListItem>
-              {currentUser?.attributes.selfIntroduction ? (
-                <Typography css={border}>{currentUser?.attributes.selfIntroduction}</Typography>
-              ) : (
-                <Typography css={border} variant="body2">
-                  よろしくお願いします！
-                </Typography>
-              )}
+              <ListItemText
+                sx={{ width: "300px" }}
+                primary={
+                  currentUser?.attributes.selfIntroduction ? (
+                    <Box>
+                      {currentUser?.attributes.selfIntroduction.split("\n").map((content: string, index: number) => {
+                        return (
+                          <Typography component="p" key={index}>
+                            {content}
+                          </Typography>
+                        );
+                      })}
+                    </Box>
+                  ) : (
+                    <Typography variant="body2">よろしくお願いします！</Typography>
+                  )
+                }
+              />
             </ListItem>
           </List>
         </CardContent>
@@ -163,13 +173,6 @@ const MyPage = () => {
 export default MyPage;
 
 // css
-const border = css`
-  border: 1px solid #dcdfe4;
-  width: 800px;
-  height: 400px;
-  padding: 10px;
-  border-radius: 5px;
-`;
 
 const avatar = css`
   width: 100px;
@@ -183,7 +186,8 @@ const spacing = css`
 `;
 
 const agentPosition = css`
-  margin-left: 90px;
+  text-align: right;
+  margin-right: 6px;
 `;
 
 const cardStyle = css`
@@ -223,6 +227,7 @@ const editLinkButton = css`
     background-color: RGB(255, 71, 85, 0.1);
   }
   margin-left: auto;
+  margin-right: 36px;
 `;
 
 const userSettingLinkButton = css`
@@ -261,5 +266,5 @@ const userName = css`
 
 const listContent = css`
   text-align: right;
-  margin-right: 142px;
+  margin-right: 16px;
 `;
