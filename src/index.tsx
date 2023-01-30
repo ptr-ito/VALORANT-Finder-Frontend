@@ -11,9 +11,17 @@ const rootElement = document.getElementById("root") as HTMLElement;
 if (!rootElement) throw new Error("Failed to find the root element");
 const root = ReactDOM.createRoot(rootElement);
 
-// if (import.meta.env.PROD === true) {
-//   analytics;
-// }
+if (import.meta.env.PROD === true) {
+  analytics;
+}
+
+if (process.env.NODE_ENV !== "development") {
+  console.log = () => {};
+  console.info = () => {};
+  console.debug = () => {};
+  console.warn = () => {};
+  console.error = () => {};
+}
 
 root.render(
   <ThemeProvider theme={theme}>
