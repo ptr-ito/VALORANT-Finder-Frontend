@@ -13,7 +13,7 @@ const Tos = () => {
         <Grid container direction="column" justifyContent="center" alignItems="start">
           <Typography sx={{ mb: 5 }}>
             この利用規約（以下、「本規約」といいます）は、VALORANT FINDERの運営者（以下、「当方」という）がこのウェブサイト上で提供するサービス「VALORANTFINDER」（以下、「本サービス」といいます）
-            の利用条件を定めるものです。 登録ユーザーの皆さま（以下、「ユーザー」といいます）には、本規約に従って、本サービスをご利用いただきます
+            の利用条件を定めるものです。 登録ユーザーの皆さま（以下、「ユーザー」といいます）には、本規約に従って、本サービスをご利用いただきます。
           </Typography>
           <Typography variant="h5" sx={{ mb: 3 }}>
             第1条（適用）

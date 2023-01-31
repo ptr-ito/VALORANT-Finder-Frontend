@@ -14,7 +14,7 @@ const ContactForm = () => {
           <Divider />
           <Grid container direction="column" justifyContent="center" alignItems="start">
             <Typography sx={{ mb: 3 }}>ご要望や誤字脱字の報告、その他お問い合わせは下記フォームよりご連絡お願い致します。</Typography>
-            <Typography sx={{ mb: 5 }}>問い合わせによっては返信できない場合がございますので、ご了承ください。</Typography>
+            <Typography sx={{ mb: 5 }}>お問い合わせによっては返信できない場合がございますので、ご了承ください。</Typography>
           </Grid>
           <Card css={card}>
             <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdypcxprDQsQTfRRQvo-Nr5L7DNgFqES9o5-YQivdm_DqP0vQ/viewform?embedded=true" width="640" height="950" css={iframe}>
