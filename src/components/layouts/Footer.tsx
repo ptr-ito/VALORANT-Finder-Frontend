@@ -19,7 +19,7 @@ const Footer = () => {
                 Topに戻る
               </Typography>
             </Button>
-            <Button color="inherit" disableRipple={true} css={navButton}>
+            <Button component={Link} to="tos" color="inherit" disableRipple={true} css={navButton}>
               <Typography variant="caption" css={spacing}>
                 利用規約
               </Typography>
@@ -29,7 +29,7 @@ const Footer = () => {
                 プライバシーポリシー
               </Typography>
             </Button>
-            <Button color="inherit" disableRipple={true} css={navButton}>
+            <Button component={Link} to="contact" color="inherit" disableRipple={true} css={navButton}>
               <Typography variant="caption" css={spacing}>
                 お問い合わせ
               </Typography>

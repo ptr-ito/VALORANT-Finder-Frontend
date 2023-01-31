@@ -1,9 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
 import { css } from "@emotion/react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 
 const Tos = () => {
   return (
