@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Grid, Box } from "@mui/material";
 import Header from "components/layouts/Header";
 import { css } from "@emotion/react";
+import Footer from "components/layouts/Footer";
 
 // 全てのページで共通となるレイアウト
 const DefaultLayout = memo(() => {
@@ -18,6 +19,9 @@ const DefaultLayout = memo(() => {
           </Grid>
         </Grid>
       </Box>
+      <Box component="footer">
+        <Footer />
+      </Box>
     </>
   );
 });
@@ -32,4 +36,5 @@ const main = css`
   flex-grow: 1;
   padding-top: 8rem;
   padding-bottom: 8rem;
+  height: 
 `;

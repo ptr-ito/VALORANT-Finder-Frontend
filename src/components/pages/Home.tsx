@@ -140,7 +140,7 @@ export const SampleHome = () => {
             </Card>
             <Divider sx={{ width: "700px" }} />
           </Grid>
-          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mt: 10, pb: 8 }} css={endBorderLine}>
+          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mt: 10, pb: 8 }}>
             <Typography variant="h5">自分にあった募集を見つけてVALORANTを更に楽しみましょう！</Typography>
             <Box css={buttonBorder}>
               <Button variant="contained" disableRipple={true} css={beginButton} component={Link} to="/signup">
@@ -260,20 +260,6 @@ const negativeStrongLine = css`
 
 const whiteSpace = css`
   white-space: pre-wrap;
-`;
-
-const endBorderLine = css`
-  width: 900px;
-  border-bottom: solid 1px #ced1d8;
-  position: relative;
-  &: before {
-    position: absolute;
-    content: " ";
-    display: block;
-    border-bottom: solid 1px #3f4551;
-    bottom: -1px;
-    width: 21%;
-  }
 `;
 
 const card = css`

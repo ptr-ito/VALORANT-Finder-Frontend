@@ -17,6 +17,9 @@ import MatchPostDetail from "components/pages/post/MatchPostDetail";
 import UserProfile from "components/pages/user/UserProfile";
 import ForgotPassword from "components/pages/ForgotPassword";
 import ResetPassaword from "components/pages/ResetPassword";
+import PrivacyPolicy from "components/pages/PrivacyPolicy";
+import Tos from "components/pages/Tos";
+import ContactForm from "components/pages/ContactForm";
 
 const Routers = memo(() => {
   return (
@@ -32,6 +35,9 @@ const Routers = memo(() => {
           <Route path="post" element={<MatchPostList />} />
           <Route path="post/:id" element={<MatchPostDetail />} />
           <Route path="user/:id" element={<UserProfile />} />
+          <Route path="privacy" element={<PrivacyPolicy />} />
+          <Route path="tos" element={<Tos />} />
+          <Route path="contact" element={<ContactForm />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route element={<DefaultLayout />}>
