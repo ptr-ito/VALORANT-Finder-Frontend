@@ -46,6 +46,7 @@
     "react-share": "^4.4.1",
     "react-toastify": "^9.1.1",
     "rodal": "^2.0.1",
+    "use-media": "^1.4.0",
     "vite-plugin-svgr": "^2.2.2",
     "vite-tsconfig-paths": "^3.5.2",
     "yarn": "^1.22.19",
