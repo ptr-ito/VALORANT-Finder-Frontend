@@ -64,37 +64,70 @@ const MatchPostList = () => {
   return (
     <>
       <HeadBlock title="マッチ募集一覧 | VALORANT FINDER" />
-      {!loading ? (
-        <Container maxWidth="lg">
-          <Grid container direction="row" justifyContent="center">
-            <Box component="div" css={divStyle}>
-              <Grid item>
-                <img src={macth_samb} css={imgStyle} />
-              </Grid>
-              <Typography component="p" css={text}>
-                マッチ募集
-              </Typography>
-            </Box>
-            <Grid item css={border}>
-              <Box css={buttonBorder}>
-                <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
-                  マッチ募集を投稿する
-                </Button>
+      {matchPosts.length === 0 ? (
+        <>
+          <Container maxWidth="lg">
+            <Grid container direction="row" justifyContent="center">
+              <Box component="div" css={divStyle}>
+                <Grid item>
+                  <img src={macth_samb} css={imgStyle} />
+                </Grid>
+                <Typography component="p" css={text}>
+                  マッチ募集
+                </Typography>
               </Box>
-              <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                  閉じる
-                </Button>
-                {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
-              </Modal>
-              {matchPosts?.map((matchPost: MatchPost) => {
-                return <MatchPostItem key={matchPost.attributes.id} matchPost={matchPost} handleGetPosts={handleGetPosts} />;
-              })}
+              <Grid item css={border}>
+                <Box css={buttonBorder}>
+                  <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
+                    マッチ募集を投稿する
+                  </Button>
+                </Box>
+                <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                  <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                    閉じる
+                  </Button>
+                  {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
+                </Modal>
+                <Typography css={nonePost}>投稿がありません</Typography>
+              </Grid>
             </Grid>
-          </Grid>
-        </Container>
+          </Container>
+        </>
       ) : (
-        <></>
+        <>
+          {!loading ? (
+            <Container maxWidth="lg">
+              <Grid container direction="row" justifyContent="center">
+                <Box component="div" css={divStyle}>
+                  <Grid item>
+                    <img src={macth_samb} css={imgStyle} />
+                  </Grid>
+                  <Typography component="p" css={text}>
+                    マッチ募集
+                  </Typography>
+                </Box>
+                <Grid item css={border}>
+                  <Box css={buttonBorder}>
+                    <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
+                      マッチ募集を投稿する
+                    </Button>
+                  </Box>
+                  <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                    <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                      閉じる
+                    </Button>
+                    {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
+                  </Modal>
+                  {matchPosts?.map((matchPost: MatchPost) => {
+                    return <MatchPostItem key={matchPost.attributes.id} matchPost={matchPost} handleGetPosts={handleGetPosts} />;
+                  })}
+                </Grid>
+              </Grid>
+            </Container>
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </>
   );
@@ -200,4 +233,9 @@ const buttonBorder = css`
     border-bottom: solid 1px black;
     right: 0;
   }
+`;
+
+const nonePost = css`
+  text-align: center;
+  margin-top: 100px;
 `;
