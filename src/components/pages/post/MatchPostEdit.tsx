@@ -15,7 +15,7 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import { MatchPostUpdateSchema } from "validation/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -24,10 +24,11 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { updatePost } from "lib/api/matchPosts";
 import { MatchPostUpdate } from "interfaces/index";
 import { useNavigate } from "react-router-dom";
+import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 const MatchPostEdit = ({ handleGetPosts, setOpenModal, matchPost, query }: PostEditProps) => {
+  const { isMobileSite, isPcSite } = useMediaQueryContext();
   const navigate = useNavigate();
-
   // any
   const rankParams: any = String(matchPost?.attributes.rank)
     .split(/,|\s/)
@@ -119,103 +120,236 @@ const MatchPostEdit = ({ handleGetPosts, setOpenModal, matchPost, query }: PostE
         </Typography>
         <form noValidate onSubmit={handleSubmit(handleUpdatePost)}>
           <Divider css={dividerStyle} />
-          <Grid item css={spacing}>
-            <Typography variant="h4" css={subTitle} sx={{ mb: 1 }}>
-              募集内容
-            </Typography>
-            <TextField
-              placeholder="募集内容を入力してください"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows="4"
-              value={content}
-              {...register("content")}
-              error={!!errors["content"]}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setContent(e.target.value);
-              }}
-              css={textWidth}
-            />
-            <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
-              {errors.content ? errors.content?.message : ""}
-            </FormHelperText>
-          </Grid>
-          <Grid item css={spacing}>
-            <Typography variant="h4" component="span" css={subTitle}>
-              ランク帯
-            </Typography>
-            <FormControl variant="outlined" margin="dense" fullWidth>
-              <Select
-                {...register("rankIds")}
-                error={!!errors["rankIds"]}
-                multiple
-                value={rankIds}
-                onChange={handleChange}
-                renderValue={(selected) => {
-                  return (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                      {(selected as string[]).map((value) => (
-                        <Chip
-                          key={value}
-                          label={rankOptions.find((item) => item.value === value)?.label}
-                          onDelete={() => chipDelete(value)}
-                          onMouseDown={(event) => {
-                            event.stopPropagation();
-                          }}
-                        />
-                      ))}
-                    </Box>
-                  );
-                }}
-                MenuProps={MenuProps}
-                css={selectStyle}
-              >
-                {rankOptions.map((rank) => (
-                  <MenuItem key={rank.value} value={rank.value}>
-                    {rank.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText error={true} sx={{ ml: -0.2, mt: -1, mb: 3 }}>
-                {errors.rankIds ? errors.rankIds?.message : ""}
-              </FormHelperText>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <Typography variant="h4" component="span" css={subTitle}>
-              対戦モード
-            </Typography>
-            <FormControl variant="outlined" margin="dense" fullWidth>
-              <Select displayEmpty {...register("modeId")} error={!!errors["modeId"]} value={modeId} onChange={(e: SelectChangeEvent<number>) => setModeId(e.target.value as number)} css={selectStyle}>
-                {modeOptions.map((mode) => (
-                  <MenuItem key={mode.value} value={mode.value}>
-                    {mode.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText error={true} sx={{ ml: -0.2, mt: -1, mb: 3 }}>
-                {errors.modeId ? errors.modeId?.message : ""}
-              </FormHelperText>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <Typography variant="h4" component="span" css={subTitle}>
-              雰囲気
-            </Typography>
-            <FormControl variant="outlined" margin="dense" fullWidth>
-              <Select displayEmpty {...register("moodId")} error={!!errors["moodId"]} value={moodId} onChange={(e: SelectChangeEvent<number>) => setMoodId(e.target.value as number)} css={selectStyle}>
-                {moodOptions.map((mood) => (
-                  <MenuItem key={mood.value} value={mood.value}>
-                    {mood.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText error={true} sx={{ ml: -0.2, mt: -1 }}>
-                {errors.moodId ? errors.moodId?.message : ""}
-              </FormHelperText>
-            </FormControl>
-          </Grid>
+          {isPcSite && (
+            <>
+              <Grid item css={spacing}>
+                <Typography variant="h4" css={subTitle} sx={{ mb: 1 }}>
+                  募集内容
+                </Typography>
+                <TextField
+                  placeholder="募集内容を入力してください"
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows="4"
+                  value={content}
+                  {...register("content")}
+                  error={!!errors["content"]}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setContent(e.target.value);
+                  }}
+                  css={textWidth}
+                />
+                <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
+                  {errors.content ? errors.content?.message : ""}
+                </FormHelperText>
+              </Grid>
+              <Grid item css={spacing}>
+                <Typography variant="h4" component="span" css={subTitle}>
+                  ランク帯
+                </Typography>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <Select
+                    {...register("rankIds")}
+                    error={!!errors["rankIds"]}
+                    multiple
+                    value={rankIds}
+                    onChange={handleChange}
+                    renderValue={(selected) => {
+                      return (
+                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                          {(selected as string[]).map((value) => (
+                            <Chip
+                              key={value}
+                              label={rankOptions.find((item) => item.value === value)?.label}
+                              onDelete={() => chipDelete(value)}
+                              onMouseDown={(event) => {
+                                event.stopPropagation();
+                              }}
+                            />
+                          ))}
+                        </Box>
+                      );
+                    }}
+                    MenuProps={MenuProps}
+                    css={selectStyle}
+                  >
+                    {rankOptions.map((rank) => (
+                      <MenuItem key={rank.value} value={rank.value}>
+                        {rank.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error={true} sx={{ ml: -0.2, mt: -1, mb: 3 }}>
+                    {errors.rankIds ? errors.rankIds?.message : ""}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item>
+                <Typography variant="h4" component="span" css={subTitle}>
+                  対戦モード
+                </Typography>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <Select
+                    displayEmpty
+                    {...register("modeId")}
+                    error={!!errors["modeId"]}
+                    value={modeId}
+                    onChange={(e: SelectChangeEvent<number>) => setModeId(e.target.value as number)}
+                    css={selectStyle}
+                  >
+                    {modeOptions.map((mode) => (
+                      <MenuItem key={mode.value} value={mode.value}>
+                        {mode.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error={true} sx={{ ml: -0.2, mt: -1, mb: 3 }}>
+                    {errors.modeId ? errors.modeId?.message : ""}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item>
+                <Typography variant="h4" component="span" css={subTitle}>
+                  雰囲気
+                </Typography>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <Select
+                    displayEmpty
+                    {...register("moodId")}
+                    error={!!errors["moodId"]}
+                    value={moodId}
+                    onChange={(e: SelectChangeEvent<number>) => setMoodId(e.target.value as number)}
+                    css={selectStyle}
+                  >
+                    {moodOptions.map((mood) => (
+                      <MenuItem key={mood.value} value={mood.value}>
+                        {mood.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error={true} sx={{ ml: -0.2, mt: -1 }}>
+                    {errors.moodId ? errors.moodId?.message : ""}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+            </>
+          )}
+          {isMobileSite && (
+            <>
+              <Grid item css={spacing}>
+                <Typography variant="h4" css={subTitle} sx={{ mb: 1 }}>
+                  募集内容
+                </Typography>
+                <TextField
+                  placeholder="募集内容を入力してください"
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows="4"
+                  value={content}
+                  {...register("content")}
+                  error={!!errors["content"]}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setContent(e.target.value);
+                  }}
+                  css={mobileTextWidth}
+                />
+                <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
+                  {errors.content ? errors.content?.message : ""}
+                </FormHelperText>
+              </Grid>
+              <Grid item css={spacing}>
+                <Typography variant="h4" component="span" css={subTitle}>
+                  ランク帯
+                </Typography>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <Select
+                    {...register("rankIds")}
+                    error={!!errors["rankIds"]}
+                    multiple
+                    value={rankIds}
+                    onChange={handleChange}
+                    renderValue={(selected) => {
+                      return (
+                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                          {(selected as string[]).map((value) => (
+                            <Chip
+                              key={value}
+                              label={rankOptions.find((item) => item.value === value)?.label}
+                              onDelete={() => chipDelete(value)}
+                              onMouseDown={(event) => {
+                                event.stopPropagation();
+                              }}
+                            />
+                          ))}
+                        </Box>
+                      );
+                    }}
+                    MenuProps={MenuProps}
+                    css={selectStyle}
+                  >
+                    {rankOptions.map((rank) => (
+                      <MenuItem key={rank.value} value={rank.value}>
+                        {rank.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error={true} sx={{ ml: -0.2, mt: -1, mb: 3 }}>
+                    {errors.rankIds ? errors.rankIds?.message : ""}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item>
+                <Typography variant="h4" component="span" css={subTitle}>
+                  対戦モード
+                </Typography>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <Select
+                    displayEmpty
+                    {...register("modeId")}
+                    error={!!errors["modeId"]}
+                    value={modeId}
+                    onChange={(e: SelectChangeEvent<number>) => setModeId(e.target.value as number)}
+                    css={selectStyle}
+                  >
+                    {modeOptions.map((mode) => (
+                      <MenuItem key={mode.value} value={mode.value}>
+                        {mode.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error={true} sx={{ ml: -0.2, mt: -1, mb: 3 }}>
+                    {errors.modeId ? errors.modeId?.message : ""}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item>
+                <Typography variant="h4" component="span" css={subTitle}>
+                  雰囲気
+                </Typography>
+                <FormControl variant="outlined" margin="dense" fullWidth>
+                  <Select
+                    displayEmpty
+                    {...register("moodId")}
+                    error={!!errors["moodId"]}
+                    value={moodId}
+                    onChange={(e: SelectChangeEvent<number>) => setMoodId(e.target.value as number)}
+                    css={selectStyle}
+                  >
+                    {moodOptions.map((mood) => (
+                      <MenuItem key={mood.value} value={mood.value}>
+                        {mood.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error={true} sx={{ ml: -0.2, mt: -1 }}>
+                    {errors.moodId ? errors.moodId?.message : ""}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+            </>
+          )}
           <Divider sx={{ mt: 7 }} />
           <Button type="submit" variant="contained" fullWidth css={buttonStyle} disableRipple={true}>
             投稿する
@@ -277,4 +411,10 @@ const buttonStyle = css`
 
 const dividerStyle = css`
   padding-top: 35px;
+`;
+
+// css for mobile
+
+const mobileTextWidth = css`
+  width: 85vw;
 `;

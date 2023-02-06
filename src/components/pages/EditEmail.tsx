@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import Cookies from "js-cookie";
 import { AuthContext } from "App";
-
 import { EditEmailSchema } from "validation/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -9,16 +8,18 @@ import { UpdateUserFormData } from "interfaces/index";
 import { UpdateUserData } from "interfaces/index";
 import { updateUserSettings } from "lib/api/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { Typography, Grid, List } from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import { HeadBlock } from "components/util/HeadBlock";
 import { css } from "@emotion/react";
+import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 const EditEmail = () => {
   const navigate = useNavigate();
+  const { isMobileSite, isPcSite } = useMediaQueryContext();
 
   const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext);
   const [email, setEmail] = useState<string | undefined>(currentUser?.attributes.email);
@@ -78,40 +79,86 @@ const EditEmail = () => {
   return (
     <>
       <HeadBlock title="メール変更 | VALORANT FINDER" />
-      {isSignedIn && currentUser ? (
+      {isPcSite && (
         <>
-          <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage/usersettings">
-            個人設定へ戻る
-          </Button>
-          <Grid container justifyContent="center">
-            <Typography variant="h4" sx={{ mb: 5 }}>
-              メールアドレス変更
-            </Typography>
-          </Grid>
-          <form noValidate autoComplete="off" onSubmit={handleSubmit(editEmailSubmit)}>
-            <Grid container direction="column" justifyContent="center" alignItems="flex-start">
-              <Typography sx={{ mt: 7 }}>メールアドレス</Typography>
-              <TextField
-                variant="outlined"
-                required
-                value={email}
-                margin="dense"
-                sx={{ width: 600 }}
-                {...register("email")}
-                error={!!errors["email"]}
-                helperText={errors.email ? errors.email?.message : ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-              />
-              {/* <TextField type="hidden" label="confirm_redirect_url" value={confirmRedirectUrl} {...register("confirmRedirectUrl")} css={hiddenContent} /> */}
-              <Button css={submitButton} variant="contained" color="primary" fullWidth disableRipple={true} type="submit">
-                変更する
+          {isSignedIn && currentUser ? (
+            <>
+              <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage/usersettings">
+                個人設定へ戻る
               </Button>
-            </Grid>
-          </form>
+              <Grid container justifyContent="center">
+                <Typography variant="h4" sx={{ mb: 5 }}>
+                  メールアドレス変更
+                </Typography>
+              </Grid>
+              <form noValidate autoComplete="off" onSubmit={handleSubmit(editEmailSubmit)}>
+                <Grid container direction="column" justifyContent="center" alignItems="flex-start">
+                  <Typography sx={{ mt: 7 }}>メールアドレス</Typography>
+                  <TextField
+                    variant="outlined"
+                    required
+                    value={email}
+                    margin="dense"
+                    sx={{ width: 600 }}
+                    {...register("email")}
+                    error={!!errors["email"]}
+                    helperText={errors.email ? errors.email?.message : ""}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  />
+                  <Button css={submitButton} variant="contained" color="primary" fullWidth disableRipple={true} type="submit">
+                    変更する
+                  </Button>
+                </Grid>
+              </form>
+            </>
+          ) : (
+            <>
+              <h2>ログインしてください</h2>
+            </>
+          )}
         </>
-      ) : (
+      )}
+      {isMobileSite && (
         <>
-          <h2>ログインしてください</h2>
+          {isSignedIn && currentUser ? (
+            <>
+              <Box sx={{ width: "80vw", mt: "50px" }}>
+                <Grid container justifyContent="center" alignItems="flex-start">
+                  <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={mobileBackButton} component={Link} to="/mypage/usersettings">
+                    個人設定へ戻る
+                  </Button>
+                </Grid>
+              </Box>
+              <Grid container justifyContent="center">
+                <Typography variant="h5" sx={{ mb: 5 }}>
+                  メールアドレス変更
+                </Typography>
+              </Grid>
+              <form noValidate autoComplete="off" onSubmit={handleSubmit(editEmailSubmit)}>
+                <Grid container direction="column" justifyContent="center" alignItems="flex-start">
+                  <Typography sx={{ mt: 7 }}>メールアドレス</Typography>
+                  <TextField
+                    variant="outlined"
+                    required
+                    value={email}
+                    margin="dense"
+                    sx={{ width: "60vw" }}
+                    {...register("email")}
+                    error={!!errors["email"]}
+                    helperText={errors.email ? errors.email?.message : ""}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  />
+                  <Button css={submitButton} variant="contained" color="primary" fullWidth disableRipple={true} type="submit">
+                    変更する
+                  </Button>
+                </Grid>
+              </form>
+            </>
+          ) : (
+            <>
+              <h2>ログインしてください</h2>
+            </>
+          )}
         </>
       )}
     </>
@@ -123,6 +170,7 @@ export default EditEmail;
 // css
 const submitButton = css`
   margin-top: 50px;
+  margin-bottom: 144px;
   background-color: #3f4551;
   &:hover {
     background-color: #3f4551;
@@ -130,7 +178,16 @@ const submitButton = css`
 `;
 
 const backButton = css`
-  flex-grow: 1;
+  margin-top: 50px;
   margin-bottom: 50px;
+  right: 250px;
+  color: #ff4755;
+`;
+
+// css for mobile
+
+const mobileBackButton = css`
+  margin-bottom: 50px;
+  margin-right: auto;
   color: #ff4755;
 `;

@@ -8,13 +8,16 @@ import { Typography, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import { resetPassword } from "lib/api/auth";
 import { ConfirmDialogProps } from "components/util/ConfirmDialog";
 import { useLocation } from "react-router-dom";
 import { css } from "@emotion/react";
+import { useMediaQueryContext } from "providers/MediaQueryProvider";
+import { HeadBlock } from "components/util/HeadBlock";
 
 const PasswordReset = () => {
+  const { isMobileSite, isPcSite } = useMediaQueryContext();
   const navigate = useNavigate();
   const [modalConfig, setModalConfig] = React.useState<ConfirmDialogProps | undefined>();
   const [password, setPassword] = useState("");
@@ -70,47 +73,93 @@ const PasswordReset = () => {
 
   return (
     <>
-      <>
-        <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/signin">
-          ログイン画面へ戻る
-        </Button>
-        <Typography variant="h5" css={title}>
-          パスワード再設定
-        </Typography>
-        <form noValidate autoComplete="off" onSubmit={handleSubmit(resetPasswordSubmit)} css={form}>
-          <Grid container direction="column" justifyContent="center" alignItems="flex-start">
-            <Typography sx={{ mt: 7 }}>パスワード</Typography>
-            <TextField
-              variant="outlined"
-              required
-              type="password"
-              value={password}
-              margin="dense"
-              sx={{ width: 600 }}
-              {...register("password")}
-              error={!!errors["password"]}
-              helperText={errors.password ? errors.password?.message : ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            />
-            <Typography sx={{ mt: 7 }}>パスワード（確認）</Typography>
-            <TextField
-              variant="outlined"
-              required
-              type="password"
-              value={passwordConfirmation}
-              margin="dense"
-              sx={{ width: 600 }}
-              {...register("passwordConfirmation")}
-              error={!!errors["passwordConfirmation"]}
-              helperText={errors.passwordConfirmation ? errors.passwordConfirmation?.message : ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordConfirmation(e.target.value)}
-            />
-            <Button css={submitButton} variant="contained" color="primary" fullWidth disableRipple={true} type="submit">
-              設定する
-            </Button>
-          </Grid>
-        </form>
-      </>
+      <HeadBlock title="パスワード再設定 | VALORANT FINDER" />
+      {isPcSite && (
+        <>
+          <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/signin">
+            ログイン画面へ戻る
+          </Button>
+          <Typography variant="h5" css={title}>
+            パスワード再設定
+          </Typography>
+          <form noValidate autoComplete="off" onSubmit={handleSubmit(resetPasswordSubmit)} css={form}>
+            <Grid container direction="column" justifyContent="center" alignItems="flex-start">
+              <Typography sx={{ mt: 7 }}>パスワード</Typography>
+              <TextField
+                variant="outlined"
+                required
+                type="password"
+                value={password}
+                margin="dense"
+                sx={{ width: 600 }}
+                {...register("password")}
+                error={!!errors["password"]}
+                helperText={errors.password ? errors.password?.message : ""}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              />
+              <Typography sx={{ mt: 7 }}>パスワード（確認）</Typography>
+              <TextField
+                variant="outlined"
+                required
+                type="password"
+                value={passwordConfirmation}
+                margin="dense"
+                sx={{ width: 600 }}
+                {...register("passwordConfirmation")}
+                error={!!errors["passwordConfirmation"]}
+                helperText={errors.passwordConfirmation ? errors.passwordConfirmation?.message : ""}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordConfirmation(e.target.value)}
+              />
+              <Button css={submitButton} variant="contained" color="primary" fullWidth disableRipple={true} type="submit">
+                設定する
+              </Button>
+            </Grid>
+          </form>
+        </>
+      )}
+      {isMobileSite && (
+        <>
+          <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={mobileBackButton} component={Link} to="/signin">
+            ログイン画面へ戻る
+          </Button>
+          <Typography variant="h5" css={title} sx={{ fontSize: "20px" }}>
+            パスワード再設定
+          </Typography>
+          <form noValidate autoComplete="off" onSubmit={handleSubmit(resetPasswordSubmit)} css={form}>
+            <Grid container direction="column" justifyContent="center" alignItems="flex-start">
+              <Typography sx={{ mt: 7 }}>パスワード</Typography>
+              <TextField
+                variant="outlined"
+                required
+                type="password"
+                value={password}
+                margin="dense"
+                sx={{ width: "60vw" }}
+                {...register("password")}
+                error={!!errors["password"]}
+                helperText={errors.password ? errors.password?.message : ""}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              />
+              <Typography sx={{ mt: 7 }}>パスワード（確認）</Typography>
+              <TextField
+                variant="outlined"
+                required
+                type="password"
+                value={passwordConfirmation}
+                margin="dense"
+                sx={{ width: "60vw" }}
+                {...register("passwordConfirmation")}
+                error={!!errors["passwordConfirmation"]}
+                helperText={errors.passwordConfirmation ? errors.passwordConfirmation?.message : ""}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordConfirmation(e.target.value)}
+              />
+              <Button css={submitButton} variant="contained" color="primary" fullWidth disableRipple={true} type="submit">
+                設定する
+              </Button>
+            </Grid>
+          </form>
+        </>
+      )}
     </>
   );
 };
@@ -127,8 +176,9 @@ const submitButton = css`
 `;
 
 const backButton = css`
-  flex-grow: 1;
+  margin-top: 50px;
   margin-bottom: 50px;
+  right: 230px;
   color: #ff4755;
 `;
 
@@ -149,4 +199,14 @@ const message = css`
 
 const form = css`
   margin-top: -20px;
+`;
+
+// css for mobile
+
+const mobileBackButton = css`
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-right: auto;
+  left: 80px;
+  color: #ff4755;
 `;

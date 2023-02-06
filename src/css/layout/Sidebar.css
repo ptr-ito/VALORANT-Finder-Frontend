@@ -1,8 +1,0 @@
-a.active li a {
-  color: #3f4551;
-  border-right: 3px solid #3f4551;
-}
-
-a.active li a span svg {
-  fill: #3f4551;
-}

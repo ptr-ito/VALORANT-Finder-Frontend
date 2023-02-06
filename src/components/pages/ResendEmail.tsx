@@ -7,7 +7,7 @@ import { resendEmail } from "lib/api/auth";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { ResendEmailFormData } from "interfaces";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import { css } from "@emotion/react";
 import Grid from "@mui/material/Grid";
 

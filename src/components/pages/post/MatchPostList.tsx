@@ -8,15 +8,18 @@ import { MatchPost } from "interfaces/index";
 import { css } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
 import "index.css";
-import macth_samb from "assets/images/macth_samb.jpeg";
+import match_samb from "assets/images/match_samb.png";
+import mobile_match_samb from "assets/images/mobile_match_samb.png";
 import Modal from "react-modal";
 import { AuthContext } from "App";
 import { useNavigate } from "react-router-dom";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import { Icon } from "components/ui/icon/Icon";
 import { HeadBlock } from "components/util/HeadBlock";
+import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 const MatchPostList = () => {
+  const { isMobileSite, isPcSite } = useMediaQueryContext();
   const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
   const { error } = useAlertMessage();
   const navigate = useNavigate();
@@ -64,71 +67,76 @@ const MatchPostList = () => {
   return (
     <>
       <HeadBlock title="マッチ募集一覧 | VALORANT FINDER" />
-      {matchPosts.length === 0 ? (
-        <>
-          <Container maxWidth="lg">
-            <Grid container direction="row" justifyContent="center">
-              <Box component="div" css={divStyle}>
-                <Grid item>
-                  <img src={macth_samb} css={imgStyle} />
-                </Grid>
-                <Typography component="p" css={text}>
-                  マッチ募集
-                </Typography>
+      <Grid container direction="row" justifyContent="center" css={overflow}>
+        {isPcSite && (
+          <>
+            <Box component="div" css={pcStyle}>
+              <Box>
+                <img src={match_samb} css={image} />
               </Box>
-              <Grid item css={border}>
+              <Typography variant="h1" component="p" css={text}>
+                マッチ募集
+              </Typography>
+            </Box>
+            <Grid item css={border}>
+              <Box css={buttonBorder}>
+                <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
+                  マッチ募集を投稿する
+                </Button>
+              </Box>
+              <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                  閉じる
+                </Button>
+                {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
+              </Modal>
+              {matchPosts.length === 0 ? (
+                <Typography css={nonePost}>投稿がありません</Typography>
+              ) : (
+                <>
+                  {matchPosts?.map((matchPost: MatchPost) => {
+                    return <MatchPostItem key={matchPost.attributes.id} matchPost={matchPost} handleGetPosts={handleGetPosts} />;
+                  })}
+                </>
+              )}
+            </Grid>
+          </>
+        )}
+        {isMobileSite && (
+          <>
+            <Box component="div" css={divStyle}>
+              <img src={mobile_match_samb} />
+              <Typography component="p" css={mobileText}>
+                マッチ募集
+              </Typography>
+            </Box>
+            <Grid item>
+              <Grid container direction="row" justifyContent="center" css={border}>
                 <Box css={buttonBorder}>
                   <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
                     マッチ募集を投稿する
                   </Button>
                 </Box>
-                <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                  <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                    閉じる
-                  </Button>
-                  {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
-                </Modal>
-                <Typography css={nonePost}>投稿がありません</Typography>
               </Grid>
-            </Grid>
-          </Container>
-        </>
-      ) : (
-        <>
-          {!loading ? (
-            <Container maxWidth="lg">
-              <Grid container direction="row" justifyContent="center">
-                <Box component="div" css={divStyle}>
-                  <Grid item>
-                    <img src={macth_samb} css={imgStyle} />
-                  </Grid>
-                  <Typography component="p" css={text}>
-                    マッチ募集
-                  </Typography>
-                </Box>
-                <Grid item css={border}>
-                  <Box css={buttonBorder}>
-                    <Button variant="contained" onClick={handleOpen} css={openButtonStyle} disableRipple={true} startIcon={<Icon iconName="Create" />}>
-                      マッチ募集を投稿する
-                    </Button>
-                  </Box>
-                  <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                    <Button onClick={handleClose} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                      閉じる
-                    </Button>
-                    {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
-                  </Modal>
+              <Modal isOpen={openModal} onRequestClose={handleClose} appElement={document.getElementById("root") || undefined} style={mobileCustomStyles}>
+                <Button onClick={handleClose} css={mobileCloseButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                  閉じる
+                </Button>
+                {<MatchPostForm handleGetPosts={handleGetPosts} setOpenModal={setOpenModal} />}
+              </Modal>
+              {matchPosts.length === 0 ? (
+                <Typography css={nonePost}>投稿がありません</Typography>
+              ) : (
+                <>
                   {matchPosts?.map((matchPost: MatchPost) => {
                     return <MatchPostItem key={matchPost.attributes.id} matchPost={matchPost} handleGetPosts={handleGetPosts} />;
                   })}
-                </Grid>
-              </Grid>
-            </Container>
-          ) : (
-            <></>
-          )}
-        </>
-      )}
+                </>
+              )}
+            </Grid>
+          </>
+        )}
+      </Grid>
     </>
   );
 };
@@ -137,22 +145,46 @@ export default MatchPostList;
 
 // css
 
-const imgStyle = css`
-  margin-top: -40px;
-`;
-
 const divStyle = css`
   position: relative;
 `;
 
-const text = css`
+const pcStyle = css`
+  position: relative;
+`;
+
+const image = css``;
+
+const overflow = css`
+  overflow: hidden;
+`;
+
+const mobileText = css`
   position: absolute;
-  color: white;
+  color: #ff4755;
   top: 50%;
   left: 50%;
   opacity: 0.9;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 25px;
+  letter-spacing: 2px;
+  font-family: "Noto Sans JP", sans-serif;
+  margin: 0;
+  padding: 0;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+`;
+
+const text = css`
+  position: absolute;
+  color: #ff4755;
+  top: 50%;
+  left: 50%;
+  opacity: 0.9;
+  font-weight: bold;
+  font-size: 45px;
+  letter-spacing: 7px;
   font-family: "Noto Sans JP", sans-serif;
   margin: 0;
   padding: 0;
@@ -163,6 +195,8 @@ const text = css`
 
 const openButtonStyle = css`
   background-color: #ff4755;
+  width: 274px;
+  height: 59px;
   &:hover {
     background-color: #ff4755;
   }
@@ -200,7 +234,7 @@ const border = css`
     display: block;
     border-top: solid 1px #3f4551;
     top: -1px;
-    width: 21%;
+    width: 31%;
   }
 `;
 
@@ -208,34 +242,57 @@ const buttonBorder = css`
   margin-top: 50px;
   position: relative;
   line-height: 1.4;
-  padding: 0.25em 1em;
+  padding: 0.5em 0.5em;
   display: inline-block;
-  top: 0;
+  border-bottom: solid 1px rgba(63, 69, 81, 0.5);
+  border-top: solid 1px rgba(63, 69, 81, 0.5);
+
   &:before,
   &:after {
+    border-width: 0.5px;
     position: absolute;
-    top: 0;
     content: "";
-    width: 8px;
-    height: 100%;
+    width: 99.2%;
     display: inline-block;
+    right: 0;
   }
   &:before {
-    border-left: solid 1px black;
-    border-top: solid 1px black;
-    border-bottom: solid 1px black;
-    left: 0;
+    border-left: solid 1px rgba(63, 69, 81, 0.5);
+    border-right: solid 1px rgba(63, 69, 81, 0.5);
+    height: 40%;
+    top: 0;
   }
   &:after {
-    content: "";
-    border-top: solid 1px black;
-    border-right: solid 1px black;
-    border-bottom: solid 1px black;
-    right: 0;
+    bottom: 0;
+    border-left: solid 1px rgba(63, 69, 81, 0.5);
+    border-right: solid 1px rgba(63, 69, 81, 0.5);
+    height: 40%;
   }
 `;
 
 const nonePost = css`
   text-align: center;
   margin-top: 100px;
+`;
+
+// css for mobile
+const mobileCustomStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "90vw",
+    height: "88vh",
+  },
+  overlay: {
+    zIndex: 10,
+  },
+};
+
+const mobileCloseButtonStyle = css`
+  color: black;
+  font-size: 16px;
 `;

@@ -51,6 +51,7 @@ const main = css`
 `;
 
 const buttonStyle = css`
+  margin-bottom: 245px;
   color: #ff4755;
   text-decoration: none;
   backgroundcolor: #fff;

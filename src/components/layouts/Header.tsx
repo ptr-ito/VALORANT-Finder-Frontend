@@ -14,10 +14,8 @@ import { Icon } from "components/ui/icon/Icon";
 import { signOut } from "lib/api/auth";
 import { AuthContext } from "App";
 import title from "assets/images/title.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Divider from "@mui/material/Divider";
 
 const Header = () => {
@@ -86,9 +84,11 @@ const Header = () => {
     if (!loading) {
       if (isSignedIn) {
         return (
-          <Button color="inherit" onClick={handleSignOut} disableRipple={true}>
-            ログアウト
-          </Button>
+          <Box css={buttonBorder}>
+            <Button color="inherit" onClick={handleSignOut} disableRipple={true} css={logoutButton}>
+              ログアウト
+            </Button>
+          </Box>
         );
       } else {
         return (
@@ -328,4 +328,44 @@ const navButton = css`
 
 const sideBarOpenButton = css`
   margin-left: auto;
+`;
+
+const logoutButton = css`
+  width: 90px;
+`;
+
+const buttonBorder = css`
+  position: relative;
+  display: inline-block;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+  border-top: solid 1px rgba(255, 255, 255, 0.5);
+  &:before,
+  &:after {
+    position: absolute;
+    content: "";
+    width: 99.2%;
+    display: inline-block;
+    right: 0;
+  }
+  &:before {
+    border-left: solid 1px rgba(255, 255, 255, 0.5);
+    border-right: solid 1px rgba(255, 255, 255, 0.5);
+    height: 40%;
+    top: 0;
+  }
+  &:after {
+    content: "";
+    bottom: 0;
+    border-left: solid 1px rgba(255, 255, 255, 0.5);
+    border-right: solid 1px rgba(255, 255, 255, 0.5);
+    height: 40%;
+  }
+  &:hover {
+    color: #ff4755;
+    border-color: #ff4755;
+  }
+  &:hover:after,
+  &:hover:before {
+    border-color: #ff4755;
+  }
 `;
