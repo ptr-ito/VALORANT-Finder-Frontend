@@ -8,11 +8,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import FormHelperText from "@mui/material/FormHelperText";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
+import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 const PostCommentEdit = ({ postComment, query, setVisibleEdit, handleGetComments }: PostCommentEditProps) => {
+  const { isMobileSite, isPcSite } = useMediaQueryContext();
   const [content, setContent] = useState<string>(postComment.attributes.content);
   const navigate = useNavigate();
   const { success } = useAlertMessage();
@@ -61,32 +63,64 @@ const PostCommentEdit = ({ postComment, query, setVisibleEdit, handleGetComments
 
   return (
     <>
-      <form noValidate onSubmit={handleSubmit(handleUpdatePostComment)}>
-        <TextField
-          placeholder="コメントする"
-          variant="outlined"
-          fullWidth
-          multiline
-          rows="4"
-          value={content}
-          {...register("content")}
-          error={!!errors["content"]}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setContent(e.target.value);
-          }}
-        />
-        <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
-          {errors.content ? errors.content?.message : ""}
-        </FormHelperText>
-        <Grid container justifyContent="center">
-          <Button type="submit" variant="contained" disableRipple={true} css={commentSubmit}>
-            更新
-          </Button>
-          <Button variant="outlined" onClick={handleCancelSubmit} disableRipple={true} css={commentCancelSubmit}>
-            キャンセル
-          </Button>
-        </Grid>
-      </form>
+      {isPcSite && (
+        <form noValidate onSubmit={handleSubmit(handleUpdatePostComment)}>
+          <TextField
+            css={form}
+            placeholder="コメントする"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows="4"
+            value={content}
+            {...register("content")}
+            error={!!errors["content"]}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setContent(e.target.value);
+            }}
+          />
+          <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
+            {errors.content ? errors.content?.message : ""}
+          </FormHelperText>
+          <Grid container justifyContent="center">
+            <Button type="submit" variant="contained" disableRipple={true} css={commentSubmit}>
+              更新
+            </Button>
+            <Button variant="outlined" onClick={handleCancelSubmit} disableRipple={true} css={commentCancelSubmit}>
+              キャンセル
+            </Button>
+          </Grid>
+        </form>
+      )}
+      {isMobileSite && (
+        <form noValidate onSubmit={handleSubmit(handleUpdatePostComment)}>
+          <TextField
+            css={mobileForm}
+            placeholder="コメントする"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows="4"
+            value={content}
+            {...register("content")}
+            error={!!errors["content"]}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setContent(e.target.value);
+            }}
+          />
+          <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
+            {errors.content ? errors.content?.message : ""}
+          </FormHelperText>
+          <Grid container justifyContent="center">
+            <Button type="submit" variant="contained" disableRipple={true} css={commentSubmit}>
+              更新
+            </Button>
+            <Button variant="outlined" onClick={handleCancelSubmit} disableRipple={true} css={commentCancelSubmit}>
+              キャンセル
+            </Button>
+          </Grid>
+        </form>
+      )}
     </>
   );
 };
@@ -110,4 +144,18 @@ const commentCancelSubmit = css`
     border-color: #3f4551;
   }
   margin-left: 15px;
+`;
+
+const form = css`
+  width: 800px;
+  margin-top: 20px;
+  margin-right: 30px;
+`;
+
+// css for mobile
+
+const mobileForm = css`
+  width: 70vw;
+  margin-top: 20px;
+  margin-right: 30px;
 `;

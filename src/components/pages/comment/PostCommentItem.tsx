@@ -9,7 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { PostCommentItemProps } from "interfaces/index";
 import SendIcon from "@mui/icons-material/Send";
 import { AuthContext } from "App";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import PostCommentReply from "components/pages/comment/PostCommentReply";
 import PostCommentEdit from "components/pages/comment/PostCommentEdit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -22,8 +22,11 @@ import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deletePostComment } from "lib/api/comments";
 import { DeleteConfirmDialog, DeleteConfirmDialogProps } from "components/util/DeleteConfirmDaialog";
+import { useMediaQueryContext } from "providers/MediaQueryProvider";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const PostCommentItem = ({ postComment, query, handleGetComments, replies }: PostCommentItemProps) => {
+  const { isMobileSite, isPcSite } = useMediaQueryContext();
   const [visibleReply, setVisibleReply] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
   const { error } = useAlertMessage();
@@ -86,109 +89,223 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
 
   return (
     <>
-      <Box>
+      {isPcSite && (
         <Card sx={{ boxShadow: 0 }}>
-          <Box>
-            <Paper css={paperStyle}>
-              <Grid container wrap="nowrap" spacing={2}>
-                <Grid item>
-                  <Avatar src={postComment.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${postComment?.attributes.userUuid}`} />
-                </Grid>
-                <Grid container justifyContent="left" item xs zeroMinWidth>
-                  <Typography variant="body2" component={Link} to={`/user/${postComment?.attributes.userUuid}`} css={userLink}>
-                    {postComment.attributes.userName}
-                  </Typography>
-                  <Typography variant="body2" css={timeStyle}>
-                    {postComment.attributes.createdAt}
-                  </Typography>
-                  {postComment.attributes.userId === currentUser?.attributes.id ? (
-                    <IconButton
-                      css={menuStyle}
-                      id="menu-button"
-                      aria-controls={openMenu ? "menu-button" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={openMenu ? "true" : undefined}
-                      onClick={handleMenuClick}
-                    >
-                      <MoreHorizIcon />
-                    </IconButton>
-                  ) : (
-                    <></>
-                  )}
-                  <Menu
-                    id="menu-button"
-                    aria-labelledby="menu-button"
-                    anchorEl={anchorEl}
-                    open={openMenu}
-                    onClose={handleMenuClose}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                  >
-                    <MenuItem disableRipple={true} onClick={handleOpenEdit}>
-                      <ListItemIcon>
-                        <EditIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                        編集
-                      </ListItemText>
-                    </MenuItem>
-                    <MenuItem disableRipple={true} onClick={() => handleDeletePostComment(postComment.attributes.id)}>
-                      <ListItemIcon>
-                        <DeleteIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                        削除
-                      </ListItemText>
-                    </MenuItem>
-                    {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
-                  </Menu>
-                </Grid>
+          <Paper css={paperStyle} elevation={0}>
+            <Grid container wrap="nowrap" spacing={2}>
+              <Grid item>
+                <Avatar src={postComment.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${postComment?.attributes.userUuid}`} />
               </Grid>
-              {visibleEdit ? (
-                <Box css={contentStyle}>
-                  <PostCommentEdit postComment={postComment} query={query} setVisibleEdit={setVisibleEdit} handleGetComments={handleGetComments} />
+              <Grid container justifyContent="left" item xs zeroMinWidth>
+                <Typography variant="body2" component={Link} to={`/user/${postComment?.attributes.userUuid}`} css={userLink}>
+                  {postComment.attributes.userName}
+                </Typography>
+                <Typography variant="body2" css={timeStyle}>
+                  {postComment.attributes.createdAt}
+                </Typography>
+                {postComment.attributes.userId === currentUser?.attributes.id ? (
+                  <IconButton
+                    css={menuStyle}
+                    id="menu-button"
+                    aria-controls={openMenu ? "menu-button" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openMenu ? "true" : undefined}
+                    onClick={handleMenuClick}
+                  >
+                    <MoreHorizIcon />
+                  </IconButton>
+                ) : (
+                  <></>
+                )}
+                <Menu
+                  id="menu-button"
+                  aria-labelledby="menu-button"
+                  anchorEl={anchorEl}
+                  open={openMenu}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
+                  <MenuItem disableRipple={true} onClick={handleOpenEdit}>
+                    <ListItemIcon>
+                      <EditIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                      編集
+                    </ListItemText>
+                  </MenuItem>
+                  <MenuItem disableRipple={true} onClick={() => handleDeletePostComment(postComment.attributes.id)}>
+                    <ListItemIcon>
+                      <DeleteIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                      削除
+                    </ListItemText>
+                  </MenuItem>
+                  {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                </Menu>
+              </Grid>
+            </Grid>
+            {visibleEdit ? (
+              <Box css={contentStyle}>
+                <PostCommentEdit postComment={postComment} query={query} setVisibleEdit={setVisibleEdit} handleGetComments={handleGetComments} />
+              </Box>
+            ) : (
+              <>
+                <Box css={contentDisplay}>
+                  <Typography variant="body2" component="span" css={contentStyle}>
+                    {postComment.attributes.content.split("\n").map((content: string, index: number) => {
+                      return <p key={index}>{content}</p>;
+                    })}
+                  </Typography>
                 </Box>
-              ) : (
-                <>
-                  <Box css={contentDisplay}>
-                    <Typography variant="body2" component="span" css={contentStyle}>
-                      {postComment.attributes.content.split("\n").map((content: string, index: number) => {
-                        return <p key={index}>{content}</p>;
-                      })}
-                    </Typography>
+                <Box>
+                  {replies.length > 0 &&
+                    replies.map((reply: any) => {
+                      return <PostCommentItem key={reply.id} postComment={reply} query={query} handleGetComments={handleGetComments} replies={[]} />;
+                    })}
+                </Box>
+              </>
+            )}
+            {postComment.attributes.rootId === null ? (
+              <>
+                <Button onClick={handleOpenReply} startIcon={<SendIcon />} variant="outlined" disableRipple={true} css={replyStyle}>
+                  {visibleReply ? "返信する" : "返信する"}
+                </Button>
+                {visibleReply && (
+                  <Box css={replyTextForm} sx={{ width: "100px" }}>
+                    <PostCommentReply query={query} handleGetComments={handleGetComments} rootId={rootId} setVisibleReply={setVisibleReply} />
                   </Box>
-                  <Box>
-                    {replies.length > 0 &&
-                      replies.map((reply: any) => {
-                        return <PostCommentItem key={reply.id} postComment={reply} query={query} handleGetComments={handleGetComments} replies={[]} />;
-                      })}
-                  </Box>
-                </>
-              )}
-              {postComment.attributes.rootId === null ? (
-                <>
-                  <Button onClick={handleOpenReply} startIcon={<SendIcon />} variant="outlined" disableRipple={true} css={replyStyle}>
-                    {visibleReply ? "返信する" : "返信する"}
-                  </Button>
-                  {visibleReply && (
-                    <Box css={replyTextForm} sx={{ width: "100px" }}>
-                      <PostCommentReply query={query} handleGetComments={handleGetComments} rootId={rootId} setVisibleReply={setVisibleReply} />
-                    </Box>
-                  )}
-                </>
-              ) : (
-                <></>
-              )}
-            </Paper>
-          </Box>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
+          </Paper>
         </Card>
-      </Box>
+      )}
+      {isMobileSite && (
+        <Card css={mobileCard} elevation={0}>
+          <Paper css={mobilePaper} elevation={0}>
+            <Grid container wrap="nowrap" justifyContent="center" alignItems="center" spacing={2}>
+              <Grid item>
+                <Avatar src={postComment.attributes.userImage?.url} css={avatar} component={Link} to={`/user/${postComment?.attributes.userUuid}`} />
+              </Grid>
+              <Grid container justifyContent="left" item xs zeroMinWidth>
+                <Typography variant="body2" component={Link} to={`/user/${postComment?.attributes.userUuid}`} css={userLink}>
+                  {postComment.attributes.userName}
+                </Typography>
+                <Typography variant="body2" css={timeStyle}>
+                  {postComment.attributes.createdAt}
+                </Typography>
+                {postComment.attributes.userId === currentUser?.attributes.id ? (
+                  <>
+                    {postComment.attributes.rootId === null ? (
+                      <IconButton
+                        css={mobileMenuStyle}
+                        id="menu-button"
+                        aria-controls={openMenu ? "menu-button" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={openMenu ? "true" : undefined}
+                        onClick={handleMenuClick}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                    ) : (
+                      <IconButton
+                        css={mobileMenu}
+                        id="menu-button"
+                        aria-controls={openMenu ? "menu-button" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={openMenu ? "true" : undefined}
+                        onClick={handleMenuClick}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )}
+                <Menu
+                  id="menu-button"
+                  aria-labelledby="menu-button"
+                  anchorEl={anchorEl}
+                  open={openMenu}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
+                  <MenuItem disableRipple={true} onClick={handleOpenEdit}>
+                    <ListItemIcon>
+                      <EditIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                      編集
+                    </ListItemText>
+                  </MenuItem>
+                  <MenuItem disableRipple={true} onClick={() => handleDeletePostComment(postComment.attributes.id)}>
+                    <ListItemIcon>
+                      <DeleteIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                      削除
+                    </ListItemText>
+                  </MenuItem>
+                  {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                </Menu>
+              </Grid>
+            </Grid>
+            {visibleEdit ? (
+              <Box css={contentStyle}>
+                <PostCommentEdit postComment={postComment} query={query} setVisibleEdit={setVisibleEdit} handleGetComments={handleGetComments} />
+              </Box>
+            ) : (
+              <>
+                <Box css={contentDisplay}>
+                  <Typography variant="body2" component="span" css={contentStyle}>
+                    {postComment.attributes.content.split("\n").map((content: string, index: number) => {
+                      return <p key={index}>{content}</p>;
+                    })}
+                  </Typography>
+                </Box>
+                <Box>
+                  {replies.length > 0 &&
+                    replies.map((reply: any) => {
+                      return <PostCommentItem key={reply.id} postComment={reply} query={query} handleGetComments={handleGetComments} replies={[]} />;
+                    })}
+                </Box>
+              </>
+            )}
+            {postComment.attributes.rootId === null ? (
+              <>
+                <Button onClick={handleOpenReply} startIcon={<SendIcon />} variant="outlined" disableRipple={true} css={replyStyle}>
+                  {visibleReply ? "返信する" : "返信する"}
+                </Button>
+                {visibleReply && (
+                  <Box css={replyTextForm} sx={{ width: "100px" }}>
+                    <PostCommentReply query={query} handleGetComments={handleGetComments} rootId={rootId} setVisibleReply={setVisibleReply} />
+                  </Box>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
+          </Paper>
+        </Card>
+      )}
     </>
   );
 };
@@ -204,7 +321,7 @@ const avatar = css`
 
 const timeStyle = css`
   color: #7f7f7f;
-  margin-left: 30px;
+  margin-left: 20px;
 `;
 
 const replyStyle = css`
@@ -254,4 +371,30 @@ const paperStyle = css`
   padding-top: 40px;
   padding-bottom: 30px;
   padding-left: 56px;
+`;
+
+// css for mobile
+
+const mobilePaper = css`
+  padding-left: 34px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+`;
+
+const mobileCard = css`
+  width: 90vw;
+  margin-right: 25px;
+  margin-left: -14px;
+`;
+
+const mobileMenu = css`
+  margin-left: auto;
+  right: 77px;
+  bottom: 8px;
+`;
+
+const mobileMenuStyle = css`
+  margin-left: auto;
+  margin-right: 56px;
+  bottom: 8px;
 `;

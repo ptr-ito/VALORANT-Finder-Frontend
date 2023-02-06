@@ -7,6 +7,7 @@ import { ReactComponent as Send_email } from "assets/icons/send_email.svg";
 import { ReactComponent as Create } from "assets/icons/create.svg";
 import { ReactComponent as Problem } from "assets/icons/problem.svg";
 import { ReactComponent as Light } from "assets/icons/light.svg";
+import { ReactComponent as Menu } from "assets/icons/menu.svg";
 
 const iconList: { [name: string]: JSX.Element } = {
   Match_find: <Match_find />,
@@ -14,10 +15,11 @@ const iconList: { [name: string]: JSX.Element } = {
   Create: <Create />,
   Problem: <Problem />,
   Light: <Light />,
+  Menu: <Menu />,
 };
 
 interface Props extends React.HTMLProps<SvgIconProps> {
-  iconName: "Match_find" | "Send_email" | "Create" | "Problem" | "Light";
+  iconName: "Match_find" | "Send_email" | "Create" | "Problem" | "Light" | "Menu";
   sx?: SxProps;
 }
 

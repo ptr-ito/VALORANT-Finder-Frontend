@@ -10,9 +10,9 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
-    <>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} css={appBar}>
-        <Toolbar>
+        <Toolbar css={toolBar}>
           <Grid container direction="row" justifyContent="center" alignItems="center">
             <Button color="inherit" disableRipple={true} css={navButton} onClick={returnTop}>
               <Typography variant="caption" css={spacing}>
@@ -44,7 +44,7 @@ const Footer = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-    </>
+    </Box>
   );
 };
 
@@ -55,6 +55,10 @@ export default Footer;
 const appBar = css`
   background-color: #3f4551;
   color: #fff;
+`;
+
+const toolBar = css`
+  height: 80px;
 `;
 
 const spacing = css`

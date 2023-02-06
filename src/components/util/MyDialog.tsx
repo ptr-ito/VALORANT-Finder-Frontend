@@ -1,5 +1,6 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Button, Grid } from "@mui/material";
 import { SerializedStyles, css } from "@emotion/react";
+import React, { useContext, useEffect, useState } from "react";
 
 export type MyDialogProps = {
   onClose: (value: string) => void;
@@ -7,11 +8,10 @@ export type MyDialogProps = {
   message?: string;
   ok?: string;
   cancel?: string;
-  css?: SerializedStyles;
 };
 
 export function MyDialog(props: MyDialogProps) {
-  const { onClose, title, message, ok, cancel, css } = props;
+  const { onClose, title, message, ok, cancel } = props;
 
   return (
     <Dialog open onClose={() => onClose("close")} fullWidth>

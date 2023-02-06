@@ -7,11 +7,13 @@ import { MatchPostCommentSchema, MatchPostCommentSchemaType } from "validation/S
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FormHelperText from "@mui/material/FormHelperText";
-import useAlertMessage from "components/util/useAlertMessage";
+import useAlertMessage from "hooks/useAlertMessage";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
+import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 const PostComment = ({ query, handleGetComments }: PostCommentFormProps) => {
+  const { isMobileSite, isPcSite } = useMediaQueryContext();
   const [content, setContent] = useState<string>("");
   const navigate = useNavigate();
   const { success } = useAlertMessage();
@@ -59,29 +61,57 @@ const PostComment = ({ query, handleGetComments }: PostCommentFormProps) => {
 
   return (
     <>
-      <form noValidate onSubmit={handleSubmit(handleCreatePostComment)}>
-        <TextField
-          placeholder="コメントする"
-          variant="outlined"
-          fullWidth
-          multiline
-          rows="4"
-          value={content}
-          {...register("content")}
-          error={!!errors["content"]}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setContent(e.target.value);
-          }}
-        />
-        <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
-          {errors.content ? errors.content?.message : ""}
-        </FormHelperText>
-        <TextField type="hidden" label="commentable_id" value={commentableId} {...register("commentableId")} css={hiddenContent} />
-        <TextField type="hidden" label="commentable_type" value={commentableType} {...register("commentableType")} css={hiddenContent} />
-        <Button type="submit" variant="contained" fullWidth disableRipple={true} css={commentSubmit}>
-          投稿する
-        </Button>
-      </form>
+      {isPcSite && (
+        <form noValidate onSubmit={handleSubmit(handleCreatePostComment)}>
+          <TextField
+            placeholder="コメントする"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows="4"
+            value={content}
+            {...register("content")}
+            error={!!errors["content"]}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setContent(e.target.value);
+            }}
+          />
+          <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
+            {errors.content ? errors.content?.message : ""}
+          </FormHelperText>
+          <TextField type="hidden" label="commentable_id" value={commentableId} {...register("commentableId")} css={hiddenContent} />
+          <TextField type="hidden" label="commentable_type" value={commentableType} {...register("commentableType")} css={hiddenContent} />
+          <Button type="submit" variant="contained" disableRipple={true} css={commentSubmit} fullWidth>
+            投稿する
+          </Button>
+        </form>
+      )}
+      {isMobileSite && (
+        <form noValidate onSubmit={handleSubmit(handleCreatePostComment)}>
+          <TextField
+            placeholder="コメントする"
+            variant="outlined"
+            fullWidth
+            sx={{ width: "90vw", right: "15px" }}
+            multiline
+            rows="4"
+            value={content}
+            {...register("content")}
+            error={!!errors["content"]}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setContent(e.target.value);
+            }}
+          />
+          <FormHelperText error={true} sx={{ mt: 2, mb: 3 }}>
+            {errors.content ? errors.content?.message : ""}
+          </FormHelperText>
+          <TextField type="hidden" label="commentable_id" value={commentableId} {...register("commentableId")} css={hiddenContent} />
+          <TextField type="hidden" label="commentable_type" value={commentableType} {...register("commentableType")} css={hiddenContent} />
+          <Button type="submit" variant="contained" disableRipple={true} css={mobileSubmitButton} fullWidth>
+            投稿する
+          </Button>
+        </form>
+      )}
     </>
   );
 };
@@ -99,4 +129,15 @@ const commentSubmit = css`
 
 const hiddenContent = css`
   display: none;
+`;
+
+// css for mobile
+
+const mobileSubmitButton = css`
+  background-color: #3f4551;
+  &:hover {
+    background-color: #3f4551;
+  }
+  width: 90vw;
+  margin-left: -15px;
 `;

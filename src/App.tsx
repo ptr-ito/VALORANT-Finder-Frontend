@@ -7,6 +7,7 @@ import { AuthGuardProvider } from "providers/AuthGuard";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { css, Global } from "@emotion/react";
+import { MediaQueryProvider } from "providers/MediaQueryProvider";
 
 export const AuthContext = createContext(
   {} as {
@@ -61,22 +62,24 @@ const App = () => {
     <>
       <Global styles={global} />
       <AuthGuardProvider>
-        <BrowserRouter>
-          <ToastContainer limit={1} css={toastStyle} />
-          <AuthContext.Provider
-            value={{
-              loading,
-              setLoading,
-              isSignedIn,
-              setIsSignedIn,
-              currentUser,
-              setCurrentUser,
-            }}
-          >
-            <ScrollToTop />
-            <Routers />
-          </AuthContext.Provider>
-        </BrowserRouter>
+        <MediaQueryProvider>
+          <BrowserRouter>
+            <ToastContainer limit={1} css={toastStyle} />
+            <AuthContext.Provider
+              value={{
+                loading,
+                setLoading,
+                isSignedIn,
+                setIsSignedIn,
+                currentUser,
+                setCurrentUser,
+              }}
+            >
+              <ScrollToTop />
+              <Routers />
+            </AuthContext.Provider>
+          </BrowserRouter>
+        </MediaQueryProvider>
       </AuthGuardProvider>
     </>
   );
