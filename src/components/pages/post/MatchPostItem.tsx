@@ -24,7 +24,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { AuthContext } from "App";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import MatchPostTwitter from "./MatchPostTwitter";
+import MatchPostTwitter from "components/pages/post/MatchPostTwitter";
 
 const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
