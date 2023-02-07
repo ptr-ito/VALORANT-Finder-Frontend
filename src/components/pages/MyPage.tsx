@@ -45,7 +45,7 @@ const MyPage = () => {
       <HeadBlock title="マイページ | VALORANT FINDER" />
       {isPcSite && (
         <Grid container direction="column" justifyContent="center" alignItems="center">
-          <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={userSettingLinkButton} component={Link} to="/mypage/usersettings">
+          <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={userSettingLinkButton} component={Link} to="/mypage/settings">
             個人設定
           </Button>
           <Grid container justifyContent="center">
@@ -182,7 +182,7 @@ const MyPage = () => {
         <Grid container direction="column" justifyContent="center" alignItems="center">
           <Box sx={{ width: "85vw", mt: "50px" }}>
             <Grid container justifyContent="center" alignItems="flex-end">
-              <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={mobileUserSettingLinkButton} component={Link} to="/mypage/usersettings">
+              <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={mobileUserSettingLinkButton} component={Link} to="/mypage/settings">
                 個人設定
               </Button>
             </Grid>

@@ -43,9 +43,9 @@ const Routers = memo(() => {
           <Route element={<DefaultLayout />}>
             <Route path="mypage" element={<MyPage />} />
             <Route path="mypage/edit" element={<EditProfile />} />
-            <Route path="mypage/usersettings" element={<UserSettings />} />
-            <Route path="mypage/usersettings/email" element={<EditEmail />} />
-            <Route path="mypage/usersettings/password" element={<EditPassword />} />
+            <Route path="mypage/settings" element={<UserSettings />} />
+            <Route path="mypage/settings/email" element={<EditEmail />} />
+            <Route path="mypage/settings/password" element={<EditPassword />} />
           </Route>
         </Route>
         <Route element={<DefaultLayout />}>
