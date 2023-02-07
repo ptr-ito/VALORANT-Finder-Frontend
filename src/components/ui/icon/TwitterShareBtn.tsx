@@ -19,7 +19,7 @@ export const TwitterShareBtn = ({ url, title, hashtags }: Props) => {
         <Box p={0.8}>
           <TwitterIcon />
         </Box>
-        <Box>募集をツイート</Box>
+        <Box>募集内容をツイート</Box>
       </Grid>
     </TwitterShareButton>
   );

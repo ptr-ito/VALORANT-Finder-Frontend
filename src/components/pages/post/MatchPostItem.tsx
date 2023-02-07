@@ -21,8 +21,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { TwitterShareButton } from "react-share";
 import { AuthContext } from "App";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
