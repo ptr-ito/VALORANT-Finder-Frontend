@@ -90,254 +90,272 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
 
   return (
     <>
-      <Box component={Link} to={`/match/${matchPost.attributes.id}`} css={detailLinkStyle}>
-        {isPcSite && (
-          <>
-            {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
-              <Card css={cardStyle} sx={{ boxShadow: 0 }}>
-                <CardHeader
-                  avatar={<Avatar src={matchPost.attributes.userImage?.url} css={avatar} />}
-                  title={
-                    <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
-                      <Typography variant="body2">{matchPost.attributes.userName}</Typography>
-                      <Typography variant="body2" css={timeStyle}>
-                        {matchPost.attributes.createdAt}
-                      </Typography>
-                      <Box onClick={inActiveLink}>
-                        <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
-                          <MoreHorizIcon />
-                        </IconButton>
-                        <Menu
-                          id="menu-button"
-                          aria-labelledby="menu-button"
-                          anchorEl={anchorEl}
-                          open={openMenu}
-                          onClose={handleMenuClose}
-                          anchorOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                          }}
-                          transformOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                          }}
-                        >
-                          <MenuItem disableRipple={true} component={Link} to={`/match/${matchPost.attributes.id}`}>
-                            <ListItemIcon>
-                              <InfoIcon fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                              詳細
-                            </ListItemText>
-                          </MenuItem>
-                          <TwitterShareButton
-                            title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                            url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
-                            hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
-                            onClick={handleMenuClose}
+      {isPcSite && (
+        <>
+          {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId && (
+            <>
+              <Box component={Link} to={`/match/${matchPost.attributes.id}`} css={detailLinkStyle}>
+                <Card css={cardStyle} sx={{ boxShadow: 0 }}>
+                  <CardHeader
+                    avatar={<Avatar src={matchPost.attributes.userImage?.url} css={avatar} />}
+                    title={
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
+                        <Typography variant="body2">{matchPost.attributes.userName}</Typography>
+                        <Typography variant="body2" css={timeStyle}>
+                          {matchPost.attributes.createdAt}
+                        </Typography>
+                        <Box onClick={inActiveLink}>
+                          <IconButton
+                            id="menu-button"
+                            aria-controls={openMenu ? "menu-button" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openMenu ? "true" : undefined}
+                            onClick={handleMenuClick}
                           >
-                            <MenuItem disableRipple={true}>
+                            <MoreHorizIcon />
+                          </IconButton>
+                          <Menu
+                            id="menu-button"
+                            aria-labelledby="menu-button"
+                            anchorEl={anchorEl}
+                            open={openMenu}
+                            onClose={handleMenuClose}
+                            anchorOrigin={{
+                              vertical: "top",
+                              horizontal: "left",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "left",
+                            }}
+                          >
+                            <MenuItem disableRipple={true} component={Link} to={`/match/${matchPost.attributes.id}`}>
                               <ListItemIcon>
-                                <TwitterIcon fontSize="small" />
+                                <InfoIcon fontSize="small" />
                               </ListItemIcon>
                               <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                                募集内容をtwitterでシェア
+                                詳細
                               </ListItemText>
                             </MenuItem>
-                          </TwitterShareButton>
-                          <Box>
-                            <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
-                              <ListItemIcon>
-                                <DeleteIcon fontSize="small" />
-                              </ListItemIcon>
-                              <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                                削除
-                              </ListItemText>
-                            </MenuItem>
-                            {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
-                          </Box>
-                        </Menu>
-                        <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                          <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                            閉じる
-                          </Button>
-                        </Modal>
-                      </Box>
-                    </Grid>
-                  }
-                />
-                <CardContent>
-                  <Typography variant="body2" component="span">
-                    {matchPost.attributes.content.split("\n").map((content: string, index: number) => {
-                      return <p key={index}>{content}</p>;
-                    })}
-                  </Typography>
-                  <Divider css={borderStyle} />
-                  <Typography variant="h4" component="span" css={subTitle}>
-                    ランク帯
-                  </Typography>
-                  <Typography variant="body2" component="span">
-                    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                      {String(matchPost.attributes.rank)
-                        .split(/,|\s/)
-                        .map((rank: string, index: number) => {
-                          return <Chip label={rank} key={index} css={chipStyle} />;
-                        })}
-                    </Grid>
-                  </Typography>
-                  <Divider css={borderStyle} />
-                  <Typography variant="h4" component="span" css={subTitle}>
-                    対戦モード
-                  </Typography>
-                  <Typography variant="body2" component="span">
-                    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                      {matchPost.attributes.mode.split("\n").map((mode: string, index: number) => {
-                        return <Chip label={mode} key={index} css={chipStyle} />;
+                            <TwitterShareButton
+                              title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                              url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                              hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
+                              onClick={handleMenuClose}
+                            >
+                              <MenuItem disableRipple={true}>
+                                <ListItemIcon>
+                                  <TwitterIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                                  募集内容をtwitterでシェア
+                                </ListItemText>
+                              </MenuItem>
+                            </TwitterShareButton>
+                            <Box>
+                              <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
+                                <ListItemIcon>
+                                  <DeleteIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                                  削除
+                                </ListItemText>
+                              </MenuItem>
+                              {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                            </Box>
+                          </Menu>
+                          <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                            <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                              閉じる
+                            </Button>
+                          </Modal>
+                        </Box>
+                      </Grid>
+                    }
+                  />
+                  <CardContent>
+                    <Typography variant="body2" component="span">
+                      {matchPost.attributes.content.split("\n").map((content: string, index: number) => {
+                        return <p key={index}>{content}</p>;
                       })}
-                    </Grid>
-                  </Typography>
-                  <Divider css={borderStyle} />
-                  <Typography variant="h4" component="span" css={subTitle}>
-                    雰囲気
-                  </Typography>
-                  <Typography variant="body2" component="span">
-                    <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                      {matchPost.attributes.mood.split("\n").map((mood: string, index: number) => {
-                        return <Chip label={mood} key={index} css={chipStyle} />;
-                      })}
-                    </Grid>
-                  </Typography>
-                </CardContent>
-              </Card>
-            ) : (
-              <></>
-            )}
-          </>
-        )}
-        {isMobileSite && (
-          <>
-            <Card css={mobileCardStyle} sx={{ boxShadow: 0 }}>
-              <CardHeader
-                avatar={<Avatar src={matchPost.attributes.userImage?.url} css={avatar} />}
-                title={
-                  <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
-                    <Typography variant="body2">{matchPost.attributes.userName}</Typography>
-                    <Typography variant="body2" css={timeStyle}>
-                      {matchPost.attributes.createdAt}
                     </Typography>
-                    <Box onClick={inActiveLink}>
-                      <IconButton id="menu-button" aria-controls={openMenu ? "menu-button" : undefined} aria-haspopup="true" aria-expanded={openMenu ? "true" : undefined} onClick={handleMenuClick}>
-                        <MoreVertIcon />
-                      </IconButton>
-                      <Menu
-                        id="menu-button"
-                        aria-labelledby="menu-button"
-                        anchorEl={anchorEl}
-                        open={openMenu}
-                        onClose={handleMenuClose}
-                        anchorOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                      >
-                        <MenuItem disableRipple={true} component={Link} to={`/match/${matchPost.attributes.id}`}>
-                          <ListItemIcon>
-                            <InfoIcon fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                            詳細
-                          </ListItemText>
-                        </MenuItem>
-                        <TwitterShareButton
-                          title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                          url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
-                          hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
-                          onClick={handleMenuClose}
-                        >
-                          <MenuItem disableRipple={true}>
-                            <ListItemIcon>
-                              <TwitterIcon fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                              募集内容をtwitterでシェア
-                            </ListItemText>
-                          </MenuItem>
-                        </TwitterShareButton>
-                        {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
-                          <Box>
-                            <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
+                    <Divider css={borderStyle} />
+                    <Typography variant="h4" component="span" css={subTitle}>
+                      ランク帯
+                    </Typography>
+                    <Typography variant="body2" component="span">
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                        {String(matchPost.attributes.rank)
+                          .split(/,|\s/)
+                          .map((rank: string, index: number) => {
+                            return <Chip label={rank} key={index} css={chipStyle} />;
+                          })}
+                      </Grid>
+                    </Typography>
+                    <Divider css={borderStyle} />
+                    <Typography variant="h4" component="span" css={subTitle}>
+                      対戦モード
+                    </Typography>
+                    <Typography variant="body2" component="span">
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                        {matchPost.attributes.mode.split("\n").map((mode: string, index: number) => {
+                          return <Chip label={mode} key={index} css={chipStyle} />;
+                        })}
+                      </Grid>
+                    </Typography>
+                    <Divider css={borderStyle} />
+                    <Typography variant="h4" component="span" css={subTitle}>
+                      雰囲気
+                    </Typography>
+                    <Typography variant="body2" component="span">
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                        {matchPost.attributes.mood.split("\n").map((mood: string, index: number) => {
+                          return <Chip label={mood} key={index} css={chipStyle} />;
+                        })}
+                      </Grid>
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            </>
+          )}
+        </>
+      )}
+      {isMobileSite && (
+        <>
+          {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId && (
+            <>
+              <Box component={Link} to={`/match/${matchPost.attributes.id}`} css={detailLinkStyle}>
+                <Card css={mobileCardStyle} sx={{ boxShadow: 0 }}>
+                  <CardHeader
+                    avatar={<Avatar src={matchPost.attributes.userImage?.url} css={avatar} />}
+                    title={
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center" css={flex}>
+                        <Typography variant="body2">{matchPost.attributes.userName}</Typography>
+                        <Typography variant="body2" css={timeStyle}>
+                          {matchPost.attributes.createdAt}
+                        </Typography>
+                        <Box onClick={inActiveLink}>
+                          <IconButton
+                            id="menu-button"
+                            aria-controls={openMenu ? "menu-button" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openMenu ? "true" : undefined}
+                            onClick={handleMenuClick}
+                          >
+                            <MoreVertIcon />
+                          </IconButton>
+                          <Menu
+                            id="menu-button"
+                            aria-labelledby="menu-button"
+                            anchorEl={anchorEl}
+                            open={openMenu}
+                            onClose={handleMenuClose}
+                            anchorOrigin={{
+                              vertical: "top",
+                              horizontal: "left",
+                            }}
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "left",
+                            }}
+                          >
+                            <MenuItem disableRipple={true} component={Link} to={`/match/${matchPost.attributes.id}`}>
                               <ListItemIcon>
-                                <DeleteIcon fontSize="small" />
+                                <InfoIcon fontSize="small" />
                               </ListItemIcon>
                               <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                                削除
+                                詳細
                               </ListItemText>
                             </MenuItem>
-                            {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
-                          </Box>
-                        ) : (
-                          <Box></Box>
-                        )}
-                      </Menu>
-                      <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
-                        <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
-                          閉じる
-                        </Button>
-                      </Modal>
-                    </Box>
-                  </Grid>
-                }
-              />
-              <CardContent>
-                <Typography variant="body2" component="span">
-                  {matchPost.attributes.content.split("\n").map((content: string, index: number) => {
-                    return <p key={index}>{content}</p>;
-                  })}
-                </Typography>
-                <Divider css={borderStyle} />
-                <Typography variant="h4" component="span" css={subTitle}>
-                  ランク帯
-                </Typography>
-                <Typography variant="body2" component="span">
-                  <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                    {String(matchPost.attributes.rank)
-                      .split(/,|\s/)
-                      .map((rank: string, index: number) => {
-                        return <Chip label={rank} key={index} css={chipStyle} />;
+                            <TwitterShareButton
+                              title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                              url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                              hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
+                              onClick={handleMenuClose}
+                            >
+                              <MenuItem disableRipple={true}>
+                                <ListItemIcon>
+                                  <TwitterIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                                  募集内容をtwitterでシェア
+                                </ListItemText>
+                              </MenuItem>
+                            </TwitterShareButton>
+                            {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
+                              <Box>
+                                <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
+                                  <ListItemIcon>
+                                    <DeleteIcon fontSize="small" />
+                                  </ListItemIcon>
+                                  <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
+                                    削除
+                                  </ListItemText>
+                                </MenuItem>
+                                {deleteConfirmDialogConfig && <DeleteConfirmDialog {...deleteConfirmDialogConfig} />}
+                              </Box>
+                            ) : (
+                              <Box></Box>
+                            )}
+                          </Menu>
+                          <Modal isOpen={openModal} onRequestClose={handleCloseModal} appElement={document.getElementById("root") || undefined} style={customStyles}>
+                            <Button onClick={handleCloseModal} css={closeButtonStyle} startIcon={<CloseIcon />} disableRipple={true}>
+                              閉じる
+                            </Button>
+                          </Modal>
+                        </Box>
+                      </Grid>
+                    }
+                  />
+                  <CardContent>
+                    <Typography variant="body2" component="span">
+                      {matchPost.attributes.content.split("\n").map((content: string, index: number) => {
+                        return <p key={index}>{content}</p>;
                       })}
-                  </Grid>
-                </Typography>
-                <Divider css={borderStyle} />
-                <Typography variant="h4" component="span" css={subTitle}>
-                  対戦モード
-                </Typography>
-                <Typography variant="body2" component="span">
-                  <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                    {matchPost.attributes.mode.split("\n").map((mode: string, index: number) => {
-                      return <Chip label={mode} key={index} css={chipStyle} />;
-                    })}
-                  </Grid>
-                </Typography>
-                <Divider css={borderStyle} />
-                <Typography variant="h4" component="span" css={subTitle}>
-                  雰囲気
-                </Typography>
-                <Typography variant="body2" component="span">
-                  <Grid container direction="row" justifyContent="flex-start" alignItems="center">
-                    {matchPost.attributes.mood.split("\n").map((mood: string, index: number) => {
-                      return <Chip label={mood} key={index} css={chipStyle} />;
-                    })}
-                  </Grid>
-                </Typography>
-              </CardContent>
-            </Card>
-          </>
-        )}
-      </Box>
+                    </Typography>
+                    <Divider css={borderStyle} />
+                    <Typography variant="h4" component="span" css={subTitle}>
+                      ランク帯
+                    </Typography>
+                    <Typography variant="body2" component="span">
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                        {String(matchPost.attributes.rank)
+                          .split(/,|\s/)
+                          .map((rank: string, index: number) => {
+                            return <Chip label={rank} key={index} css={chipStyle} />;
+                          })}
+                      </Grid>
+                    </Typography>
+                    <Divider css={borderStyle} />
+                    <Typography variant="h4" component="span" css={subTitle}>
+                      対戦モード
+                    </Typography>
+                    <Typography variant="body2" component="span">
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                        {matchPost.attributes.mode.split("\n").map((mode: string, index: number) => {
+                          return <Chip label={mode} key={index} css={chipStyle} />;
+                        })}
+                      </Grid>
+                    </Typography>
+                    <Divider css={borderStyle} />
+                    <Typography variant="h4" component="span" css={subTitle}>
+                      雰囲気
+                    </Typography>
+                    <Typography variant="body2" component="span">
+                      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                        {matchPost.attributes.mood.split("\n").map((mood: string, index: number) => {
+                          return <Chip label={mood} key={index} css={chipStyle} />;
+                        })}
+                      </Grid>
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 };

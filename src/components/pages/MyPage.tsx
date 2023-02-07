@@ -180,13 +180,12 @@ const MyPage = () => {
             </CardContent>
           </Card>
           <Divider sx={{ width: "800px", mt: "50px" }} />
-
           <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mb: "50px", mt: "50px" }}>
             <HistoryIcon sx={{ mr: 2, fontSize: "42px", textAlign: "center", color: "#3f4551" }} />
             <Typography variant="h4">投稿した募集</Typography>
           </Grid>
           <Grid container direction="column" justifyContent="center" alignItems="center">
-            <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={checkMyPostButton}>
+            <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={checkMyPostButton} component={Link} to="/mypage/match">
               <Typography>マッチ募集を確認する</Typography>
             </Button>
           </Grid>
@@ -349,7 +348,7 @@ const MyPage = () => {
             <Typography variant="h5">投稿した募集</Typography>
           </Grid>
           <Grid container direction="column" justifyContent="center" alignItems="center">
-            <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={checkMyPostButton}>
+            <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={checkMyPostButton} component={Link} to="/mypage/match">
               <Typography>マッチ募集を確認する</Typography>
             </Button>
           </Grid>

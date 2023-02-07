@@ -20,6 +20,7 @@ import ResetPassaword from "components/pages/ResetPassword";
 import PrivacyPolicy from "components/pages/PrivacyPolicy";
 import Tos from "components/pages/Tos";
 import ContactForm from "components/pages/ContactForm";
+import MyMatchPost from "components/pages/user/MyMatchPost";
 
 const Routers = memo(() => {
   return (
@@ -46,6 +47,7 @@ const Routers = memo(() => {
             <Route path="mypage/settings" element={<UserSettings />} />
             <Route path="mypage/settings/email" element={<EditEmail />} />
             <Route path="mypage/settings/password" element={<EditPassword />} />
+            <Route path="mypage/match" element={<MyMatchPost />} />
           </Route>
         </Route>
         <Route element={<DefaultLayout />}>

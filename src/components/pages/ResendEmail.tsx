@@ -86,10 +86,11 @@ const registerButton = css`
     background-color: #ff4755;
   }
   width: 200px;
+  bottom: 70px;
 `;
 
 const emailForm = css`
-  margin-top: 30px;
   margin-bottom: 30px;
+  bottom: 100px;
   width: 400px;
 `;
