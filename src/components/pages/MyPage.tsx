@@ -17,6 +17,8 @@ import Chip from "@mui/material/Chip";
 import { HeadBlock } from "components/util/HeadBlock";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 import MediaLinkButon from "components/ui/icon/MediaLinkButton";
+import PersonIcon from "@mui/icons-material/Person";
+import HistoryIcon from "@mui/icons-material/History";
 
 const MyPage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -48,7 +50,8 @@ const MyPage = () => {
           <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={userSettingLinkButton} component={Link} to="/mypage/settings">
             個人設定
           </Button>
-          <Grid container justifyContent="center">
+          <Grid container justifyContent="center" alignItems="center">
+            <PersonIcon sx={{ mr: 2, mb: 5, fontSize: "42px", textAlign: "center", color: "#3f4551" }} />
             <Typography variant="h4" sx={{ mb: 5 }}>
               プロフィール
             </Typography>
@@ -176,6 +179,17 @@ const MyPage = () => {
               </List>
             </CardContent>
           </Card>
+          <Divider sx={{ width: "800px", mt: "50px" }} />
+
+          <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mb: "50px", mt: "50px" }}>
+            <HistoryIcon sx={{ mr: 2, fontSize: "42px", textAlign: "center", color: "#3f4551" }} />
+            <Typography variant="h4">投稿した募集</Typography>
+          </Grid>
+          <Grid container direction="column" justifyContent="center" alignItems="center">
+            <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={checkMyPostButton}>
+              <Typography>マッチ募集を確認する</Typography>
+            </Button>
+          </Grid>
         </Grid>
       )}
       {isMobileSite && (
@@ -188,9 +202,12 @@ const MyPage = () => {
             </Grid>
           </Box>
           <Grid container justifyContent="center">
-            <Typography variant="h5" sx={{ mb: 5 }}>
-              プロフィール
-            </Typography>
+            <Grid container justifyContent="center" alignItems="center">
+              <PersonIcon sx={{ mr: 2, mb: 5, fontSize: "30px", color: "#3f4551" }} />
+              <Typography variant="h5" sx={{ mb: 5 }}>
+                プロフィール
+              </Typography>
+            </Grid>
           </Grid>
           <Card sx={{ boxShadow: 0 }} css={mobileCard}>
             <Grid container direction="row" justifyContent="start" alignItems="center">
@@ -326,6 +343,16 @@ const MyPage = () => {
               </List>
             </CardContent>
           </Card>
+          <Divider sx={{ width: "80vw", mt: "50px" }} />
+          <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mb: "50px", mt: "50px" }}>
+            <HistoryIcon sx={{ mr: 2, fontSize: "30px", color: "#3f4551" }} />
+            <Typography variant="h5">投稿した募集</Typography>
+          </Grid>
+          <Grid container direction="column" justifyContent="center" alignItems="center">
+            <Button endIcon={<ArrowForwardIcon />} disableRipple={true} css={checkMyPostButton}>
+              <Typography>マッチ募集を確認する</Typography>
+            </Button>
+          </Grid>
         </Grid>
       )}
     </>
@@ -420,6 +447,17 @@ const userName = css`
 const listContent = css`
   text-align: right;
   margin-right: 16px;
+`;
+
+const checkMyPostButton = css`
+  color: #ff4755;
+  border-color: #ff4755;
+  width: 200px;
+  &:hover {
+    color: #ff4755;
+    border-color: #ff4755;
+    background-color: RGB(255, 71, 85, 0.1);
+  }
 `;
 
 // css for mobile
