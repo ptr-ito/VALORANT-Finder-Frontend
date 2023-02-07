@@ -140,7 +140,7 @@ const Header = () => {
                       ホーム
                     </Typography>
                   </Button>
-                  <Button component={NavLink} to="post" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={sideBarButton} onClick={toggleOpen}>
+                  <Button component={NavLink} to="match" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={sideBarButton} onClick={toggleOpen}>
                     <Typography css={contentMenuText} sx={{ ml: 2 }}>
                       マッチ募集
                     </Typography>
@@ -195,7 +195,7 @@ const Header = () => {
                 <Button component={NavLink} to="/" startIcon={<HomeIcon />} disableRipple={true} css={contentButtonStyle} sx={{ ml: 10 }}>
                   <Typography css={contentMenuText}>ホーム</Typography>
                 </Button>
-                <Button component={NavLink} to="post" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={contentButtonStyle}>
+                <Button component={NavLink} to="match" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={contentButtonStyle}>
                   <Typography css={contentMenuText}>マッチ募集</Typography>
                 </Button>
                 {/* <Button component={NavLink} to="friend" startIcon={<PersonSearchIcon />} disableRipple={true} css={contentButtonStyle}>

@@ -32,8 +32,8 @@ const Routers = memo(() => {
           <Route path="sendemail" element={<SendEmail />} />
           <Route path="password/forgot" element={<ForgotPassword />} />
           <Route path="password/reset" element={<ResetPassaword />} />
-          <Route path="post" element={<MatchPostList />} />
-          <Route path="post/:id" element={<MatchPostDetail />} />
+          <Route path="match" element={<MatchPostList />} />
+          <Route path="match/:id" element={<MatchPostDetail />} />
           <Route path="user/:id" element={<UserProfile />} />
           <Route path="privacy" element={<PrivacyPolicy />} />
           <Route path="tos" element={<Tos />} />

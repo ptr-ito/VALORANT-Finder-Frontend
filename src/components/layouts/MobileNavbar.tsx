@@ -19,7 +19,7 @@ const MobileNavbar = () => {
               <HomeIcon />
               <Typography css={contentMenuText}>ホーム</Typography>
             </Button>
-            <Button component={NavLink} to="post" end disableRipple={true} css={contentButtonStyle}>
+            <Button component={NavLink} to="match" end disableRipple={true} css={contentButtonStyle}>
               <Icon iconName="Match_find" />
               <Typography css={contentMenuText}>マッチ募集</Typography>
             </Button>
