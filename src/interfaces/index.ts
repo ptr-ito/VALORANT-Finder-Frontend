@@ -190,3 +190,8 @@ export interface PostCommentEditProps {
   setVisibleEdit: React.Dispatch<React.SetStateAction<boolean>>;
   handleGetComments: Function;
 }
+
+export interface MatchPostTwitterProps {
+  matchPost: MatchPost;
+  handleMenuClose: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>, link: string) => void) | undefined;
+}
