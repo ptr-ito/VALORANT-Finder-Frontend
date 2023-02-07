@@ -59,7 +59,7 @@ const PostCommentItem = ({ postComment, query, handleGetComments, replies }: Pos
       if (ret === "ok") {
         const res = await deletePostComment(id);
         if (res.status === 200) {
-          navigate(`/post/${query.query.id}`);
+          navigate(`/match/${query.query.id}`);
           {
             success("コメントを削除しました");
           }

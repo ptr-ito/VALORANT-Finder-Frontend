@@ -46,7 +46,7 @@ const PostCommentEdit = ({ postComment, query, setVisibleEdit, handleGetComments
       if (res.status === 200) {
         setContent("");
         setVisibleEdit(false);
-        navigate(`/post/${query.query.id}`);
+        navigate(`/match/${query.query.id}`);
         {
           success("コメントを更新しました");
         }

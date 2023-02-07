@@ -90,7 +90,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
 
   return (
     <>
-      <Box component={Link} to={`/post/${matchPost.attributes.id}`} css={detailLinkStyle}>
+      <Box component={Link} to={`/match/${matchPost.attributes.id}`} css={detailLinkStyle}>
         {isPcSite && (
           <>
             <Card css={cardStyle} sx={{ boxShadow: 0 }}>
@@ -121,7 +121,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                           horizontal: "left",
                         }}
                       >
-                        <MenuItem disableRipple={true} component={Link} to={`/post/${matchPost.attributes.id}`}>
+                        <MenuItem disableRipple={true} component={Link} to={`/match/${matchPost.attributes.id}`}>
                           <ListItemIcon>
                             <InfoIcon fontSize="small" />
                           </ListItemIcon>
@@ -244,7 +244,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                           horizontal: "left",
                         }}
                       >
-                        <MenuItem disableRipple={true} component={Link} to={`/post/${matchPost.attributes.id}`}>
+                        <MenuItem disableRipple={true} component={Link} to={`/match/${matchPost.attributes.id}`}>
                           <ListItemIcon>
                             <InfoIcon fontSize="small" />
                           </ListItemIcon>

@@ -48,7 +48,7 @@ const PostComment = ({ query, handleGetComments }: PostCommentFormProps) => {
 
       if (res.status === 200) {
         setContent("");
-        navigate(`/post/${query.query.id}`);
+        navigate(`/match/${query.query.id}`);
         {
           success("コメントを投稿しました");
         }

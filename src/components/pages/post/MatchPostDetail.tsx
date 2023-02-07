@@ -80,7 +80,7 @@ const MatchPostDetail = () => {
       if (ret === "ok") {
         deletePost(query);
         handleGetPosts();
-        navigate("/post");
+        navigate("/match");
         {
           success("投稿を削除しました");
         }
@@ -135,7 +135,7 @@ const MatchPostDetail = () => {
         <>
           <Grid container direction="column" justifyContent="center" alignItems="center">
             <Box>
-              <Button startIcon={<ArrowBackIcon />} disableRipple={true} component={Link} to="/post" css={backButton}>
+              <Button startIcon={<ArrowBackIcon />} disableRipple={true} component={Link} to="/match" css={backButton}>
                 マッチ募集一覧へ戻る
               </Button>
               <Divider sx={{ width: 900 }} />
@@ -275,7 +275,7 @@ const MatchPostDetail = () => {
         <>
           <Grid container direction="column" justifyContent="center" alignItems="center">
             <Box>
-              <Button startIcon={<ArrowBackIcon />} disableRipple={true} component={Link} to="/post" css={backButton}>
+              <Button startIcon={<ArrowBackIcon />} disableRipple={true} component={Link} to="/match" css={backButton}>
                 マッチ募集一覧へ戻る
               </Button>
               <Divider sx={{ width: "90vw" }} />

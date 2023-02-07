@@ -52,7 +52,7 @@ const UserSettings = () => {
                     <ListItem>
                       <ListItemText primary="メールアドレス" sx={{ mr: 7 }} css={spacing} />
                       <ListItemText primary={currentUser?.attributes.email} />
-                      <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/email">
+                      <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/settings/email">
                         <Typography>編集</Typography>
                       </Button>
                     </ListItem>
@@ -67,7 +67,7 @@ const UserSettings = () => {
                           letterSpacing: "-7px",
                         }}
                       />
-                      <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/password">
+                      <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/settings/password">
                         <Typography>編集</Typography>
                       </Button>
                     </ListItem>
@@ -106,7 +106,7 @@ const UserSettings = () => {
                       </ListItem>
                       <ListItem>
                         <ListItemText primary={currentUser?.attributes.email} />
-                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/email">
+                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/settings/email">
                           <Typography>編集</Typography>
                         </Button>
                       </ListItem>
@@ -123,7 +123,7 @@ const UserSettings = () => {
                             letterSpacing: "-7px",
                           }}
                         />
-                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/password">
+                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/settings/password">
                           <Typography>編集</Typography>
                         </Button>
                       </ListItem>
@@ -136,7 +136,7 @@ const UserSettings = () => {
                       <ListItem>
                         <ListItemText primary="メールアドレス" sx={{ mr: 7 }} css={spacing} />
                         <ListItemText primary={currentUser?.attributes.email} />
-                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/email">
+                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/settings/email">
                           <Typography>編集</Typography>
                         </Button>
                       </ListItem>
@@ -151,7 +151,7 @@ const UserSettings = () => {
                             letterSpacing: "-7px",
                           }}
                         />
-                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/usersettings/password">
+                        <Button variant="outlined" css={linkButton} disableRipple={true} component={Link} to="/mypage/settings/password">
                           <Typography>編集</Typography>
                         </Button>
                       </ListItem>

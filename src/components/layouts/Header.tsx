@@ -140,7 +140,7 @@ const Header = () => {
                       ホーム
                     </Typography>
                   </Button>
-                  <Button component={NavLink} to="post" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={sideBarButton} onClick={toggleOpen}>
+                  <Button component={NavLink} to="match" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={sideBarButton} onClick={toggleOpen}>
                     <Typography css={contentMenuText} sx={{ ml: 2 }}>
                       マッチ募集
                     </Typography>
@@ -192,19 +192,19 @@ const Header = () => {
           ) : (
             <>
               <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Button component={NavLink} to="/" startIcon={<HomeIcon />} disableRipple={true} css={contentButtonStyle} sx={{ ml: 10 }}>
+                <Button component={NavLink} to="/" end startIcon={<HomeIcon />} disableRipple={true} css={contentButtonStyle} sx={{ ml: 10 }}>
                   <Typography css={contentMenuText}>ホーム</Typography>
                 </Button>
-                <Button component={NavLink} to="post" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={contentButtonStyle}>
+                <Button component={NavLink} to="match" end startIcon={<Icon iconName="Match_find" />} disableRipple={true} css={contentButtonStyle}>
                   <Typography css={contentMenuText}>マッチ募集</Typography>
                 </Button>
-                {/* <Button component={NavLink} to="friend" startIcon={<PersonSearchIcon />} disableRipple={true} css={contentButtonStyle}>
+                {/* <Button component={NavLink} to="friend" end startIcon={<PersonSearchIcon />} disableRipple={true} css={contentButtonStyle}>
                   <Typography css={contentMenuText}>フレンド募集</Typography>
                 </Button>
-                <Button component={NavLink} to="teams" startIcon={<PersonAddIcon />} disableRipple={true} css={contentButtonStyle}>
+                <Button component={NavLink} to="teams" end startIcon={<PersonAddIcon />} disableRipple={true} css={contentButtonStyle}>
                   <Typography css={contentMenuText}>固定パーティ募集</Typography>
                 </Button> */}
-                <Button component={NavLink} to="mypage" startIcon={<AccountCircleIcon />} disableRipple={true} css={contentButtonStyle}>
+                <Button component={NavLink} to="mypage" end startIcon={<AccountCircleIcon />} disableRipple={true} css={contentButtonStyle}>
                   <Typography css={contentMenuText}>マイページ</Typography>
                 </Button>
               </Grid>

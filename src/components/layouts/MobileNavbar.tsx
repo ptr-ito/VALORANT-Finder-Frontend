@@ -15,21 +15,21 @@ const MobileNavbar = () => {
       <AppBar position="static" elevation={0} css={appBar}>
         <Toolbar css={toolBar}>
           <Grid container justifyContent="center" alignItems="center">
-            <Button component={NavLink} to="/" disableRipple={true} css={contentButtonStyle}>
+            <Button component={NavLink} to="/" end disableRipple={true} css={contentButtonStyle}>
               <HomeIcon />
               <Typography css={contentMenuText}>ホーム</Typography>
             </Button>
-            <Button component={NavLink} to="post" end disableRipple={true} css={contentButtonStyle}>
+            <Button component={NavLink} to="match" end disableRipple={true} css={contentButtonStyle}>
               <Icon iconName="Match_find" />
               <Typography css={contentMenuText}>マッチ募集</Typography>
             </Button>
-            {/* <Button component={NavLink} to="friend" startIcon={<PersonSearchIcon />} disableRipple={true} css={contentButtonStyle}>
+            {/* <Button component={NavLink} to="friend" end startIcon={<PersonSearchIcon />} disableRipple={true} css={contentButtonStyle}>
                   <Typography css={contentMenuText}>フレンド募集</Typography>
                 </Button>
-                <Button component={NavLink} to="teams" startIcon={<PersonAddIcon />} disableRipple={true} css={contentButtonStyle}>
+                <Button component={NavLink} to="teams" end startIcon={<PersonAddIcon />} disableRipple={true} css={contentButtonStyle}>
                   <Typography css={contentMenuText}>固定パーティ募集</Typography>
                 </Button> */}
-            <Button component={NavLink} to="mypage" disableRipple={true} css={contentButtonStyle}>
+            <Button component={NavLink} to="mypage" end disableRipple={true} css={contentButtonStyle}>
               <AccountCircleIcon />
               <Typography css={contentMenuText}>マイページ</Typography>
             </Button>

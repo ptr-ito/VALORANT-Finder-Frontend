@@ -96,7 +96,7 @@ const MatchPostEdit = ({ handleGetPosts, setOpenModal, matchPost, query }: PostE
         // setModeId(undefined);
         // setMoodId(undefined);
         submitCloseModal();
-        navigate(`/post/${query.id}`);
+        navigate(`/match/${query.id}`);
         handleGetPosts();
         {
           success("編集を完了しました");

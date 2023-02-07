@@ -59,7 +59,7 @@ const EditPassword = () => {
 
         console.log(res?.data.data);
 
-        navigate("/mypage/usersettings");
+        navigate("/mypage/settings");
 
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
@@ -85,7 +85,7 @@ const EditPassword = () => {
         <>
           {isSignedIn && currentUser ? (
             <>
-              <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage/usersettings">
+              <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage/settings">
                 個人設定へ戻る
               </Button>
               <Grid container justifyContent="center">
@@ -140,7 +140,7 @@ const EditPassword = () => {
             <>
               <Box sx={{ width: "80vw", mt: "50px" }}>
                 <Grid container justifyContent="center" alignItems="flex-start">
-                  <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={mobileBackButton} component={Link} to="/mypage/usersettings">
+                  <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={mobileBackButton} component={Link} to="/mypage/settings">
                     個人設定へ戻る
                   </Button>
                 </Grid>
