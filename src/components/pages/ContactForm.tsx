@@ -41,7 +41,7 @@ const ContactForm = () => {
               <Typography sx={{ mb: 3, ml: 2, mr: 2 }}>ご要望や誤字脱字の報告、その他お問い合わせは下記フォームよりご連絡お願い致します。</Typography>
               <Typography sx={{ mb: 5, ml: 2, mr: 2 }}>お問い合わせによっては返信できない場合がございますので、ご了承ください。</Typography>
             </Grid>
-            <Card css={card}>
+            <Card css={mobileCard}>
               <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdypcxprDQsQTfRRQvo-Nr5L7DNgFqES9o5-YQivdm_DqP0vQ/viewform?embedded=true" css={mobileIframe}>
                 読み込んでいます…
               </iframe>
@@ -96,18 +96,19 @@ const card = css`
 const mobileIframe = css`
   border: none;
   width: 90vw;
-  height: 180vh;
+  height: 1200px;
 `;
 
 const mobileCard = css`
+  height: 1030px;
   margin-top: 40px;
   margin-bottom: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
   position: relative;
   line-height: 1.4;
-  padding: 0.25em 1em;
   background-color: #f4f5f7;
   box-shadow: none;
-  height: 180vh;
   &: after,
   &: before {
     content: "";
