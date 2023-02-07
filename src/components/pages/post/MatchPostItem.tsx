@@ -21,11 +21,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import { TwitterShareButton } from "react-share";
 import { AuthContext } from "App";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MatchPostTwitter from "./MatchPostTwitter";
 
 const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
@@ -129,21 +128,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                             詳細
                           </ListItemText>
                         </MenuItem>
-                        <TwitterShareButton
-                          title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                          url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
-                          hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
-                          onClick={handleMenuClose}
-                        >
-                          <MenuItem disableRipple={true}>
-                            <ListItemIcon>
-                              <TwitterIcon fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                              募集内容をtwitterでシェア
-                            </ListItemText>
-                          </MenuItem>
-                        </TwitterShareButton>
+                        <MatchPostTwitter matchPost={matchPost} handleMenuClose={handleMenuClose} />
                         {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
                           <Box>
                             <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>
@@ -252,21 +237,7 @@ const MatchPostItem = ({ matchPost, handleGetPosts }: PostItemProps) => {
                             詳細
                           </ListItemText>
                         </MenuItem>
-                        <TwitterShareButton
-                          title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                          url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
-                          hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
-                          onClick={handleMenuClose}
-                        >
-                          <MenuItem disableRipple={true}>
-                            <ListItemIcon>
-                              <TwitterIcon fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText css={listTextColor} sx={{ ml: 3, mr: 3 }}>
-                              募集内容をtwitterでシェア
-                            </ListItemText>
-                          </MenuItem>
-                        </TwitterShareButton>
+                        <MatchPostTwitter matchPost={matchPost} handleMenuClose={handleMenuClose} />
                         {isSignedIn && currentUser?.attributes.id == matchPost?.attributes.userId ? (
                           <Box>
                             <MenuItem onClick={() => handleDeletePost(matchPost.attributes.id)} disableRipple={true}>

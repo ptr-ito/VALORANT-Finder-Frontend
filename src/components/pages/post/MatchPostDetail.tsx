@@ -33,6 +33,7 @@ import { TwitterShareBtn } from "components/ui/icon/TwitterShareBtn";
 import { HeadBlock } from "components/util/HeadBlock";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MatchPostTwitter from "./MatchPostTwitter";
 
 const MatchPostDetail = () => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
@@ -249,11 +250,34 @@ const MatchPostDetail = () => {
                     </Grid>
                   </Typography>
                   <Grid container direction="row" justifyContent="flex-end" alignItems="flex-end">
-                    <TwitterShareBtn
-                      title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                      url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
-                      hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
-                    />
+                    {matchPost?.attributes.mode == "コンペティティブ" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
+                      />
+                    )}
+                    {matchPost?.attributes.mode == "アンレート" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANTアンレート募集\n", "VALORANTアンレ募集\n", "VALORANT募集"]}
+                      />
+                    )}
+                    {matchPost?.attributes.mode == "カスタム" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANTカスタム募集\n", "VALORANT募集"]}
+                      />
+                    )}
+                    {matchPost?.attributes.mode == "その他" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANT募集"]}
+                      />
+                    )}
                   </Grid>
                 </CardContent>
               </Card>
@@ -389,11 +413,34 @@ const MatchPostDetail = () => {
                     </Grid>
                   </Typography>
                   <Grid container direction="row" justifyContent="flex-end" alignItems="flex-end">
-                    <TwitterShareBtn
-                      title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
-                      url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
-                      hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
-                    />
+                    {matchPost?.attributes.mode == "コンペティティブ" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANTコンペ募集\n", "VALORANTランク募集\n", "VALORANT募集"]}
+                      />
+                    )}
+                    {matchPost?.attributes.mode == "アンレート" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANTアンレート募集\n", "VALORANTアンレ募集\n", "VALORANT募集"]}
+                      />
+                    )}
+                    {matchPost?.attributes.mode == "カスタム" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANTカスタム募集\n", "VALORANT募集"]}
+                      />
+                    )}
+                    {matchPost?.attributes.mode == "その他" && (
+                      <TwitterShareBtn
+                        title={`${matchPost?.attributes.content}\n\nランク帯: ${matchPost?.attributes.rank}\n\n`}
+                        url={`${import.meta.env.VITE_FRONT_URL}/post/${matchPost?.attributes.id}\n\n`}
+                        hashtags={["VALORANT\n", "VALORANT募集"]}
+                      />
+                    )}
                   </Grid>
                 </CardContent>
               </Card>
