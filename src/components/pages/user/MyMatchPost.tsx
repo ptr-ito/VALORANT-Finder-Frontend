@@ -53,7 +53,7 @@ const MyMatchPost = () => {
   return (
     <>
       <HeadBlock title="投稿したマッチ募集 | VALORANT FINDER" />
-      <Grid container direction="row" justifyContent="center" css={overflow}>
+      <Grid container direction="column" justifyContent="center" alignItems="center" css={overflow}>
         {isPcSite && (
           <>
             <Button startIcon={<ArrowBackIcon />} disableRipple={true} css={backButton} component={Link} to="/mypage">
