@@ -5,7 +5,7 @@ import "./index.css";
 import { theme } from "components/util/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { analytics } from "lib/production/Firebase";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
 
 const rootElement = document.getElementById("root") as HTMLElement;
 if (!rootElement) throw new Error("Failed to find the root element");

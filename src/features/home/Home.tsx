@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Typography, Grid, Box } from "@mui/material";
 import home from "assets/images/home.png";
-import homeTablet from "assets/images/home_tablet.png";
 import { css } from "@emotion/react";
 import { Icon } from "components/ui/icon/Icon";
 import List from "@mui/material/List";
@@ -22,22 +21,6 @@ import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 export const SampleHome = () => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
-
-  const getWindowDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height,
-    };
-  };
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  useEffect(() => {
-    const onResize = () => {
-      setWindowDimensions(getWindowDimensions());
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
 
   return (
     <>

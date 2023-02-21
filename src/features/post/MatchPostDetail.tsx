@@ -22,10 +22,10 @@ import Modal from "react-modal";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import { getPosts } from "lib/api/matchPosts";
-import MatchPostEdit from "components/pages/post/MatchPostEdit";
+import MatchPostEdit from "features/post/MatchPostEdit";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import PostCommentList from "components/pages/comment/PostCommentList";
+import PostCommentList from "features/comment/PostCommentList";
 import { MatchPostComment } from "interfaces/index";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import { AuthContext } from "App";
@@ -39,7 +39,6 @@ const MatchPostDetail = () => {
   const navigate = useNavigate();
   const query = useParams<{ query: string }>();
   const [matchPost, setMatchPost] = useState<MatchPost>();
-  const [postComments, setPostComments] = useState<MatchPostComment[]>([]);
   const { isSignedIn, currentUser } = useContext(AuthContext);
 
   useEffect(() => {

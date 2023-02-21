@@ -1,26 +1,26 @@
 import { memo } from "react";
 import { Route, Routes } from "react-router-dom";
-import { SampleHome } from "components/pages/Home/Home";
-import NotFound from "components/pages/NotFound";
+import { SampleHome } from "features/home/Home";
+import NotFound from "features/other/NotFound";
 import DefaultLayout from "components/layouts/DefaultLayout";
-import { SignUp } from "components/pages/SignUp";
-import { SignIn } from "components/pages/SignIn";
-import MyPage from "components/pages/MyPage";
-import EditProfile from "components/pages/EditProfile";
-import UserSettings from "components/pages/UserSettings";
-import EditEmail from "components/pages/EditEmail";
-import EditPassword from "components/pages/EditPassword";
-import SendEmail from "components/pages/SendEmail";
+import { SignUp } from "features/auth/SignUp";
+import { SignIn } from "features/auth/SignIn";
+import MyPage from "features/user/MyPage";
+import EditProfile from "features/user/EditProfile";
+import UserSettings from "features/user/UserSettings";
+import EditEmail from "features/auth/EditEmail";
+import EditPassword from "features/auth/EditPassword";
+import SendEmail from "features/auth/SendEmail";
 import { PrivateRoute } from "router/PrivateRoute";
-import MatchPostList from "components/pages/post/MatchPostList";
-import MatchPostDetail from "components/pages/post/MatchPostDetail";
-import UserProfile from "components/pages/user/UserProfile";
-import ForgotPassword from "components/pages/ForgotPassword";
-import ResetPassaword from "components/pages/ResetPassword";
-import PrivacyPolicy from "components/pages/PrivacyPolicy";
-import Tos from "components/pages/Tos";
-import ContactForm from "components/pages/ContactForm";
-import MyMatchPost from "components/pages/user/MyMatchPost";
+import MatchPostList from "features/post/MatchPostList";
+import MatchPostDetail from "features/post/MatchPostDetail";
+import UserProfile from "features/user/UserProfile";
+import ForgotPassword from "features/auth/ForgotPassword";
+import ResetPassaword from "features/auth/ResetPassword";
+import PrivacyPolicy from "features/other/PrivacyPolicy";
+import Tos from "features/other/Tos";
+import ContactForm from "features/other/ContactForm";
+import MyMatchPost from "features/user/MyPost/MyMatchPost";
 
 const Routers = memo(() => {
   return (

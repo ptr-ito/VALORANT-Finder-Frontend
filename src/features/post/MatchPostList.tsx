@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Grid, Box, Typography } from "@mui/material";
-import MatchPostItem from "components/pages/post/MatchPostItem";
-import MatchPostForm from "components/pages/post/MatchPostForm";
+import { Grid, Box, Typography } from "@mui/material";
+import MatchPostItem from "features/post/MatchPostItem";
+import MatchPostForm from "features/post/MatchPostForm";
 import Button from "@mui/material/Button";
 import { getPosts } from "lib/api/matchPosts";
 import { MatchPost } from "interfaces/index";
@@ -20,7 +20,7 @@ import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 const MatchPostList = () => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const { isSignedIn } = useContext(AuthContext);
   const { error } = useAlertMessage();
   const navigate = useNavigate();
   const [matchPosts, setMatchPosts] = useState<MatchPost[]>([]);

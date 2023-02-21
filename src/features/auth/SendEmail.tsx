@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Typography, Button } from "@mui/material";
-import ResendEmail from "components/pages/ResendEmail";
+import ResendEmail from "features/auth/ResendEmail";
 import { css } from "@emotion/react";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 

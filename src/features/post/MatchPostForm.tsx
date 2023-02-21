@@ -62,10 +62,9 @@ const MatchPostForm = ({ handleGetPosts, setOpenModal }: PostFormProps) => {
 
   // form with zod
   const {
-    control,
     handleSubmit,
     register,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<MatchPostSchemaType>({
     mode: "onBlur",
     resolver: zodResolver(MatchPostSchema),

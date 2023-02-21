@@ -1,5 +1,4 @@
-import React, { useContext, useState, useCallback } from "react";
-import { AuthContext } from "App";
+import React, { useState } from "react";
 import { ForgotPasswordSchema } from "validation/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -20,7 +19,7 @@ const PasswordForgot = () => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
 
   const navigate = useNavigate();
-  const [modalConfig, setModalConfig] = React.useState<ConfirmDialogProps | undefined>();
+  const [modalConfig, setModalConfig] = useState<ConfirmDialogProps | undefined>();
   const [email, setEmail] = useState("");
   const redirectUrl = `${import.meta.env.VITE_FRONT_URL}/password/reset`;
 

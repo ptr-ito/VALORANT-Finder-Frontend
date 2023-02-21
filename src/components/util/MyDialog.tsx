@@ -1,6 +1,5 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Button, Grid } from "@mui/material";
-import { SerializedStyles, css } from "@emotion/react";
-import React, { useContext, useEffect, useState } from "react";
+import { css } from "@emotion/react";
 
 export type MyDialogProps = {
   onClose: (value: string) => void;
