@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Container, Grid, Box, Typography } from "@mui/material";
-import MyMatchPostItem from "components/pages/user/MyMatchPostItem";
-import MatchPostForm from "components/pages/post/MatchPostForm";
+import MyMatchPostItem from "features/user/myPost/MyMatchPostItem";
+import MatchPostForm from "features/post/MatchPostForm";
 import Button from "@mui/material/Button";
 import { getPosts } from "lib/api/matchPosts";
 import { MatchPost } from "interfaces/index";
