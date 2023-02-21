@@ -20,7 +20,7 @@ import ResetPassaword from "features/auth/ResetPassword";
 import PrivacyPolicy from "features/other/PrivacyPolicy";
 import Tos from "features/other/Tos";
 import ContactForm from "features/other/ContactForm";
-import MyMatchPost from "features/user/myPost/MyMatchPost";
+import MyMatchPost from "features/user/MyPost/MyMatchPost";
 
 const Routers = memo(() => {
   return (

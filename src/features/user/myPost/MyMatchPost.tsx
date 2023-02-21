@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Grid, Box, Typography } from "@mui/material";
-import MyMatchPostItem from "features/user/myPost/MyMatchPostItem";
+import MyMatchPostItem from "features/user/MyPost/MyMatchPostItem";
 import Button from "@mui/material/Button";
 import { getPosts } from "lib/api/matchPosts";
 import { MatchPost } from "interfaces/index";
 import { css } from "@emotion/react";
 import "index.css";
 import { AuthContext } from "App";
-import { useNavigate } from "react-router-dom";
-import useAlertMessage from "hooks/useAlertMessage";
 import { HeadBlock } from "components/util/HeadBlock";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 import HistoryIcon from "@mui/icons-material/History";
