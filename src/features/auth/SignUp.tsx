@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { signUp } from "lib/api/auth";

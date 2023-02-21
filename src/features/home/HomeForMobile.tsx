@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Typography, Grid, Box } from "@mui/material";
-import home from "assets/images/home.png";
 import mobileHome from "assets/images/mobile_home.png";
 import { css } from "@emotion/react";
 import { Icon } from "components/ui/icon/Icon";
@@ -17,25 +16,8 @@ import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
-import Home from "@mui/icons-material/Home";
 
 export const HomeForMobile = () => {
-  const getWindowDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height,
-    };
-  };
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  useEffect(() => {
-    const onResize = () => {
-      setWindowDimensions(getWindowDimensions());
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
   return (
     <>
       <HeadBlock />

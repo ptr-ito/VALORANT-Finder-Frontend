@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "App";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Typography, Grid, List, Box } from "@mui/material";
 import { Card, CardContent, CardHeader } from "@mui/material";
@@ -21,7 +20,6 @@ import { useMediaQueryContext } from "providers/MediaQueryProvider";
 
 const UserProfile = () => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
-  const [loading, setLoading] = useState<boolean>(true);
   const query = useParams<{ query: string }>();
   const navigate = useNavigate();
 
@@ -47,8 +45,6 @@ const UserProfile = () => {
       console.log(err);
       navigate("NotFound");
     }
-
-    setLoading(false);
   };
 
   useEffect(() => {

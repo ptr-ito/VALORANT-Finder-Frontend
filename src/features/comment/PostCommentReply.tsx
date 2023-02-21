@@ -29,7 +29,7 @@ const PostCommentReply = ({ query, handleGetComments, rootId, setVisibleReply }:
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<MatchPostCommentSchemaType>({
     mode: "onBlur",
     resolver: zodResolver(MatchPostCommentSchema),

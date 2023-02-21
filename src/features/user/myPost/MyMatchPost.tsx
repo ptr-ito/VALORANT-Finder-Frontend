@@ -1,20 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 import MyMatchPostItem from "features/user/myPost/MyMatchPostItem";
-import MatchPostForm from "features/post/MatchPostForm";
 import Button from "@mui/material/Button";
 import { getPosts } from "lib/api/matchPosts";
 import { MatchPost } from "interfaces/index";
 import { css } from "@emotion/react";
-import CloseIcon from "@mui/icons-material/Close";
 import "index.css";
-import match_samb from "assets/images/match_samb.png";
-import mobile_match_samb from "assets/images/mobile_match_samb.png";
-import Modal from "react-modal";
 import { AuthContext } from "App";
 import { useNavigate } from "react-router-dom";
 import useAlertMessage from "hooks/useAlertMessage";
-import { Icon } from "components/ui/icon/Icon";
 import { HeadBlock } from "components/util/HeadBlock";
 import { useMediaQueryContext } from "providers/MediaQueryProvider";
 import HistoryIcon from "@mui/icons-material/History";
@@ -23,11 +17,8 @@ import { Link } from "react-router-dom";
 
 const MyMatchPost = () => {
   const { isMobileSite, isPcSite } = useMediaQueryContext();
-  const { isSignedIn, currentUser } = useContext(AuthContext);
-  const { error } = useAlertMessage();
-  const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
   const [matchPosts, setMatchPosts] = useState<MatchPost[]>([]);
-  const [openModal, setOpenModal] = useState(false);
 
   const handleGetPosts = async () => {
     try {

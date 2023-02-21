@@ -39,7 +39,6 @@ const MatchPostDetail = () => {
   const navigate = useNavigate();
   const query = useParams<{ query: string }>();
   const [matchPost, setMatchPost] = useState<MatchPost>();
-  const [postComments, setPostComments] = useState<MatchPostComment[]>([]);
   const { isSignedIn, currentUser } = useContext(AuthContext);
 
   useEffect(() => {
